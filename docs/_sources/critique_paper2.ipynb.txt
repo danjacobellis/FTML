@@ -1,0 +1,160 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "267e4f8c-85dd-4f36-9ee4-0462952afe5d",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
+    "# Critique of Paper 2\n",
+    "\n",
+    "[Slides](https://danjacobellis.github.io/FTML/critique_paper2.slides.html)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c0e072a5-d669-4465-9a53-03cf7f807acd",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "<script>\n",
+    "    document.querySelector('head').innerHTML += '<style>.slides { zoom: 1.75 !important; }</style>';\n",
+    "</script>\n",
+    "\n",
+    "<center> <h1>\n",
+    "Counterfactuals in XAI: <br> A Critique by way of Counterfactuals\n",
+    "</h1> </center>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f0ab9720-1d9f-4d79-949b-16ca57d99a6f",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Six \"Insights\" or six cognitive biases?\n",
+    "\n",
+    "* Authors imagine an \"AI agent in an explanatory exchange with a human user\"\n",
+    "* Use these six insights to make explanations involving counterfactuals more compelling.\n",
+    "* These insights each reveal a type of cognitive impairment that can be exploited\n",
+    "* If we're not careful, we can convince people to think whatever we want them to think about our model"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ad1aa310-127b-4203-bc3e-18d0c3d39f44",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Example: loan repayment\n",
+    "\n",
+    "* Dataset: [German credit risk](https://www.kaggle.com/datasets/uciml/german-credit)\n",
+    "* Predict credit risk using age, sex, occupation, etc\n",
+    "* [Source of counterfactual analysis provided here](https://christophm.github.io/interpretable-ml-book/counterfactual.html)\n",
+    "\n",
+    "| age | sex |    job    | housing | savings | duration | purpose |  risk  |\n",
+    "|:---:|:---:|:---------:|:-------:|:-------:|:--------:|:-------:|:------:|\n",
+    "| 58  | f   | unskilled | free    | little  | 48       | car     | 24.2 % |\n",
+    "\n",
+    "* Credit risk of 24% means we predict that the person will pay back the loan 24% of the time."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6aed9381-128f-4d11-92f8-10cdb5610e87",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Counterfactual example\n",
+    "\n",
+    "| age | sex |    job    | housing | savings | duration | purpose |  risk  |\n",
+    "|:---:|:---:|:---------:|:-------:|:-------:|:--------:|:-------:|:------:|\n",
+    "| 58  | f   | **unskilled** | free    | little  | **48**       | car     | **24.2 %** |\n",
+    "| 58  | f   | **skilled** | free    | little  | **28**       | car     | **50.1 %** |\n",
+    "\n",
+    "* This counterfactual provides a compelling explanation about how the model is working.\n",
+    "* This explanation implies that the model is working how we would want it to"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6b3008ab-ca99-412e-9306-e70832466469",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Controllability\n",
+    "\n",
+    "| age | sex |    job    | housing | savings | duration | purpose |  risk  |\n",
+    "|:---:|:---:|:---------:|:-------:|:-------:|:--------:|:-------:|:------:|\n",
+    "| **58**  | **f**   | unskilled | free    | little  | **48**       | car     | **24.2 %** |\n",
+    "| **55**  | **m**   | unskilled | free    | little  | **24**       | car     | **50.1 %** |\n",
+    "\n",
+    "* This counterfactual also provides a compelling explanation about how the model is working\n",
+    "* In this case, one of the modified values (sex) is not something that the person has control over\n",
+    "* Suggests that the model might not be working the way we want it to"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6d3a3510-35de-413a-881c-b2f55a47ead2",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Takeaways\n",
+    "\n",
+    "* Authors need to provide more actionable guidance\n",
+    "* We don't just want counterfactuals to make compelling explanations\n",
+    "* We want counterfactuals to minimally exploit cognitive biases\n",
+    "* Without supervision, people will use these insights to prove what they want to prove about their models"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
