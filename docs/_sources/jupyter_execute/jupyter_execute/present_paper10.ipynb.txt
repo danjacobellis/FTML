@@ -115,11 +115,28 @@
    "source": [
     "## Influence function\n",
     "\n",
-    "* We can also define another type of influence function that describes the effect on the loss when we make a small perturbation to the data\n",
+    "* We can define a second type of influence function that describes the effect on the loss when we make a small perturbation to the data\n",
     "\n",
     "$$\\mathcal I_{L}(z) = \\frac{d L}{d F} =  \\lim_{\\epsilon \\to 0} \\left[ \\frac{ \\hat L(F^\\prime) - L (F) }{\\epsilon}\\right]$$\n",
     "\n",
     "* A model is trained resulting in parameters $\\hat \\theta$. We test it on a point $z_{test}$. $\\mathcal I_{L}(z,z_{test})$ is the rate at which the loss on $z_{test}$  increases as we make the training point $z$ more prevalent"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "01686867-b4ea-4843-a466-4c3634c0a55d",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Influence Function\n",
+    "\n",
+    "* We can also define influence functions that describe the effect of 'moving' a training point\n",
+    "\n",
+    "$$\\mathcal I_{pert} = \\mathcal I(z_2) -  \\mathcal I(z_1)$$ "
    ]
   },
   {
@@ -217,7 +234,7 @@
     "tags": []
    },
    "source": [
-    "# Applications of influence functions"
+    "## Applications of influence functions"
    ]
   },
   {
@@ -242,6 +259,35 @@
   },
   {
    "cell_type": "markdown",
+   "id": "5a8d00db-4282-4e67-9e08-87c6df740e7a",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
+    "![](img/harmful_1.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6b2d45a3-7a54-400d-a424-d7ea4ac89c85",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": [
+     "remove-cell"
+    ]
+   },
+   "source": [
+    "<p style=\"text-align:center;\">\n",
+    "<img src=\"_images/harmful_1.png\" width=450 height=450 class=\"center\">\n",
+    "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "877dd2bb-4df5-4010-a459-2116d19135f3",
    "metadata": {
     "slideshow": {
@@ -256,18 +302,139 @@
     "\n",
     "* If the model is overfitting, then all of the most influential training points will be neighbors.\n",
     "\n",
-    "* If the model generalizes, then the influential points will be spread out, not just overfit to neighboring points.\n",
-    "\n",
+    "* If the model generalizes, then the influential points will be spread out, not just overfit to neighboring points."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1cedfff5-f66b-44c4-bdb2-50534a8cd2f6",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
     "![](img/influence_1.png)"
    ]
   },
   {
    "cell_type": "markdown",
    "id": "6049dff9-8f4a-4c2c-83ac-c33bf0e236f3",
-   "metadata": {},
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": [
+     "remove-cell"
+    ]
+   },
    "source": [
     "<p style=\"text-align:center;\">\n",
     "<img src=\"_images/influence_1.png\" width=450 height=450 class=\"center\">\n",
+    "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "de7f5356-f1b7-48e0-8660-9ee05d548f5d",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Debugging mismatch in distributions\n",
+    "\n",
+    "* Consider a point the sample space $z$ and the surrounding region\n",
+    "* The training data may be very dense or very sparse in this region\n",
+    "* When deployed, the density may be quite different\n",
+    "* $\\mathcal I_{pert}(z)$ tells us exactly how we should update the model to account for this"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0b55751f-123a-4008-ac5e-dc01c31b4ad0",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Debugging mislabeled examples and identifying places to collect new data\n",
+    "\n",
+    "* Checking the top 5% highest magnitude influence points gives roughly the same performance as checking 60% of the training data exhaustively"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "740f2e93-4539-4aba-b2e4-c333b727b292",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
+    "![](img/mislabeled_1.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "48027f4e-687d-4d82-8195-73ea98f74416",
+   "metadata": {
+    "tags": [
+     "remove-cell"
+    ]
+   },
+   "source": [
+    "<p style=\"text-align:center;\">\n",
+    "<img src=\"_images/mislabeled_1.png\" width=250 height=250 class=\"center\">\n",
+    "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "447fcdc3-f661-4105-912e-030570a47c5c",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "* Find an example that is difficult or ambiguous to start with\n",
+    "* At this point, find the gradient of the loss with respect to the data $\\nabla _x L$\n",
+    "* Training on the point $x + \\mu \\nabla _x L$ will massively increase the error rate on any data near $x$\n",
+    "* The magnitude of $\\mathcal I_{pert}(z)$ tells us how vulnerable a model is to an attack near $z$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c9d0a57a-674f-4013-b451-84095a5d56e9",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
+    "![](img/adversarial_1.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3f4198dc-3f88-47a6-9477-6e3c2aaf2f41",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": [
+     "remove-cell"
+    ]
+   },
+   "source": [
+    "<p style=\"text-align:center;\">\n",
+    "<img src=\"_images/adversarial_1.png\" width=450 height=450 class=\"center\">\n",
     "</p>"
    ]
   }

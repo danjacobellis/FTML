@@ -14688,11 +14688,20 @@ $$\mathcal I_{\hat \theta}(z) = \frac{d \hat \theta}{d F}^\dagger =  \lim_{\epsi
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Influence-function">Influence function<a class="anchor-link" href="#Influence-function">&#182;</a></h2><ul>
-<li>We can also define another type of influence function that describes the effect on the loss when we make a small perturbation to the data</li>
+<li>We can define a second type of influence function that describes the effect on the loss when we make a small perturbation to the data</li>
 </ul>
 $$\mathcal I_{L}(z) = \frac{d L}{d F} =  \lim_{\epsilon \to 0} \left[ \frac{ \hat L(F^\prime) - L (F) }{\epsilon}\right]$$<ul>
 <li>A model is trained resulting in parameters $\hat \theta$. We test it on a point $z_{test}$. $\mathcal I_{L}(z,z_{test})$ is the rate at which the loss on $z_{test}$  increases as we make the training point $z$ more prevalent</li>
 </ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Influence-Function">Influence Function<a class="anchor-link" href="#Influence-Function">&#182;</a></h2><ul>
+<li>We can also define influence functions that describe the effect of 'moving' a training point</li>
+</ul>
+$$\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)$$<p></p>
 
 </div>
 </div></section></section><section><section>
@@ -14754,7 +14763,7 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Applications-of-influence-functions">Applications of influence functions<a class="anchor-link" href="#Applications-of-influence-functions">&#182;</a></h1>
+<h2 id="Applications-of-influence-functions">Applications of influence functions<a class="anchor-link" href="#Applications-of-influence-functions">&#182;</a></h2>
 </div>
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -14776,6 +14785,13 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 </div>
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/harmful_1.png" width=450 height=450 class="center">
+</p>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Identify-overfitting-and-compare-models">Identify overfitting and compare models<a class="anchor-link" href="#Identify-overfitting-and-compare-models">&#182;</a></h2><ul>
 <li><p>Compare $\mathcal I_{L}(z,z_{test})$ with the euclidian distance</p>
@@ -14790,8 +14806,52 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
-<h2 id="Identify-overfitting-and-compare-models">Identify overfitting and compare models<a class="anchor-link" href="#Identify-overfitting-and-compare-models">&#182;</a></h2><p style="text-align:center;">
+<p style="text-align:center;">
 <img src="_images/influence_1.png" width=450 height=450 class="center">
+</p>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Debugging-mismatch-in-distributions">Debugging mismatch in distributions<a class="anchor-link" href="#Debugging-mismatch-in-distributions">&#182;</a></h2><ul>
+<li>Consider a point the sample space $z$ and the surrounding region</li>
+<li>The training data may be very dense or very sparse in this region</li>
+<li>When deployed, the density may be quite different</li>
+<li>$\mathcal I_{pert}(z)$ tells us exactly how we should update the model to account for this</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Debugging-mislabeled-examples-and-identifying-places-to-collect-new-data">Debugging mislabeled examples and identifying places to collect new data<a class="anchor-link" href="#Debugging-mislabeled-examples-and-identifying-places-to-collect-new-data">&#182;</a></h2><ul>
+<li>Checking the top 5% highest magnitude influence points gives roughly the same performance as checking 60% of the training data exhaustively</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/mislabeled_1.png" width=250 height=250 class="center">
+</p>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>Find an example that is difficult or ambiguous to start with</li>
+<li>At this point, find the gradient of the loss with respect to the data $\nabla _x L$</li>
+<li>Training on the point $x + \mu \nabla _x L$ will massively increase the error rate on any data near $x$</li>
+<li>The magnitude of $\mathcal I_{pert}(z)$ tells us how vulnerable a model is to an attack near $z$</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/adversarial_1.png" width=750 height=750 class="center">
 </p>
 </div>
 </div></section></section>

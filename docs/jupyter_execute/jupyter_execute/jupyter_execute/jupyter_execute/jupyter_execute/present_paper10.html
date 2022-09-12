@@ -91,7 +91,133 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <p><span class="math notranslate nohighlight">\(\dagger\)</span> The derivative here is a functional derivative. In particular it is a Gateaux derivative.</p>
 </div>
 <div class="section" id="id1">
-<h2><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>Influence function<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>We can define a second type of influence function that describes the effect on the loss when we make a small perturbation to the data</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathcal I_{L}(z) = \frac{d L}{d F} =  \lim_{\epsilon \to 0} \left[ \frac{ \hat L(F^\prime) - L (F) }{\epsilon}\right]\]</div>
+<ul class="simple">
+<li><p>A model is trained resulting in parameters <span class="math notranslate nohighlight">\(\hat \theta\)</span>. We test it on a point <span class="math notranslate nohighlight">\(z_{test}\)</span>. <span class="math notranslate nohighlight">\(\mathcal I_{L}(z,z_{test})\)</span> is the rate at which the loss on <span class="math notranslate nohighlight">\(z_{test}\)</span>  increases as we make the training point <span class="math notranslate nohighlight">\(z\)</span> more prevalent</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>Influence Function<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>We can also define influence functions that describe the effect of ‘moving’ a training point</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)\]</div>
+</div>
+<div class="section" id="empirical-influence-function">
+<h2>Empirical influence function<a class="headerlink" href="#empirical-influence-function" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="expensive-approach-leave-one-out">
+<h3>Expensive approach: Leave one out<a class="headerlink" href="#expensive-approach-leave-one-out" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Train the model with all data, including some sample <span class="math notranslate nohighlight">\(z\)</span>, resulting in <span class="math notranslate nohighlight">\(\hat \theta\)</span></p></li>
+<li><p>To estimate <span class="math notranslate nohighlight">\(\mathcal I_{\hat \theta}(z)\)</span>, train the model without the point <span class="math notranslate nohighlight">\(z\)</span>, resulting in <span class="math notranslate nohighlight">\(\hat \theta _ {(z)}\)</span></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>Empirical influence function<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cheaper-approach-locally-approximate-shape-of-loss-function">
+<h3>Cheaper approach: Locally approximate shape of loss function<a class="headerlink" href="#cheaper-approach-locally-approximate-shape-of-loss-function" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Start with a model trained on all of the data, including <span class="math notranslate nohighlight">\(z,\)</span> resulting in <span class="math notranslate nohighlight">\(\hat \theta\)</span></p></li>
+<li><p>Use a quadratic approximation of the loss function to estimate the effect of “upweighting” a sample <span class="math notranslate nohighlight">\(z\)</span>.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\nabla L\)</span> is the gradient. <span class="math notranslate nohighlight">\(H\)</span> is the <em>Hessian,</em> the matrix of all partial second derivatives.</p></li>
+<li><p><span class="math notranslate nohighlight">\(-H_{\hat \theta} ^{-1} \nabla L\)</span> is the direction you would move in while optimizing a function using Newton’s method.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="quadratic-approximation">
+<h2>Quadratic approximation<a class="headerlink" href="#quadratic-approximation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="issue-1-does-the-hessian-even-exist">
+<h3>Issue #1: Does the Hessian even exist?<a class="headerlink" href="#issue-1-does-the-hessian-even-exist" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>We have to pick a nice loss function so that the Hessian is guaranteed to exist.</p>
+<ul>
+<li><p>Mean absolute error can be replaced with <span class="math notranslate nohighlight">\(\log \cosh (s)\)</span>.</p></li>
+<li><p>Hinge with smooth version <span class="math notranslate nohighlight">\(t \log {\left(1+\exp{\left(\frac{1-s}{t}\right)}\right)}.\)</span></p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>Quadratic approximation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="issue-2-computing-and-storing-the-hessian">
+<h3>Issue #2: Computing and storing the Hessian<a class="headerlink" href="#issue-2-computing-and-storing-the-hessian" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>It is <em><strong>very</strong></em> expensive to compute the Hessian. Even just storing the Hessian for a large neural network might be impossible.</p></li>
+<li><p>The “Pearlmutter trick” allows us to calculate a matrix-vector product with the hessian <span class="math notranslate nohighlight">\(\mathbf {Hv}\)</span> <em>exactly</em> with about as much computation as a single gradient evaluation.</p></li>
+<li><p>FOSS libraries rolled out in 2018 that allow you plug in your model and efficiently compute the influence using this method.</p>
+<ul>
+<li><p>Popular one is <a class="reference external" href="https://github.com/darkonhub/darkon">Darkon</a></p></li>
+<li><p><a class="reference external" href="https://github.com/darkonhub/darkon-examples/blob/master/cifar10-resnet/influence_cifar10_resnet.ipynb">Example notebook</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="applications-of-influence-functions">
+<h2>Applications of influence functions<a class="headerlink" href="#applications-of-influence-functions" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="find-helpful-and-harmful-training-samples">
+<h2>Find helpful and harmful training samples<a class="headerlink" href="#find-helpful-and-harmful-training-samples" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Other methods exist to find relevant training samples.</p>
+<ul>
+<li><p>For example, we can look at the nearest neighbor(s)</p></li>
+</ul>
+</li>
+<li><p>The influence function can tell us if a training sample either helps or hurts when evaluating a particular test sample.</p>
+<ul>
+<li><p>If <span class="math notranslate nohighlight">\(\mathcal I_{L}(z,z_{test})\)</span> is positive, then the training point <span class="math notranslate nohighlight">\(z\)</span> is harmful</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\mathcal I_{L}(z,z_{test})\)</span> is negative, then the training point <span class="math notranslate nohighlight">\(z\)</span> is helpful</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="identify-overfitting-and-compare-models">
+<h2>Identify overfitting and compare models<a class="headerlink" href="#identify-overfitting-and-compare-models" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Compare <span class="math notranslate nohighlight">\(\mathcal I_{L}(z,z_{test})\)</span> with the euclidian distance</p></li>
+<li><p>If the model is overfitting, then all of the most influential training points will be neighbors.</p></li>
+<li><p>If the model generalizes, then the influential points will be spread out, not just overfit to neighboring points.</p></li>
+</ul>
+<p><img alt="" src="jupyter_execute/jupyter_execute/jupyter_execute/jupyter_execute/jupyter_execute/img/influence_1.png" /></p>
+</div>
+<div class="section" id="debugging-mismatch-in-distributions">
+<h2>Debugging mismatch in distributions<a class="headerlink" href="#debugging-mismatch-in-distributions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Consider a point the sample space <span class="math notranslate nohighlight">\(z\)</span> and the surrounding region</p></li>
+<li><p>The training data may be very dense or very sparse in this region</p></li>
+<li><p>When deployed, the density may be quite different</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal I_{pert}(z)\)</span> tells us exactly how we should update the model to account for this</p></li>
+</ul>
+</div>
+<div class="section" id="debugging-mislabeled-examples-and-identifying-places-to-collect-new-data">
+<h2>Debugging mislabeled examples and identifying places to collect new data<a class="headerlink" href="#debugging-mislabeled-examples-and-identifying-places-to-collect-new-data" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Checking the top 5% highest magnitude influence points gives roughly the same performance as checking 60% of the training data exhaustively</p></li>
+</ul>
+<p><img alt="" src="jupyter_execute/jupyter_execute/jupyter_execute/jupyter_execute/jupyter_execute/img/mislabeled_1.png" /></p>
+</div>
+<div class="section" id="constructing-and-identifying-vulnerability-to-adversarial-examples">
+<h2>Constructing and identifying vulnerability to adversarial examples<a class="headerlink" href="#constructing-and-identifying-vulnerability-to-adversarial-examples" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Find an example that is difficult or ambiguous to start with</p></li>
+<li><p>At this point, find the gradient of the loss with respect to the data <span class="math notranslate nohighlight">\(\nabla _x L\)</span></p></li>
+<li><p>Training on the point <span class="math notranslate nohighlight">\(x + \mu \nabla _x L\)</span> will massively increase the error rate on any data near <span class="math notranslate nohighlight">\(x\)</span></p></li>
+<li><p>The magnitude of <span class="math notranslate nohighlight">\(\mathcal I_{pert}(z)\)</span> tells us how vulnerable a model is to an attack near <span class="math notranslate nohighlight">\(z\)</span></p></li>
+</ul>
+<p><img alt="" src="jupyter_execute/jupyter_execute/jupyter_execute/jupyter_execute/jupyter_execute/img/adversarial_1.png" /></p>
 </div>
 </div>
 
@@ -115,7 +241,6 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../critique_paper2.html">Critique of Paper 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../present_paper10.html">Understanding Black-box Predictions via Influence functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../present_paper10.html#applications-of-influence-functions">Applications of influence functions</a></li>
 </ul>
 
 <div class="relations">

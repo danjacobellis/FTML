@@ -94,13 +94,21 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <div class="section" id="id1">
 <h2>Influence function<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>We can also define another type of influence function that describes the effect on the loss when we make a small perturbation to the data</p></li>
+<li><p>We can define a second type of influence function that describes the effect on the loss when we make a small perturbation to the data</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[\mathcal I_{L}(z) = \frac{d L}{d F} =  \lim_{\epsilon \to 0} \left[ \frac{ \hat L(F^\prime) - L (F) }{\epsilon}\right]\]</div>
 <ul class="simple">
 <li><p>A model is trained resulting in parameters <span class="math notranslate nohighlight">\(\hat \theta\)</span>. We test it on a point <span class="math notranslate nohighlight">\(z_{test}\)</span>. <span class="math notranslate nohighlight">\(\mathcal I_{L}(z,z_{test})\)</span> is the rate at which the loss on <span class="math notranslate nohighlight">\(z_{test}\)</span>  increases as we make the training point <span class="math notranslate nohighlight">\(z\)</span> more prevalent</p></li>
 </ul>
+</div>
+<div class="section" id="id2">
+<h2>Influence Function<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>We can also define influence functions that describe the effect of ‘moving’ a training point</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)\]</div>
 </div>
 <div class="section" id="empirical-influence-function">
 <h2>Empirical influence function<a class="headerlink" href="#empirical-influence-function" title="Permalink to this headline">¶</a></h2>
@@ -112,8 +120,8 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 </ul>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>Empirical influence function<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>Empirical influence function<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="cheaper-approach-locally-approximate-shape-of-loss-function">
 <h3>Cheaper approach: Locally approximate shape of loss function<a class="headerlink" href="#cheaper-approach-locally-approximate-shape-of-loss-function" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -142,8 +150,8 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 </ul>
 </div>
 </div>
-<div class="section" id="id3">
-<h2>Quadratic approximation<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>Quadratic approximation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="issue-2-computing-and-storing-the-hessian">
 <h3>Issue #2: Computing and storing the Hessian<a class="headerlink" href="#issue-2-computing-and-storing-the-hessian" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -158,9 +166,9 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 </ul>
 </div>
 </div>
+<div class="section" id="applications-of-influence-functions">
+<h2>Applications of influence functions<a class="headerlink" href="#applications-of-influence-functions" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="applications-of-influence-functions">
-<h1>Applications of influence functions<a class="headerlink" href="#applications-of-influence-functions" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="find-helpful-and-harmful-training-samples">
 <h2>Find helpful and harmful training samples<a class="headerlink" href="#find-helpful-and-harmful-training-samples" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -176,6 +184,7 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 </ul>
 </li>
 </ul>
+<p><img alt="" src="_images/harmful_1.png" /></p>
 </div>
 <div class="section" id="identify-overfitting-and-compare-models">
 <h2>Identify overfitting and compare models<a class="headerlink" href="#identify-overfitting-and-compare-models" title="Permalink to this headline">¶</a></h2>
@@ -185,6 +194,29 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <li><p>If the model generalizes, then the influential points will be spread out, not just overfit to neighboring points.</p></li>
 </ul>
 <p><img alt="" src="_images/influence_1.png" /></p>
+</div>
+<div class="section" id="debugging-mismatch-in-distributions">
+<h2>Debugging mismatch in distributions<a class="headerlink" href="#debugging-mismatch-in-distributions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Consider a point the sample space <span class="math notranslate nohighlight">\(z\)</span> and the surrounding region</p></li>
+<li><p>The training data may be very dense or very sparse in this region</p></li>
+<li><p>When deployed, the density may be quite different</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal I_{pert}(z)\)</span> tells us exactly how we should update the model to account for this</p></li>
+</ul>
+</div>
+<div class="section" id="debugging-mislabeled-examples-and-identifying-places-to-collect-new-data">
+<h2>Debugging mislabeled examples and identifying places to collect new data<a class="headerlink" href="#debugging-mislabeled-examples-and-identifying-places-to-collect-new-data" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Checking the top 5% highest magnitude influence points gives roughly the same performance as checking 60% of the training data exhaustively</p></li>
+</ul>
+<p><img alt="" src="_images/mislabeled_1.png" /></p>
+<ul class="simple">
+<li><p>Find an example that is difficult or ambiguous to start with</p></li>
+<li><p>At this point, find the gradient of the loss with respect to the data <span class="math notranslate nohighlight">\(\nabla _x L\)</span></p></li>
+<li><p>Training on the point <span class="math notranslate nohighlight">\(x + \mu \nabla _x L\)</span> will massively increase the error rate on any data near <span class="math notranslate nohighlight">\(x\)</span></p></li>
+<li><p>The magnitude of <span class="math notranslate nohighlight">\(\mathcal I_{pert}(z)\)</span> tells us how vulnerable a model is to an attack near <span class="math notranslate nohighlight">\(z\)</span></p></li>
+</ul>
+<p><img alt="" src="_images/adversarial_1.png" /></p>
 </div>
 </div>
 
@@ -212,15 +244,16 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <li class="toctree-l2"><a class="reference internal" href="#leverage">Leverage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#influence-function">Influence function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Influence function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Influence Function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#empirical-influence-function">Empirical influence function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Empirical influence function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Empirical influence function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#quadratic-approximation">Quadratic approximation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">Quadratic approximation</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#applications-of-influence-functions">Applications of influence functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id4">Quadratic approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#applications-of-influence-functions">Applications of influence functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#find-helpful-and-harmful-training-samples">Find helpful and harmful training samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#identify-overfitting-and-compare-models">Identify overfitting and compare models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-mismatch-in-distributions">Debugging mismatch in distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-mislabeled-examples-and-identifying-places-to-collect-new-data">Debugging mislabeled examples and identifying places to collect new data</a></li>
 </ul>
 </li>
 </ul>
