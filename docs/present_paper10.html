@@ -166,8 +166,16 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 </ul>
 </div>
 </div>
-<div class="section" id="applications-of-influence-functions">
-<h2>Applications of influence functions<a class="headerlink" href="#applications-of-influence-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="experiments-and-applications">
+<h2>Experiments and Applications<a class="headerlink" href="#experiments-and-applications" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="how-well-does-the-quadratic-approximation-work">
+<h2>How well does the quadratic approximation work?<a class="headerlink" href="#how-well-does-the-quadratic-approximation-work" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/performance_1.png" /></p>
+</div>
+<div class="section" id="do-differentiable-versions-of-the-loss-function-work">
+<h2>Do differentiable versions of the loss function work?<a class="headerlink" href="#do-differentiable-versions-of-the-loss-function-work" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/hinge_1.png" /></p>
 </div>
 <div class="section" id="find-helpful-and-harmful-training-samples">
 <h2>Find helpful and harmful training samples<a class="headerlink" href="#find-helpful-and-harmful-training-samples" title="Permalink to this headline">¶</a></h2>
@@ -210,6 +218,9 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <li><p>Checking the top 5% highest magnitude influence points gives roughly the same performance as checking 60% of the training data exhaustively</p></li>
 </ul>
 <p><img alt="" src="_images/mislabeled_1.png" /></p>
+</div>
+<div class="section" id="constructing-and-identifying-adversarial-examples">
+<h2>Constructing and identifying adversarial examples<a class="headerlink" href="#constructing-and-identifying-adversarial-examples" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Find an example that is difficult or ambiguous to start with</p></li>
 <li><p>At this point, find the gradient of the loss with respect to the data <span class="math notranslate nohighlight">\(\nabla _x L\)</span></p></li>
@@ -249,11 +260,14 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <li class="toctree-l2"><a class="reference internal" href="#id3">Empirical influence function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#quadratic-approximation">Quadratic approximation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id4">Quadratic approximation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#applications-of-influence-functions">Applications of influence functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#experiments-and-applications">Experiments and Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-well-does-the-quadratic-approximation-work">How well does the quadratic approximation work?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#do-differentiable-versions-of-the-loss-function-work">Do differentiable versions of the loss function work?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#find-helpful-and-harmful-training-samples">Find helpful and harmful training samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#identify-overfitting-and-compare-models">Identify overfitting and compare models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#debugging-mismatch-in-distributions">Debugging mismatch in distributions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#debugging-mislabeled-examples-and-identifying-places-to-collect-new-data">Debugging mislabeled examples and identifying places to collect new data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#constructing-and-identifying-adversarial-examples">Constructing and identifying adversarial examples</a></li>
 </ul>
 </li>
 </ul>

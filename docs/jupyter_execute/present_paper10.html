@@ -165,8 +165,16 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 </ul>
 </div>
 </div>
-<div class="section" id="applications-of-influence-functions">
-<h2>Applications of influence functions<a class="headerlink" href="#applications-of-influence-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="experiments-and-applications">
+<h2>Experiments and Applications<a class="headerlink" href="#experiments-and-applications" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="how-well-does-the-quadratic-approximation-work">
+<h2>How well does the quadratic approximation work?<a class="headerlink" href="#how-well-does-the-quadratic-approximation-work" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="jupyter_execute/img/performance_1.png" /></p>
+</div>
+<div class="section" id="do-differentiable-versions-of-the-loss-function-work">
+<h2>Do differentiable versions of the loss function work?<a class="headerlink" href="#do-differentiable-versions-of-the-loss-function-work" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="jupyter_execute/img/hinge_1.png" /></p>
 </div>
 <div class="section" id="find-helpful-and-harmful-training-samples">
 <h2>Find helpful and harmful training samples<a class="headerlink" href="#find-helpful-and-harmful-training-samples" title="Permalink to this headline">¶</a></h2>
@@ -209,6 +217,9 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <li><p>Checking the top 5% highest magnitude influence points gives roughly the same performance as checking 60% of the training data exhaustively</p></li>
 </ul>
 <p><img alt="" src="jupyter_execute/img/mislabeled_1.png" /></p>
+</div>
+<div class="section" id="constructing-and-identifying-adversarial-examples">
+<h2>Constructing and identifying adversarial examples<a class="headerlink" href="#constructing-and-identifying-adversarial-examples" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Find an example that is difficult or ambiguous to start with</p></li>
 <li><p>At this point, find the gradient of the loss with respect to the data <span class="math notranslate nohighlight">\(\nabla _x L\)</span></p></li>
