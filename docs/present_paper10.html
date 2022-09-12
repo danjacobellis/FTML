@@ -91,8 +91,64 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 \[\mathcal I_{\hat \theta}(z) = \frac{d \hat \theta}{d F}^\dagger =  \lim_{\epsilon \to 0} \left[ \frac{ \hat \theta(F^\prime) - \hat \theta (F) }{\epsilon}\right]\]</div>
 <p><span class="math notranslate nohighlight">\(\dagger\)</span> The derivative here is a functional derivative. In particular it is a Gateaux derivative.</p>
 </div>
+<div class="section" id="empirical-influence-function">
+<h2>Empirical influence function<a class="headerlink" href="#empirical-influence-function" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="expensive-approach-leave-one-out">
+<h3>Expensive approach: Leave one out<a class="headerlink" href="#expensive-approach-leave-one-out" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Train the model with all data, including some sample <span class="math notranslate nohighlight">\(z\)</span>, resulting in <span class="math notranslate nohighlight">\(\hat \theta\)</span></p></li>
+<li><p>To estimate <span class="math notranslate nohighlight">\(\mathcal I_{\hat \theta}(z)\)</span>, train the model without the point <span class="math notranslate nohighlight">\(z\)</span>, resulting in <span class="math notranslate nohighlight">\(\hat \theta _ {(z)}\)</span></p></li>
+</ul>
+</div>
+</div>
 <div class="section" id="id1">
-<h2><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>Empirical influence function<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cheaper-approach-locally-approximate-shape-of-loss-function">
+<h3>Cheaper approach: Locally approximate shape of loss function<a class="headerlink" href="#cheaper-approach-locally-approximate-shape-of-loss-function" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Start with a model trained on all of the data, including <span class="math notranslate nohighlight">\(z,\)</span> resulting in <span class="math notranslate nohighlight">\(\hat \theta\)</span></p></li>
+<li><p>Use a quadratic approximation of the loss function to estimate the effect of “upweighting” a sample <span class="math notranslate nohighlight">\(z\)</span>.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\nabla L\)</span> is the gradient. <span class="math notranslate nohighlight">\(H\)</span> is the <em>Hessian,</em> the matrix of all partial second derivatives.</p></li>
+<li><p><span class="math notranslate nohighlight">\(-H_{\hat \theta} ^{-1} \nabla L\)</span> is the direction you would move in while optimizing a function using Newton’s method.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="quadratic-approximation">
+<h2>Quadratic approximation<a class="headerlink" href="#quadratic-approximation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="issue-1-does-the-hessian-even-exist">
+<h3>Issue #1: Does the Hessian even exist?<a class="headerlink" href="#issue-1-does-the-hessian-even-exist" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>We have to pick a nice loss function so that the Hessian is guaranteed to exist.</p>
+<ul>
+<li><p>Mean absolute error can be replaced with <span class="math notranslate nohighlight">\(\log \cosh (s)\)</span>.</p></li>
+<li><p>Hinge with smooth version <span class="math notranslate nohighlight">\(t \log {\left(1+\exp{\left(\frac{1-s}{t}\right)}\right)}.\)</span></p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>Quadratic approximation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="issue-2-computing-and-storing-the-hessian">
+<h3>Issue #2: Computing and storing the Hessian<a class="headerlink" href="#issue-2-computing-and-storing-the-hessian" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>It is <em><strong>very</strong></em> expensive to compute the Hessian. Even just storing the Hessian for a large neural network might be impossible.</p></li>
+<li><p>The “Pearlmutter trick” allows us to calculate a matrix-vector product with the hessian <span class="math notranslate nohighlight">\(\mathbf {Hv}\)</span> <em>exactly</em> with about as much computation as a single gradient evaluation.</p></li>
+<li><p>FOSS libraries rolled out in 2018 that allow you plug in your model and efficiently compute the influence using this method.</p>
+<ul>
+<li><p>Popular one is <a class="reference external" href="https://github.com/darkonhub/darkon">Darkon</a></p></li>
+<li><p><a class="reference external" href="https://github.com/darkonhub/darkon-examples/blob/master/cifar10-resnet/influence_cifar10_resnet.ipynb">Example notebook</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -119,7 +175,11 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <li class="toctree-l2"><a class="reference internal" href="#cooks-distance">Cook’s distance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#leverage">Leverage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#influence-function">Influence function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1"></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#empirical-influence-function">Empirical influence function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Empirical influence function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quadratic-approximation">Quadratic approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Quadratic approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3"></a></li>
 </ul>
 </li>
 </ul>

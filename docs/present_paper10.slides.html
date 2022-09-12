@@ -14684,6 +14684,62 @@ $$F^\prime = F(1-\epsilon) + \epsilon \delta_z$$<ul>
 $$\mathcal I_{\hat \theta}(z) = \frac{d \hat \theta}{d F}^\dagger =  \lim_{\epsilon \to 0} \left[ \frac{ \hat \theta(F^\prime) - \hat \theta (F) }{\epsilon}\right]$$<p>$\dagger$ The derivative here is a functional derivative. In particular it is a Gateaux derivative.</p>
 
 </div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Empirical-influence-function">Empirical influence function<a class="anchor-link" href="#Empirical-influence-function">&#182;</a></h2><h3 id="Expensive-approach:-Leave-one-out">Expensive approach: Leave one out<a class="anchor-link" href="#Expensive-approach:-Leave-one-out">&#182;</a></h3><ul>
+<li>Train the model with all data, including some sample $z$, resulting in $\hat \theta$</li>
+<li>To estimate $\mathcal I_{\hat \theta}(z)$, train the model without the point $z$, resulting in $\hat \theta _ {(z)}$</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Empirical-influence-function">Empirical influence function<a class="anchor-link" href="#Empirical-influence-function">&#182;</a></h2><h3 id="Cheaper-approach:-Locally-approximate-shape-of-loss-function">Cheaper approach: Locally approximate shape of loss function<a class="anchor-link" href="#Cheaper-approach:-Locally-approximate-shape-of-loss-function">&#182;</a></h3><ul>
+<li>Start with a model trained on all of the data, including $z,$ resulting in $\hat \theta$</li>
+<li>Use a quadratic approximation of the loss function to estimate the effect of "upweighting" a sample $z$.</li>
+</ul>
+$$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
+<li><p>$\nabla L$ is the gradient. $H$ is the <em>Hessian,</em> the matrix of all partial second derivatives.</p>
+</li>
+<li><p>$-H_{\hat \theta} ^{-1} \nabla L$ is the direction you would move in while optimizing a function using Newton's method.</p>
+</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Quadratic-approximation">Quadratic approximation<a class="anchor-link" href="#Quadratic-approximation">&#182;</a></h2><h3 id="Issue-%231:-Does-the-Hessian-even-exist?">Issue #1: Does the Hessian even exist?<a class="anchor-link" href="#Issue-%231:-Does-the-Hessian-even-exist?">&#182;</a></h3><ul>
+<li><p>We have to pick a nice loss function so that the Hessian is guaranteed to exist.</p>
+<ul>
+<li>Mean absolute error can be replaced with $\log \cosh (s)$. </li>
+<li>Hinge with smooth version $t \log {\left(1+\exp{\left(\frac{1-s}{t}\right)}\right)}.$</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Quadratic-approximation">Quadratic approximation<a class="anchor-link" href="#Quadratic-approximation">&#182;</a></h2><h3 id="Issue-%232:-Computing-and-storing-the-Hessian">Issue #2: Computing and storing the Hessian<a class="anchor-link" href="#Issue-%232:-Computing-and-storing-the-Hessian">&#182;</a></h3><ul>
+<li><p>It is <strong><em>very</em></strong> expensive to compute the Hessian. Even just storing the Hessian for a large neural network might be impossible.</p>
+</li>
+<li><p>The "Pearlmutter trick" allows us to calculate a matrix-vector product with the hessian $\mathbf {Hv}$ <em>exactly</em> with about as much computation as a single gradient evaluation.</p>
+</li>
+<li><p>FOSS libraries rolled out in 2018 that allow you plug in your model and efficiently compute the influence using this method.</p>
+<ul>
+<li><p>Popular one is <a href="https://github.com/darkonhub/darkon">Darkon</a></p>
+</li>
+<li><p><a href="https://github.com/darkonhub/darkon-examples/blob/master/cifar10-resnet/influence_cifar10_resnet.ipynb">Example notebook</a></p>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">

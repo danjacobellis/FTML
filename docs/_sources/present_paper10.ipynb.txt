@@ -105,6 +105,91 @@
   },
   {
    "cell_type": "markdown",
+   "id": "1fbfcfb8-79c8-4104-9a17-a479d5e6d79c",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Empirical influence function\n",
+    "\n",
+    "### Expensive approach: Leave one out\n",
+    "* Train the model with all data, including some sample $z$, resulting in $\\hat \\theta$\n",
+    "* To estimate $\\mathcal I_{\\hat \\theta}(z)$, train the model without the point $z$, resulting in $\\hat \\theta _ {(z)}$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7e049ae2-0192-4cce-ac77-068afd015208",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Empirical influence function\n",
+    "\n",
+    "### Cheaper approach: Locally approximate shape of loss function\n",
+    "* Start with a model trained on all of the data, including $z,$ resulting in $\\hat \\theta$\n",
+    "* Use a quadratic approximation of the loss function to estimate the effect of \"upweighting\" a sample $z$.\n",
+    "\n",
+    "$$\\mathcal I_{\\hat \\theta}(z) \\approx -H_{\\hat \\theta} ^{-1} \\nabla L$$\n",
+    "\n",
+    "* $\\nabla L$ is the gradient. $H$ is the *Hessian,* the matrix of all partial second derivatives.\n",
+    "\n",
+    "* $-H_{\\hat \\theta} ^{-1} \\nabla L$ is the direction you would move in while optimizing a function using Newton's method."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e2ca9def-9b93-4a08-a12d-ec7dede13d1c",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Quadratic approximation\n",
+    "\n",
+    "### Issue #1: Does the Hessian even exist?\n",
+    "\n",
+    "* We have to pick a nice loss function so that the Hessian is guaranteed to exist.\n",
+    "\n",
+    "  * Mean absolute error can be replaced with $\\log \\cosh (s)$. \n",
+    "  * Hinge with smooth version $t \\log {\\left(1+\\exp{\\left(\\frac{1-s}{t}\\right)}\\right)}.$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c8ccdfdb-5faa-46a4-9609-0829bca3fbea",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Quadratic approximation\n",
+    "\n",
+    "### Issue #2: Computing and storing the Hessian\n",
+    "\n",
+    "* It is ***very*** expensive to compute the Hessian. Even just storing the Hessian for a large neural network might be impossible.\n",
+    "\n",
+    "* The \"Pearlmutter trick\" allows us to calculate a matrix-vector product with the hessian $\\mathbf {Hv}$ *exactly* with about as much computation as a single gradient evaluation.\n",
+    "\n",
+    "* FOSS libraries rolled out in 2018 that allow you plug in your model and efficiently compute the influence using this method.\n",
+    "\n",
+    "  * Popular one is [Darkon](https://github.com/darkonhub/darkon)\n",
+    "  \n",
+    "  * [Example notebook]( https://github.com/darkonhub/darkon-examples/blob/master/cifar10-resnet/influence_cifar10_resnet.ipynb)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "4e071ec6-07d7-4393-a09b-8925bdf437ca",
    "metadata": {},
    "source": [
