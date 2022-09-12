@@ -105,25 +105,6 @@
   },
   {
    "cell_type": "markdown",
-   "id": "a31a570d-15b4-41a7-af5c-b08b91a11c1c",
-   "metadata": {
-    "slideshow": {
-     "slide_type": "slide"
-    },
-    "tags": []
-   },
-   "source": [
-    "## Influence function\n",
-    "\n",
-    "* We can also define another type of influence function that describes the effect on the loss when we make a small perturbation to the data\n",
-    "\n",
-    "$$\\mathcal I_{L}(z) = \\frac{d L}{d F} =  \\lim_{\\epsilon \\to 0} \\left[ \\frac{ \\hat L(F^\\prime) - L (F) }{\\epsilon}\\right]$$\n",
-    "\n",
-    "* A model is trained resulting in parameters $\\hat \\theta$. We test it on a point $z_{test}$. $\\mathcal I_{L}(z,z_{test})$ is the rate at which the loss on $z_{test}$  increases as we make the training point $z$ more prevalent"
-   ]
-  },
-  {
-   "cell_type": "markdown",
    "id": "1fbfcfb8-79c8-4104-9a17-a479d5e6d79c",
    "metadata": {
     "slideshow": {
@@ -209,85 +190,10 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b8d65b6d-34db-438e-8aaf-c6896cd80796",
-   "metadata": {
-    "slideshow": {
-     "slide_type": "slide"
-    },
-    "tags": []
-   },
+   "id": "4e071ec6-07d7-4393-a09b-8925bdf437ca",
+   "metadata": {},
    "source": [
-    "# Applications of influence functions"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "724ca29d-8563-4e2d-ae8a-b3586765d907",
-   "metadata": {
-    "slideshow": {
-     "slide_type": "slide"
-    },
-    "tags": []
-   },
-   "source": [
-    "## Find helpful and harmful training samples\n",
-    "\n",
-    "* Other methods exist to find relevant training samples.\n",
-    "  * For example, we can look at the nearest neighbor(s)\n",
-    "  \n",
-    "* The influence function can tell us if a training sample either helps or hurts when evaluating a particular test sample.\n",
-    "  * If $\\mathcal I_{L}(z,z_{test})$ is positive, then the training point $z$ is harmful\n",
-    "  * If $\\mathcal I_{L}(z,z_{test})$ is negative, then the training point $z$ is helpful"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "877dd2bb-4df5-4010-a459-2116d19135f3",
-   "metadata": {
-    "slideshow": {
-     "slide_type": "slide"
-    },
-    "tags": []
-   },
-   "source": [
-    "## Identify overfitting and compare models\n",
-    "\n",
-    "* Compare $\\mathcal I_{L}(z,z_{test})$ with the euclidian distance\n",
-    "\n",
-    "* If the model is overfitting, then all of the most influential training points will be neighbors.\n",
-    "\n",
-    "* If the model generalizes, then the influential points will be spread out, not just overfit to neighboring points."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "1cedfff5-f66b-44c4-bdb2-50534a8cd2f6",
-   "metadata": {
-    "tags": [
-     "remove-nb-cell"
-    ]
-   },
-   "source": [
-    "![](img/influence_1.png)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "6049dff9-8f4a-4c2c-83ac-c33bf0e236f3",
-   "metadata": {
-    "slideshow": {
-     "slide_type": "slide"
-    },
-    "tags": [
-     "remove-cell"
-    ]
-   },
-   "source": [
-    "## Identify overfitting and compare models\n",
-    "\n",
-    "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/influence_1.png\" width=450 height=450 class=\"center\">\n",
-    "</p>"
+    "## "
    ]
   }
  ],

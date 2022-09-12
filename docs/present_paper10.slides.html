@@ -14687,6 +14687,17 @@ $$\mathcal I_{\hat \theta}(z) = \frac{d \hat \theta}{d F}^\dagger =  \lim_{\epsi
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Influence-function">Influence function<a class="anchor-link" href="#Influence-function">&#182;</a></h2><ul>
+<li>We can also define another type of influence function that describes the effect on the loss when we make a small perturbation to the data</li>
+</ul>
+$$\mathcal I_{L}(z) = \frac{d L}{d F} =  \lim_{\epsilon \to 0} \left[ \frac{ \hat L(F^\prime) - L (F) }{\epsilon}\right]$$<ul>
+<li>A model is trained resulting in parameters $\hat \theta$. We test it on a point $z_{test}$. $\mathcal I_{L}(z,z_{test})$ is the rate at which the loss on $z_{test}$  increases as we make the training point $z$ more prevalent</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Empirical-influence-function">Empirical influence function<a class="anchor-link" href="#Empirical-influence-function">&#182;</a></h2><h3 id="Expensive-approach:-Leave-one-out">Expensive approach: Leave one out<a class="anchor-link" href="#Expensive-approach:-Leave-one-out">&#182;</a></h3><ul>
 <li>Train the model with all data, including some sample $z$, resulting in $\hat \theta$</li>
 <li>To estimate $\mathcal I_{\hat \theta}(z)$, train the model without the point $z$, resulting in $\hat \theta _ {(z)}$</li>
@@ -14740,10 +14751,48 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 </ul>
 
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="-"> <a class="anchor-link" href="#-">&#182;</a></h2>
+<h1 id="Applications-of-influence-functions">Applications of influence functions<a class="anchor-link" href="#Applications-of-influence-functions">&#182;</a></h1>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Find-helpful-and-harmful-training-samples">Find helpful and harmful training samples<a class="anchor-link" href="#Find-helpful-and-harmful-training-samples">&#182;</a></h2><ul>
+<li><p>Other methods exist to find relevant training samples.</p>
+<ul>
+<li>For example, we can look at the nearest neighbor(s)</li>
+</ul>
+</li>
+<li><p>The influence function can tell us if a training sample either helps or hurts when evaluating a particular test sample.</p>
+<ul>
+<li>If $\mathcal I_{L}(z,z_{test})$ is positive, then the training point $z$ is harmful</li>
+<li>If $\mathcal I_{L}(z,z_{test})$ is negative, then the training point $z$ is helpful</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Identify-overfitting-and-compare-models">Identify overfitting and compare models<a class="anchor-link" href="#Identify-overfitting-and-compare-models">&#182;</a></h2><ul>
+<li><p>Compare $\mathcal I_{L}(z,z_{test})$ with the euclidian distance</p>
+</li>
+<li><p>If the model is overfitting, then all of the most influential training points will be neighbors.</p>
+</li>
+<li><p>If the model generalizes, then the influential points will be spread out, not just overfit to neighboring points.</p>
+</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<h2 id="Identify-overfitting-and-compare-models">Identify overfitting and compare models<a class="anchor-link" href="#Identify-overfitting-and-compare-models">&#182;</a></h2><p style="text-align:center;">
+<img src="_images/influence_1.png" width=450 height=450 class="center">
+</p>
 </div>
 </div></section></section>
 </div>

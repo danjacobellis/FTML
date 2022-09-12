@@ -256,37 +256,18 @@
     "\n",
     "* If the model is overfitting, then all of the most influential training points will be neighbors.\n",
     "\n",
-    "* If the model generalizes, then the influential points will be spread out, not just overfit to neighboring points."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "1cedfff5-f66b-44c4-bdb2-50534a8cd2f6",
-   "metadata": {
-    "tags": [
-     "remove-nb-cell"
-    ]
-   },
-   "source": [
+    "* If the model generalizes, then the influential points will be spread out, not just overfit to neighboring points.\n",
+    "\n",
     "![](img/influence_1.png)"
    ]
   },
   {
    "cell_type": "markdown",
    "id": "6049dff9-8f4a-4c2c-83ac-c33bf0e236f3",
-   "metadata": {
-    "slideshow": {
-     "slide_type": "slide"
-    },
-    "tags": [
-     "remove-cell"
-    ]
-   },
+   "metadata": {},
    "source": [
-    "## Identify overfitting and compare models\n",
-    "\n",
     "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/influence_1.png\" width=450 height=450 class=\"center\">\n",
+    "<img src=\"../_images/influence_1.png\" width=450 height=450 class=\"center\">\n",
     "</p>"
    ]
   }
