@@ -37,6 +37,50 @@
   },
   {
    "cell_type": "markdown",
+   "id": "9ef38317-f6ab-4224-b30e-68f6df04484c",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Background and caveats\n",
+    "\n",
+    "* Our goal is to gain insights about how particular training points influence a model\n",
+    "\n",
+    "* Loose definition of \"black box\" for this work\n",
+    "  * We **do** need to know the relationship between the loss and the model parameters\n",
+    "  * However, we don't need to know anything about the model architecture or how it works. Massive DNNs are fine."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8dacb51d-b1e5-481b-a881-a973e1c88467",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    },
+    "tags": []
+   },
+   "source": [
+    "The idea of examining the influence of particular training samples dates back to at least the 1970s.\n",
+    "\n",
+    "For example, something that is used commonly in linear regression is Cook's distance.\n",
+    "\n",
+    "Cook's distance is pretty simple. We want to know how an individual sample affects the prediction\n",
+    "\n",
+    "To find the influence of the ith point, we train a model without that point, and observe the prediction. Here that would be this y with parentheses i.\n",
+    "\n",
+    "We sum up the differences between the predictions with that point and without that point and then normalize by the number of parameters p and the mean squared error s squared.\n",
+    "\n",
+    "That's cook's distance. It's quite useful. We can use it to find influential points for many reasons. We can go see if maybe that point was mislabeled. We can try to understand why that point was influential.\n",
+    "\n",
+    "We can also use it to try to identify where we should sample the next time we go collect data."
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "91e51990-bdc7-4e78-b451-a69302323fcb",
    "metadata": {
     "slideshow": {
@@ -59,6 +103,23 @@
   },
   {
    "cell_type": "markdown",
+   "id": "0cb329b2-1bdd-4afc-973a-eccbcebc184f",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    },
+    "tags": []
+   },
+   "source": [
+    "A related quantity is the leverage. You can think of this as the degree to which the ith measured value influences the ith predicted value.\n",
+    "\n",
+    "This is often used to detect outliers. A common heuristic is that if the leverage exceeds some multiple of p over n, the ratio of parameters to samples, then a point is an outlier.\n",
+    "\n",
+    "Next, I'll define some different types of influence functions but just keep in mind that these functions are trying to do something similar to cook's distance or leverage, where we're looking at how particular point influence the model."
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "1154deb5-4ee3-4944-9ba5-7ff3e08e46d9",
    "metadata": {
     "slideshow": {
@@ -74,6 +135,31 @@
     "$$h_{ii} = \\frac {\\partial \\hat y_i}{\\partial y_i}$$\n",
     "* $ 0 \\leq h_{ii} \\leq 1$\n",
     "* Common heuristic: $x_i$ is an outlier if $h_{ii} > \\frac {2p}{n}$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a37ff850-8470-4f4e-8464-9150e2de1b27",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    },
+    "tags": []
+   },
+   "source": [
+    "Let's start with the first type of influence function. Suppose you train a model. You minimize the empirical risk, resulting in some estimate of the best model parameters theta hat.\n",
+    "\n",
+    "This theta hat is a function of the data distribution F. If we had a different set of data that we trained on that came from a different distribution, we would have gotten different estimates for our parameters.\n",
+    "\n",
+    "The influence function is going to examine how a small perturbation in F affects theta hat.\n",
+    "\n",
+    "Lets define F prime to be some new distribution that is almost the same as the original, except we've added some mass to a location in the sample space z.\n",
+    "\n",
+    "The first type of influence function which we denote I theta, is like a derivative. It's the difference in model parameters that we get when changing the distribution in the limit that that change is very small.\n",
+    "\n",
+    "If we're being very rigorous this is not a normal derivative but a functional one. But I think it's helpful to think about it the same way you think of any other derivative, as a rate of change.\n",
+    "\n",
+    "So that's the first type of influence function, the rate of change of the model parameters when we add mass to some point in the distribution z.\n"
    ]
   },
   {
@@ -99,8 +185,17 @@
     "\n",
     "$$\\mathcal I_{\\hat \\theta}(z) = \\frac{d \\hat \\theta}{d F}^\\dagger =  \\lim_{\\epsilon \\to 0} \\left[ \\frac{ \\hat \\theta(F^\\prime) - \\hat \\theta (F) }{\\epsilon}\\right]$$\n",
     "\n",
-    "\n",
     "$\\dagger$ The derivative here is a functional derivative. In particular it is a Gateaux derivative."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1ef0db5a-3f24-4c74-96ac-92a6689a3ad4",
+   "metadata": {},
+   "source": [
+    "The second type of influence function IL is similar, except instead of looking at the model parameters, we're looking at the loss function.\n",
+    "\n",
+    "So, this is the rate of change in the loss function as we add mass to some location z."
    ]
   },
   {
@@ -124,6 +219,23 @@
   },
   {
    "cell_type": "markdown",
+   "id": "d969905f-2940-4bc8-bd6e-6d35ffce995e",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    },
+    "tags": []
+   },
+   "source": [
+    "Finally, we have this third type of influence function I pert\n",
+    "\n",
+    "Instead of just adding a mass to some point in the distribution, we're also going to remove mass from some other point.\n",
+    "\n",
+    "So this is basically just a difference between to influence functions of the normal type."
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "01686867-b4ea-4843-a466-4c3634c0a55d",
    "metadata": {
     "slideshow": {
@@ -141,6 +253,27 @@
   },
   {
    "cell_type": "markdown",
+   "id": "2971e5c1-c537-4d43-8954-9a6247944835",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    },
+    "tags": []
+   },
+   "source": [
+    "So how do we actually calculate these influence functions?\n",
+    "\n",
+    "Well the simplest approach is to just do something like we did for cook's distance and just train the model with all points except one point located at z. That will give us the influence function at z.\n",
+    "\n",
+    "Clearly, this can get expensive quickly, so we'd like to have a more efficient method.\n",
+    "\n",
+    "We could have tried to calculate the gradient of the model parameters or the loss function with respect to the data for example.\n",
+    "\n",
+    "However, the authors go one step further. Why stop at the first derivative when we can use the second derivative? So that's what they do."
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "1fbfcfb8-79c8-4104-9a17-a479d5e6d79c",
    "metadata": {
     "slideshow": {
@@ -154,6 +287,27 @@
     "### Expensive approach: Leave one out\n",
     "* Train the model with all data, including some sample $z$, resulting in $\\hat \\theta$\n",
     "* To estimate $\\mathcal I_{\\hat \\theta}(z)$, train the model without the point $z$, resulting in $\\hat \\theta _ {(z)}$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7b315ae3-a4da-4f94-9673-906319aafc86",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    },
+    "tags": []
+   },
+   "source": [
+    "We train the model with all of the data, resulting in the estimate of the optimal parameter values theta hat.\n",
+    "\n",
+    "Starting from there, we locally approximate the loss function as a quadratic.\n",
+    "\n",
+    "When we do that we get this result for the influence function.\n",
+    "\n",
+    "We have the gradient of the loss function multiplied by the inverse of the hessian.\n",
+    "\n",
+    "The hessian is just the matrix of second derivatives."
    ]
   },
   {
@@ -216,6 +370,8 @@
     "* It is ***very*** expensive to compute the Hessian. Even just storing the Hessian for a large neural network might be impossible.\n",
     "\n",
     "* The \"Pearlmutter trick\" allows us to calculate a matrix-vector product with the hessian $\\mathbf {Hv}$ *exactly* with about as much computation as a single gradient evaluation.\n",
+    "\n",
+    "* There are variations of how to do this. Some are exact some are not with tradeoffs in complexity.\n",
     "\n",
     "* FOSS libraries rolled out in 2018 that allow you plug in your model and efficiently compute the influence using this method.\n",
     "\n",
@@ -433,7 +589,7 @@
     "* Consider a point the sample space $z$ and the surrounding region\n",
     "* The training data may be very dense or very sparse in this region\n",
     "* When deployed, the density may be quite different\n",
-    "* $\\mathcal I_{pert}(z)$ tells us exactly how we should update the model to account for this"
+    "* $\\mathcal I_{\\hat \\theta, pert}(z)$ tells us exactly how we should update the model to account for this"
    ]
   },
   {
@@ -522,6 +678,21 @@
     "<p style=\"text-align:center;\">\n",
     "<img src=\"_images/adversarial_1.png\" width=750 height=750 class=\"center\">\n",
     "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6aff5122-7f05-4359-be21-73d8493f6ecb",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": [
+     "remove-cell"
+    ]
+   },
+   "source": [
+    "## Thank you!"
    ]
   }
  ],
