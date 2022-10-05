@@ -50,6 +50,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */
 .highlight .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */
 .highlight .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */
+.highlight .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */
 .highlight .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */
 .highlight .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */
 .highlight .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */
@@ -14495,6 +14496,9 @@ a.anchor-link {
 .reveal {
   font-size: 160%;
 }
+.reveal table {
+  font-size: var(--jp-ui-font-size1);
+}
 .reveal pre {
   width: inherit;
   padding: 0.4em;
@@ -14538,6 +14542,23 @@ div.jp-OutputPrompt {
   margin: 5px 5px 0 0;
 }
 
+.reveal div.highlight {
+  margin: 0;
+}
+
+.reveal div.highlight > pre {
+  margin: 0;
+  width: 100%;
+  font-size: var(--jp-code-font-size);
+}
+
+.reveal div.jp-OutputArea-output > pre {
+  margin: 0;
+  width: 90%;
+  font-size: var(--jp-code-font-size);
+  box-shadow: none;
+}
+
 /* Reveal navigation controls */
 
 .reveal .controls .navigate-left,
@@ -14578,17 +14599,14 @@ div.jp-OutputPrompt {
 
 /* Scrollbars */
 
-::-webkit-scrollbar
-{
+::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
-::-webkit-scrollbar *
-{
-  background:transparent;
+::-webkit-scrollbar * {
+  background: transparent;
 }
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: #727272 !important;
 }
 </style>
@@ -14615,12 +14633,12 @@ div.jp-OutputPrompt {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 }
             });
-        
+
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14635,21 +14653,33 @@ div.jp-OutputPrompt {
 
 <div class="reveal">
 <div class="slides"><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <script>
     document.querySelector('head').innerHTML += '<style>.slides { zoom: 1.75 !important; }</style>';
-</script><center> <h1>
+</script>
+<center> <h1>
 Understanding Black-box Predictions via Influence functions
 </h1> </center>
+
+</div>
+</div>
 </div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Background-and-caveats">Background and caveats<a class="anchor-link" href="#Background-and-caveats">&#182;</a></h2><ul>
 <li><p>Our goal is to gain insights about how particular training points influence a model</p>
 </li>
-<li><p>Loose definition of "black box" for this work</p>
+<li><p>Loose definition of &quot;black box&quot; for this work</p>
 <ul>
 <li>We <strong>do</strong> need to know the relationship between the loss and the model parameters</li>
 <li>However, we don't need to know anything about the model architecture or how it works. Massive DNNs are fine.</li>
@@ -14658,9 +14688,15 @@ Understanding Black-box Predictions via Influence functions
 </ul>
 
 </div>
+</div>
+</div>
 </div><aside class="notes">
 
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>The idea of examining the influence of particular training samples dates back to at least the 1970s.</p>
 <p>For example, something that is used commonly in linear regression is Cook's distance.</p>
@@ -14672,12 +14708,18 @@ Understanding Black-box Predictions via Influence functions
 
 </div>
 </div>
+</div>
+</div>
 </aside></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Cook's-distance">Cook's distance<a class="anchor-link" href="#Cook's-distance">&#182;</a></h2><ul>
 <li>Dennis Cook, 1970: <em>Detection of influential observation in linear regression</em></li>
-<li>"Overall summary statistics (e.g. $R^2$, $\beta$) ... present a distorted and misleading picture"</li>
+<li>&quot;Overall summary statistics (e.g. $R^2$, $\beta$) ... present a distorted and misleading picture&quot;</li>
 <li><strong>Cook's distance</strong>: deviation of the model when point $i$ is excluded</li>
 </ul>
 $$D_i = \frac {1}{ps^2} \sum_{j=1}^{n}{(\hat y _j - \hat y_{j(i)}})^2$$<ul>
@@ -14686,9 +14728,15 @@ $$D_i = \frac {1}{ps^2} \sum_{j=1}^{n}{(\hat y _j - \hat y_{j(i)}})^2$$<ul>
 </ul>
 
 </div>
+</div>
+</div>
 </div><aside class="notes">
 
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>A related quantity is the leverage. You can think of this as the degree to which the ith measured value influences the ith predicted value.</p>
 <p>This is often used to detect outliers. A common heuristic is that if the leverage exceeds some multiple of p over n, the ratio of parameters to samples, then a point is an outlier.</p>
@@ -14696,21 +14744,34 @@ $$D_i = \frac {1}{ps^2} \sum_{j=1}^{n}{(\hat y _j - \hat y_{j(i)}})^2$$<ul>
 
 </div>
 </div>
+</div>
+</div>
 </aside></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Leverage">Leverage<a class="anchor-link" href="#Leverage">&#182;</a></h2><ul>
-<li>Also known as "Self-influence"</li>
-<li>Degree to which the $i$th measured value influences the $i$th predicted value
-$$h_{ii} = \frac {\partial \hat y_i}{\partial y_i}$$</li>
+<li>Also known as &quot;Self-influence&quot;</li>
+<li>Degree to which the $i$th measured value influences the $i$th predicted value</li>
+</ul>
+$$h_{ii} = \frac {\partial \hat y_i}{\partial y_i}$$<ul>
 <li>$ 0 \leq h_{ii} \leq 1$</li>
 <li>Common heuristic: $x_i$ is an outlier if $h_{ii} &gt; \frac {2p}{n}$</li>
 </ul>
 
 </div>
+</div>
+</div>
 </div><aside class="notes">
 
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Let's start with the first type of influence function. Suppose you train a model. You minimize the empirical risk, resulting in some estimate of the best model parameters theta hat.</p>
 <p>This theta hat is a function of the data distribution F. If we had a different set of data that we trained on that came from a different distribution, we would have gotten different estimates for our parameters.</p>
@@ -14722,8 +14783,14 @@ $$h_{ii} = \frac {\partial \hat y_i}{\partial y_i}$$</li>
 
 </div>
 </div>
+</div>
+</div>
 </aside></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Influence-function">Influence function<a class="anchor-link" href="#Influence-function">&#182;</a></h2><ul>
 <li>Consider a model parameter $\theta$ and our estimate of the best value after training $\hat \theta $</li>
@@ -14732,22 +14799,34 @@ $$h_{ii} = \frac {\partial \hat y_i}{\partial y_i}$$</li>
 <li>In particular, we will add at location $z$ in the distribution $F$ an infinitesimal mass $\epsilon \delta_z$, resulting in a new distribution $F^\prime$</li>
 </ul>
 $$F^\prime = F(1-\epsilon) + \epsilon \delta_z$$<ul>
-<li>The influence function is the derivative${}^\dagger$ of a model parameter $\hat \theta$ with respect to the distribution $F$. </li>
+<li>The influence function is the derivative${}^\dagger$ of a model parameter $\hat \theta$ with respect to the distribution $F$.</li>
 </ul>
 $$\mathcal I_{\hat \theta}(z) = \frac{d \hat \theta}{d F}^\dagger =  \lim_{\epsilon \to 0} \left[ \frac{ \hat \theta(F^\prime) - \hat \theta (F) }{\epsilon}\right]$$<p>$\dagger$ The derivative here is a functional derivative. In particular it is a Gateaux derivative.</p>
 
 </div>
+</div>
+</div>
 </div><aside class="notes">
 
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>The second type of influence function IL is similar, except instead of looking at the model parameters, we're looking at the loss function.</p>
 <p>So, this is the rate of change in the loss function as we add mass to some location z.</p>
 
 </div>
 </div>
+</div>
+</div>
 </aside></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Influence-function">Influence function<a class="anchor-link" href="#Influence-function">&#182;</a></h2><ul>
 <li>We can define a second type of influence function that describes the effect on the loss when we make a small perturbation to the data</li>
@@ -14757,9 +14836,15 @@ $$\mathcal I_{L}(z) = \frac{d L}{d F} =  \lim_{\epsilon \to 0} \left[ \frac{ \ha
 </ul>
 
 </div>
+</div>
+</div>
 </div><aside class="notes">
 
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Finally, we have this third type of influence function I pert</p>
 <p>Instead of just adding a mass to some point in the distribution, we're also going to remove mass from some other point.</p>
@@ -14767,18 +14852,29 @@ $$\mathcal I_{L}(z) = \frac{d L}{d F} =  \lim_{\epsilon \to 0} \left[ \frac{ \ha
 
 </div>
 </div>
+</div>
+</div>
 </aside></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Influence-Function">Influence Function<a class="anchor-link" href="#Influence-Function">&#182;</a></h2><ul>
 <li>We can also define influence functions that describe the effect of 'moving' a training point</li>
 </ul>
-$$\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)$$<p></p>
-
+$$\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)$$
+</div>
+</div>
 </div>
 </div><aside class="notes">
 
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>So how do we actually calculate these influence functions?</p>
 <p>Well the simplest approach is to just do something like we did for cook's distance and just train the model with all points except one point located at z. That will give us the influence function at z.</p>
@@ -14788,8 +14884,14 @@ $$\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)$$<p></p>
 
 </div>
 </div>
+</div>
+</div>
 </aside></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Empirical-influence-function">Empirical influence function<a class="anchor-link" href="#Empirical-influence-function">&#182;</a></h2><h3 id="Expensive-approach:-Leave-one-out">Expensive approach: Leave one out<a class="anchor-link" href="#Expensive-approach:-Leave-one-out">&#182;</a></h3><ul>
 <li>Train the model with all data, including some sample $z$, resulting in $\hat \theta$</li>
@@ -14797,9 +14899,15 @@ $$\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)$$<p></p>
 </ul>
 
 </div>
+</div>
+</div>
 </div><aside class="notes">
 
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>We train the model with all of the data, resulting in the estimate of the optimal parameter values theta hat.</p>
 <p>Starting from there, we locally approximate the loss function as a quadratic.</p>
@@ -14809,12 +14917,18 @@ $$\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)$$<p></p>
 
 </div>
 </div>
+</div>
+</div>
 </aside></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Empirical-influence-function">Empirical influence function<a class="anchor-link" href="#Empirical-influence-function">&#182;</a></h2><h3 id="Cheaper-approach:-Locally-approximate-shape-of-loss-function">Cheaper approach: Locally approximate shape of loss function<a class="anchor-link" href="#Cheaper-approach:-Locally-approximate-shape-of-loss-function">&#182;</a></h3><ul>
 <li>Start with a model trained on all of the data, including $z,$ resulting in $\hat \theta$</li>
-<li>Use a quadratic approximation of the loss function to estimate the effect of "upweighting" a sample $z$.</li>
+<li>Use a quadratic approximation of the loss function to estimate the effect of &quot;upweighting&quot; a sample $z$.</li>
 </ul>
 $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 <li><p>$\nabla L$ is the gradient. $H$ is the <em>Hessian,</em> the matrix of all partial second derivatives.</p>
@@ -14824,26 +14938,38 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 </ul>
 
 </div>
+</div>
+</div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Quadratic-approximation">Quadratic approximation<a class="anchor-link" href="#Quadratic-approximation">&#182;</a></h2><h3 id="Issue-%231:-Does-the-Hessian-even-exist?">Issue #1: Does the Hessian even exist?<a class="anchor-link" href="#Issue-%231:-Does-the-Hessian-even-exist?">&#182;</a></h3><ul>
 <li><p>We have to pick a nice loss function so that the Hessian is guaranteed to exist.</p>
 <ul>
-<li>Mean absolute error can be replaced with $\log \cosh (s)$. </li>
+<li>Mean absolute error can be replaced with $\log \cosh (s)$.</li>
 <li>Hinge with smooth version $t \log {\left(1+\exp{\left(\frac{1-s}{t}\right)}\right)}.$</li>
 </ul>
 </li>
 </ul>
 
 </div>
+</div>
+</div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Quadratic-approximation">Quadratic approximation<a class="anchor-link" href="#Quadratic-approximation">&#182;</a></h2><h3 id="Issue-%232:-Computing-and-storing-the-Hessian">Issue #2: Computing and storing the Hessian<a class="anchor-link" href="#Issue-%232:-Computing-and-storing-the-Hessian">&#182;</a></h3><ul>
-<li><p>It is <strong><em>very</em></strong> expensive to compute the Hessian. Even just storing the Hessian for a large neural network might be impossible.</p>
+<li><p>It is *<strong>very</strong>* expensive to compute the Hessian. Even just storing the Hessian for a large neural network might be impossible.</p>
 </li>
-<li><p>The "Pearlmutter trick" allows us to calculate a matrix-vector product with the hessian $\mathbf {Hv}$ <em>exactly</em> with about as much computation as a single gradient evaluation.</p>
+<li><p>The &quot;Pearlmutter trick&quot; allows us to calculate a matrix-vector product with the hessian $\mathbf {Hv}$ <em>exactly</em> with about as much computation as a single gradient evaluation.</p>
 </li>
 <li><p>There are variations of how to do this. Some are exact some are not with tradeoffs in complexity.</p>
 </li>
@@ -14858,37 +14984,75 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 </ul>
 
 </div>
+</div>
+</div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Experiments-and-Applications">Experiments and Applications<a class="anchor-link" href="#Experiments-and-Applications">&#182;</a></h2>
 </div>
+</div>
+</div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="How-well-does-the-quadratic-approximation-work?">How well does the quadratic approximation work?<a class="anchor-link" href="#How-well-does-the-quadratic-approximation-work?">&#182;</a></h2>
 </div>
 </div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
 <img src="_images/performance_1.png" width=650 height=650 class="center">
 </p>
+
+</div>
+</div>
 </div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Do-differentiable-versions-of-the-loss-function-work?">Do differentiable versions of the loss function work?<a class="anchor-link" href="#Do-differentiable-versions-of-the-loss-function-work?">&#182;</a></h2>
 </div>
 </div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
 <img src="_images/hinge_1.png" width=750 height=750 class="center">
 </p>
+
+</div>
+</div>
 </div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Find-helpful-and-harmful-training-samples">Find helpful and harmful training samples<a class="anchor-link" href="#Find-helpful-and-harmful-training-samples">&#182;</a></h2><ul>
 <li><p>Other methods exist to find relevant training samples.</p>
@@ -14905,15 +15069,28 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 </ul>
 
 </div>
+</div>
+</div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
 <img src="_images/harmful_1.png" width=450 height=450 class="center">
 </p>
+
+</div>
+</div>
 </div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Identify-overfitting-and-compare-models">Identify overfitting and compare models<a class="anchor-link" href="#Identify-overfitting-and-compare-models">&#182;</a></h2><ul>
 <li><p>Compare $\mathcal I_{L}(z,z_{test})$ with the euclidian distance</p>
@@ -14925,15 +15102,28 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 </ul>
 
 </div>
+</div>
+</div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
 <img src="_images/influence_1.png" width=650 height=650 class="center">
 </p>
+
+</div>
+</div>
 </div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Debugging-mismatch-in-distributions">Debugging mismatch in distributions<a class="anchor-link" href="#Debugging-mismatch-in-distributions">&#182;</a></h2><ul>
 <li>Consider a point the sample space $z$ and the surrounding region</li>
@@ -14943,8 +15133,14 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 </ul>
 
 </div>
+</div>
+</div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Debugging-mislabeled-examples-and-identifying-places-to-collect-new-data">Debugging mislabeled examples and identifying places to collect new data<a class="anchor-link" href="#Debugging-mislabeled-examples-and-identifying-places-to-collect-new-data">&#182;</a></h2><ul>
 <li>Checking the top 5% highest magnitude influence points gives roughly the same performance as checking 60% of the training data exhaustively</li>
@@ -14952,14 +15148,27 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 
 </div>
 </div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
 <img src="_images/mislabeled_1.png" width=250 height=250 class="center">
 </p>
+
+</div>
+</div>
 </div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Constructing-and-identifying-adversarial-examples">Constructing and identifying adversarial examples<a class="anchor-link" href="#Constructing-and-identifying-adversarial-examples">&#182;</a></h2><ul>
 <li>Find an example that is difficult or ambiguous to start with</li>
@@ -14969,17 +15178,32 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 </ul>
 
 </div>
+</div>
+</div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
 <img src="_images/adversarial_1.png" width=750 height=750 class="center">
 </p>
+
+</div>
+</div>
 </div>
 </div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <h2 id="Thank-you!">Thank you!<a class="anchor-link" href="#Thank-you!">&#182;</a></h2>
+</div>
+</div>
 </div>
 </div></section></section>
 </div>
