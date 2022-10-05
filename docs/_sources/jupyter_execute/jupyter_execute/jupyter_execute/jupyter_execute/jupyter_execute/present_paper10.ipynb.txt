@@ -427,9 +427,6 @@
    "cell_type": "markdown",
    "id": "9851ba34-2984-421b-b128-8fce1c89c7af",
    "metadata": {
-    "slideshow": {
-     "slide_type": "slide"
-    },
     "tags": [
      "remove-cell"
     ]
@@ -469,9 +466,6 @@
    "cell_type": "markdown",
    "id": "9da52508-673f-46a2-9b78-0dc8d2e47051",
    "metadata": {
-    "slideshow": {
-     "slide_type": "slide"
-    },
     "tags": [
      "remove-cell"
     ]
@@ -575,7 +569,7 @@
    },
    "source": [
     "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/influence_1.png\" width=450 height=450 class=\"center\">\n",
+    "<img src=\"_images/influence_1.png\" width=650 height=650 class=\"center\">\n",
     "</p>"
    ]
   },

@@ -191,7 +191,12 @@
   {
    "cell_type": "markdown",
    "id": "1ef0db5a-3f24-4c74-96ac-92a6689a3ad4",
-   "metadata": {},
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    },
+    "tags": []
+   },
    "source": [
     "The second type of influence function IL is similar, except instead of looking at the model parameters, we're looking at the loss function.\n",
     "\n",
