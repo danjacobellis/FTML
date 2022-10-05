@@ -53,7 +53,26 @@
 </script>
 <center> <h1>
 Understanding Black-box Predictions via Influence functions
-</h1> </center><section id="cooks-distance">
+</h1> </center><section id="background-and-caveats">
+<h2>Background and caveats<a class="headerlink" href="#background-and-caveats" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Our goal is to gain insights about how particular training points influence a model</p></li>
+<li><p>Loose definition of “black box” for this work</p>
+<ul>
+<li><p>We <strong>do</strong> need to know the relationship between the loss and the model parameters</p></li>
+<li><p>However, we don’t need to know anything about the model architecture or how it works. Massive DNNs are fine.</p></li>
+</ul>
+</li>
+</ul>
+<p>The idea of examining the influence of particular training samples dates back to at least the 1970s.</p>
+<p>For example, something that is used commonly in linear regression is Cook’s distance.</p>
+<p>Cook’s distance is pretty simple. We want to know how an individual sample affects the prediction</p>
+<p>To find the influence of the ith point, we train a model without that point, and observe the prediction. Here that would be this y with parentheses i.</p>
+<p>We sum up the differences between the predictions with that point and without that point and then normalize by the number of parameters p and the mean squared error s squared.</p>
+<p>That’s cook’s distance. It’s quite useful. We can use it to find influential points for many reasons. We can go see if maybe that point was mislabeled. We can try to understand why that point was influential.</p>
+<p>We can also use it to try to identify where we should sample the next time we go collect data.</p>
+</section>
+<section id="cooks-distance">
 <h2>Cook’s distance<a class="headerlink" href="#cooks-distance" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Dennis Cook, 1970: <em>Detection of influential observation in linear regression</em></p></li>
@@ -66,6 +85,9 @@ Understanding Black-box Predictions via Influence functions
 <li><p>Identify influential points</p></li>
 <li><p>Identify regions to sample when collecting subsequent data</p></li>
 </ul>
+<p>A related quantity is the leverage. You can think of this as the degree to which the ith measured value influences the ith predicted value.</p>
+<p>This is often used to detect outliers. A common heuristic is that if the leverage exceeds some multiple of p over n, the ratio of parameters to samples, then a point is an outlier.</p>
+<p>Next, I’ll define some different types of influence functions but just keep in mind that these functions are trying to do something similar to cook’s distance or leverage, where we’re looking at how particular point influence the model.</p>
 </section>
 <section id="leverage">
 <h2>Leverage<a class="headerlink" href="#leverage" title="Permalink to this headline">¶</a></h2>
@@ -76,6 +98,13 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <li><p><span class="math notranslate nohighlight">\( 0 \leq h_{ii} \leq 1\)</span></p></li>
 <li><p>Common heuristic: <span class="math notranslate nohighlight">\(x_i\)</span> is an outlier if <span class="math notranslate nohighlight">\(h_{ii} &gt; \frac {2p}{n}\)</span></p></li>
 </ul>
+<p>Let’s start with the first type of influence function. Suppose you train a model. You minimize the empirical risk, resulting in some estimate of the best model parameters theta hat.</p>
+<p>This theta hat is a function of the data distribution F. If we had a different set of data that we trained on that came from a different distribution, we would have gotten different estimates for our parameters.</p>
+<p>The influence function is going to examine how a small perturbation in F affects theta hat.</p>
+<p>Lets define F prime to be some new distribution that is almost the same as the original, except we’ve added some mass to a location in the sample space z.</p>
+<p>The first type of influence function which we denote I theta, is like a derivative. It’s the difference in model parameters that we get when changing the distribution in the limit that that change is very small.</p>
+<p>If we’re being very rigorous this is not a normal derivative but a functional one. But I think it’s helpful to think about it the same way you think of any other derivative, as a rate of change.</p>
+<p>So that’s the first type of influence function, the rate of change of the model parameters when we add mass to some point in the distribution z.</p>
 </section>
 <section id="influence-function">
 <h2>Influence function<a class="headerlink" href="#influence-function" title="Permalink to this headline">¶</a></h2>
@@ -93,6 +122,8 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <div class="math notranslate nohighlight">
 \[\mathcal I_{\hat \theta}(z) = \frac{d \hat \theta}{d F}^\dagger =  \lim_{\epsilon \to 0} \left[ \frac{ \hat \theta(F^\prime) - \hat \theta (F) }{\epsilon}\right]\]</div>
 <p><span class="math notranslate nohighlight">\(\dagger\)</span> The derivative here is a functional derivative. In particular it is a Gateaux derivative.</p>
+<p>The second type of influence function IL is similar, except instead of looking at the model parameters, we’re looking at the loss function.</p>
+<p>So, this is the rate of change in the loss function as we add mass to some location z.</p>
 </section>
 <section id="id1">
 <h2>Influence function<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
@@ -104,6 +135,9 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <ul class="simple">
 <li><p>A model is trained resulting in parameters <span class="math notranslate nohighlight">\(\hat \theta\)</span>. We test it on a point <span class="math notranslate nohighlight">\(z_{test}\)</span>. <span class="math notranslate nohighlight">\(\mathcal I_{L}(z,z_{test})\)</span> is the rate at which the loss on <span class="math notranslate nohighlight">\(z_{test}\)</span>  increases as we make the training point <span class="math notranslate nohighlight">\(z\)</span> more prevalent</p></li>
 </ul>
+<p>Finally, we have this third type of influence function I pert</p>
+<p>Instead of just adding a mass to some point in the distribution, we’re also going to remove mass from some other point.</p>
+<p>So this is basically just a difference between to influence functions of the normal type.</p>
 </section>
 <section id="id2">
 <h2>Influence Function<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -112,6 +146,11 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 </ul>
 <div class="math notranslate nohighlight">
 \[\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)\]</div>
+<p>So how do we actually calculate these influence functions?</p>
+<p>Well the simplest approach is to just do something like we did for cook’s distance and just train the model with all points except one point located at z. That will give us the influence function at z.</p>
+<p>Clearly, this can get expensive quickly, so we’d like to have a more efficient method.</p>
+<p>We could have tried to calculate the gradient of the model parameters or the loss function with respect to the data for example.</p>
+<p>However, the authors go one step further. Why stop at the first derivative when we can use the second derivative? So that’s what they do.</p>
 </section>
 <section id="empirical-influence-function">
 <h2>Empirical influence function<a class="headerlink" href="#empirical-influence-function" title="Permalink to this headline">¶</a></h2>
@@ -121,6 +160,11 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <li><p>Train the model with all data, including some sample <span class="math notranslate nohighlight">\(z\)</span>, resulting in <span class="math notranslate nohighlight">\(\hat \theta\)</span></p></li>
 <li><p>To estimate <span class="math notranslate nohighlight">\(\mathcal I_{\hat \theta}(z)\)</span>, train the model without the point <span class="math notranslate nohighlight">\(z\)</span>, resulting in <span class="math notranslate nohighlight">\(\hat \theta _ {(z)}\)</span></p></li>
 </ul>
+<p>We train the model with all of the data, resulting in the estimate of the optimal parameter values theta hat.</p>
+<p>Starting from there, we locally approximate the loss function as a quadratic.</p>
+<p>When we do that we get this result for the influence function.</p>
+<p>We have the gradient of the loss function multiplied by the inverse of the hessian.</p>
+<p>The hessian is just the matrix of second derivatives.</p>
 </section>
 </section>
 <section id="id3">
@@ -160,6 +204,7 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <ul class="simple">
 <li><p>It is <em><strong>very</strong></em> expensive to compute the Hessian. Even just storing the Hessian for a large neural network might be impossible.</p></li>
 <li><p>The “Pearlmutter trick” allows us to calculate a matrix-vector product with the hessian <span class="math notranslate nohighlight">\(\mathbf {Hv}\)</span> <em>exactly</em> with about as much computation as a single gradient evaluation.</p></li>
+<li><p>There are variations of how to do this. Some are exact some are not with tradeoffs in complexity.</p></li>
 <li><p>FOSS libraries rolled out in 2018 that allow you plug in your model and efficiently compute the influence using this method.</p>
 <ul>
 <li><p>Popular one is <a class="reference external" href="https://github.com/darkonhub/darkon">Darkon</a></p></li>
@@ -212,7 +257,7 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <li><p>Consider a point the sample space <span class="math notranslate nohighlight">\(z\)</span> and the surrounding region</p></li>
 <li><p>The training data may be very dense or very sparse in this region</p></li>
 <li><p>When deployed, the density may be quite different</p></li>
-<li><p><span class="math notranslate nohighlight">\(\mathcal I_{pert}(z)\)</span> tells us exactly how we should update the model to account for this</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal I_{\hat \theta, pert}(z)\)</span> tells us exactly how we should update the model to account for this</p></li>
 </ul>
 </section>
 <section id="debugging-mislabeled-examples-and-identifying-places-to-collect-new-data">
