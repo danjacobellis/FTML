@@ -31,7 +31,8 @@
     "</script>\n",
     "\n",
     "<center> <h1>\n",
-    "Data Imbalance, Fairness, and Interpretability\n",
+    "Critique of \"50 Years of Test (Un)fairness\"\n",
+    "<h2>Data Imbalance, Fairness, and Interpretability</h2>\n",
     "</h1> </center>"
    ]
   },
