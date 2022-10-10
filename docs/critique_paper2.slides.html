@@ -50,6 +50,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */
 .highlight .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */
 .highlight .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */
+.highlight .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */
 .highlight .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */
 .highlight .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */
 .highlight .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */
@@ -14495,6 +14496,9 @@ a.anchor-link {
 .reveal {
   font-size: 160%;
 }
+.reveal table {
+  font-size: var(--jp-ui-font-size1);
+}
 .reveal pre {
   width: inherit;
   padding: 0.4em;
@@ -14538,6 +14542,23 @@ div.jp-OutputPrompt {
   margin: 5px 5px 0 0;
 }
 
+.reveal div.highlight {
+  margin: 0;
+}
+
+.reveal div.highlight > pre {
+  margin: 0;
+  width: 100%;
+  font-size: var(--jp-code-font-size);
+}
+
+.reveal div.jp-OutputArea-output > pre {
+  margin: 0;
+  width: 90%;
+  font-size: var(--jp-code-font-size);
+  box-shadow: none;
+}
+
 /* Reveal navigation controls */
 
 .reveal .controls .navigate-left,
@@ -14578,17 +14599,14 @@ div.jp-OutputPrompt {
 
 /* Scrollbars */
 
-::-webkit-scrollbar
-{
+::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
-::-webkit-scrollbar *
-{
-  background:transparent;
+::-webkit-scrollbar * {
+  background: transparent;
 }
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: #727272 !important;
 }
 </style>
@@ -14615,12 +14633,12 @@ div.jp-OutputPrompt {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 }
             });
-        
+
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14643,9 +14661,11 @@ div.jp-OutputPrompt {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <script>
     document.querySelector('head').innerHTML += '<style>.slides { zoom: 1.75 !important; }</style>';
-</script><center> <h1>
+</script>
+<center> <h1>
 Counterfactuals in XAI: <br> A Critique by way of Counterfactuals
 </h1> </center>
+
 </div>
 </div>
 </div>
@@ -14657,7 +14677,7 @@ Counterfactuals in XAI: <br> A Critique by way of Counterfactuals
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Six-%22Insights%22-or-six-cognitive-biases?">Six "Insights" or six cognitive biases?<a class="anchor-link" href="#Six-%22Insights%22-or-six-cognitive-biases?">&#182;</a></h2><ul>
-<li>Authors imagine an "AI agent in an explanatory exchange with a human user"</li>
+<li>Authors imagine an &quot;AI agent in an explanatory exchange with a human user&quot;</li>
 <li>Use these six insights to make explanations involving counterfactuals more compelling.</li>
 <li>These insights each reveal a type of cognitive impairment that can be exploited</li>
 <li>If we're not careful, we can convince people to think whatever we want them to think about our model</li>
@@ -14678,31 +14698,9 @@ Counterfactuals in XAI: <br> A Critique by way of Counterfactuals
 <li>Predict credit risk using age, sex, occupation, etc</li>
 <li><a href="https://christophm.github.io/interpretable-ml-book/counterfactual.html">Source of counterfactual analysis provided here</a></li>
 </ul>
-<table>
-<thead><tr>
-<th style="text-align:center">age</th>
-<th style="text-align:center">sex</th>
-<th style="text-align:center">job</th>
-<th style="text-align:center">housing</th>
-<th style="text-align:center">savings</th>
-<th style="text-align:center">duration</th>
-<th style="text-align:center">purpose</th>
-<th style="text-align:center">risk</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">58</td>
-<td style="text-align:center">f</td>
-<td style="text-align:center">unskilled</td>
-<td style="text-align:center">free</td>
-<td style="text-align:center">little</td>
-<td style="text-align:center">48</td>
-<td style="text-align:center">car</td>
-<td style="text-align:center">24.2 %</td>
-</tr>
-</tbody>
-</table>
+<p>| age | sex |    job    | housing | savings | duration | purpose |  risk  |
+|:---:|:---:|:---------:|:-------:|:-------:|:--------:|:-------:|:------:|
+| 58  | f   | unskilled | free    | little  | 48       | car     | 24.2 % |</p>
 <ul>
 <li>Credit risk of 24% means we predict that the person will pay back the loan 24% of the time.</li>
 </ul>
@@ -14717,41 +14715,10 @@ Counterfactuals in XAI: <br> A Critique by way of Counterfactuals
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Counterfactual-example">Counterfactual example<a class="anchor-link" href="#Counterfactual-example">&#182;</a></h2><table>
-<thead><tr>
-<th style="text-align:center">age</th>
-<th style="text-align:center">sex</th>
-<th style="text-align:center">job</th>
-<th style="text-align:center">housing</th>
-<th style="text-align:center">savings</th>
-<th style="text-align:center">duration</th>
-<th style="text-align:center">purpose</th>
-<th style="text-align:center">risk</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">58</td>
-<td style="text-align:center">f</td>
-<td style="text-align:center"><strong>unskilled</strong></td>
-<td style="text-align:center">free</td>
-<td style="text-align:center">little</td>
-<td style="text-align:center"><strong>48</strong></td>
-<td style="text-align:center">car</td>
-<td style="text-align:center"><strong>24.2 %</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">58</td>
-<td style="text-align:center">f</td>
-<td style="text-align:center"><strong>skilled</strong></td>
-<td style="text-align:center">free</td>
-<td style="text-align:center">little</td>
-<td style="text-align:center"><strong>28</strong></td>
-<td style="text-align:center">car</td>
-<td style="text-align:center"><strong>50.1 %</strong></td>
-</tr>
-</tbody>
-</table>
+<h2 id="Counterfactual-example">Counterfactual example<a class="anchor-link" href="#Counterfactual-example">&#182;</a></h2><p>| age | sex |    job    | housing | savings | duration | purpose |  risk  |
+|:---:|:---:|:---------:|:-------:|:-------:|:--------:|:-------:|:------:|
+| 58  | f   | <strong>unskilled</strong> | free    | little  | <strong>48</strong>       | car     | <strong>24.2 %</strong> |
+| 58  | f   | <strong>skilled</strong> | free    | little  | <strong>28</strong>       | car     | <strong>50.1 %</strong> |</p>
 <ul>
 <li>This counterfactual provides a compelling explanation about how the model is working.</li>
 <li>This explanation implies that the model is working how we would want it to</li>
@@ -14767,41 +14734,10 @@ Counterfactuals in XAI: <br> A Critique by way of Counterfactuals
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Controllability">Controllability<a class="anchor-link" href="#Controllability">&#182;</a></h2><table>
-<thead><tr>
-<th style="text-align:center">age</th>
-<th style="text-align:center">sex</th>
-<th style="text-align:center">job</th>
-<th style="text-align:center">housing</th>
-<th style="text-align:center">savings</th>
-<th style="text-align:center">duration</th>
-<th style="text-align:center">purpose</th>
-<th style="text-align:center">risk</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><strong>58</strong></td>
-<td style="text-align:center"><strong>f</strong></td>
-<td style="text-align:center">unskilled</td>
-<td style="text-align:center">free</td>
-<td style="text-align:center">little</td>
-<td style="text-align:center"><strong>48</strong></td>
-<td style="text-align:center">car</td>
-<td style="text-align:center"><strong>24.2 %</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>55</strong></td>
-<td style="text-align:center"><strong>m</strong></td>
-<td style="text-align:center">unskilled</td>
-<td style="text-align:center">free</td>
-<td style="text-align:center">little</td>
-<td style="text-align:center"><strong>24</strong></td>
-<td style="text-align:center">car</td>
-<td style="text-align:center"><strong>50.1 %</strong></td>
-</tr>
-</tbody>
-</table>
+<h2 id="Controllability">Controllability<a class="anchor-link" href="#Controllability">&#182;</a></h2><p>| age | sex |    job    | housing | savings | duration | purpose |  risk  |
+|:---:|:---:|:---------:|:-------:|:-------:|:--------:|:-------:|:------:|
+| <strong>58</strong>  | <strong>f</strong>   | unskilled | free    | little  | <strong>48</strong>       | car     | <strong>24.2 %</strong> |
+| <strong>55</strong>  | <strong>m</strong>   | unskilled | free    | little  | <strong>24</strong>       | car     | <strong>50.1 %</strong> |</p>
 <ul>
 <li>This counterfactual also provides a compelling explanation about how the model is working</li>
 <li>In this case, one of the modified values (sex) is not something that the person has control over</li>
