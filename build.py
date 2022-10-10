@@ -6,8 +6,10 @@ def build():
     
     if exists("docs"):
         rmtree("docs")
-    result = run(["sphinx-build . docs"],capture_output=True, shell=True)
+    result = run(["sphinx-build", ".", "docs"],capture_output=True)
     print(result.stdout.decode("utf-8"))
+    if exists("jupyter_execute"):
+        rmtree("jupyter_execute")
     Path("docs/.nojekyll").touch()
     
     result = run("jupyter-nbconvert --to slides critique_paper2.ipynb --output docs/critique_paper2 --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags='remove-nb-cell'",capture_output=True, shell=True)
