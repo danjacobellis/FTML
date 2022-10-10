@@ -36,6 +36,26 @@
     "A survey on datasets for fairness-aware machine learning\n",
     "</h1> </center>"
    ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "29c73fa1-5010-4bdf-8e0a-8ef27a39ed99",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "# Three ways to intervene in the name of fairness\n",
+    "\n",
+    "1. Use a different learning algorithm\n",
+    "2. Post processing of the model outputs\n",
+    "3. Interventions in the original data\n",
+    "\n",
+    "* There are many ways that a dataset can lead to an unfair model during ERM\n",
+    "* We need a collection datasets to evaluate potential fairness interventions"
+   ]
   }
  ],
  "metadata": {
