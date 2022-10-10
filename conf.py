@@ -7,7 +7,7 @@ extensions = [
 
 templates_path = ['_templates']
 
-exclude_patterns = ['_build', "README.md"]
+exclude_patterns = ['_build', "README.md", 'Compas-Final.ipynb']
 
 # -- Options for HTML output -------------------------------------------------
 
