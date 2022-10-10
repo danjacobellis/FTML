@@ -9,15 +9,23 @@
     <title>A survey on datasets for fairness-aware machine learning &#8212; Dan Jacobellis | FTML</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.1ae1adf31bcec4f5a66e594d147bbc00e33ac08d67b8f5697420a1436a24298a.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Critique of “50 Years of Test (Un)fairness”" href="critique_50y_fairness.html" />
@@ -41,9 +49,8 @@
 <h1>A survey on datasets for fairness-aware machine learning<a class="headerlink" href="#a-survey-on-datasets-for-fairness-aware-machine-learning" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://wires.onlinelibrary.wiley.com/doi/10.1002/widm.1452">Paper</a></p>
 <p><a class="reference external" href="https://danjacobellis.github.io/FTML/survey_of_datasets.slides.html">Slides</a></p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="three-ways-to-intervene-in-the-name-of-fairness">
-<h1>Three ways to intervene in the name of fairness<a class="headerlink" href="#three-ways-to-intervene-in-the-name-of-fairness" title="Permalink to this headline">¶</a></h1>
+<section id="three-ways-to-intervene-in-the-name-of-fairness">
+<h2>Three ways to intervene in the name of fairness<a class="headerlink" href="#three-ways-to-intervene-in-the-name-of-fairness" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Use a different learning algorithm</p></li>
 <li><p>Post processing of the model outputs</p></li>
@@ -53,6 +60,29 @@
 <li><p>There are many ways that a dataset can lead to an unfair model during ERM</p></li>
 <li><p>We need a collection datasets to evaluate potential fairness interventions</p></li>
 </ul>
+</section>
+<section id="background-and-caveats">
+<h2>Background and caveats<a class="headerlink" href="#background-and-caveats" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>We will only explore tabular data</p></li>
+<li><p>We will use a <strong>Bayesian network (BN)</strong> to explore the relationships between features</p></li>
+<li><p>All numerical features will be discretized to make them categorical</p>
+<ul>
+<li><p>Most BN algorithms cannot efficiently handle numeric features</p></li>
+</ul>
+</li>
+<li><p>We will examine relationships between specific, categorical features. Examples:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(A_1 = \text{sex} \in \{M,F\}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A_2 = \text{race} \in \{\text{white},\text{nonwhite}\}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A_3 = \text{race} \in \{\text{white}, \text{black}, \text{asian-pac-islander}, \text{amer-indian-eskimo}, \text{other}\}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A_4 = \text{age} \in \{ 17, 18, \dots, 90 \}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A_5 = \text{age} \in \{ 0, \dots, 255 \}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A_6 = \text{age} \in \{ 25-60, &lt;25, &gt;60 \}\)</span></p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 
 
@@ -76,8 +106,11 @@
 <li class="toctree-l1"><a class="reference internal" href="critique_paper2.html">Critique of Paper 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="present_paper10.html">Understanding Black-box Predictions via Influence functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="critique_50y_fairness.html">Critique of “50 Years of Test (Un)fairness”</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">A survey on datasets for fairness-aware machine learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#three-ways-to-intervene-in-the-name-of-fairness">Three ways to intervene in the name of fairness</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">A survey on datasets for fairness-aware machine learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#three-ways-to-intervene-in-the-name-of-fairness">Three ways to intervene in the name of fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#background-and-caveats">Background and caveats</a></li>
+</ul>
+</li>
 </ul>
 
 <div class="relations">
