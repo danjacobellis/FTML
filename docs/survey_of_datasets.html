@@ -153,6 +153,8 @@
 <li><p><span class="math notranslate nohighlight">\(\text{SP}\in (0,1]\)</span> occurs when the protected group is discriminated against</p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{SP}\in [-1,0)\)</span> occurs when the unprotected group is discriminated against</p></li>
 </ul>
+<p>Use logistic regression model to get a baseline fairness scores for each dataset.</p>
+<p><img alt="" src="_images/ricci_logistic.png" /></p>
 </div>
 <div class="section" id="bayesian-network-structure-learning">
 <h2>Bayesian network structure learning<a class="headerlink" href="#bayesian-network-structure-learning" title="Permalink to this headline">¶</a></h2>
@@ -173,7 +175,7 @@
 </ul>
 </li>
 </ul>
-<p><img alt="" src="_images/ricci_BN.png" /></p>
+<p><img alt="" src="_images/ricci_BN2.png" /></p>
 </div>
 <div class="section" id="finance-kdd">
 <h2>Finance (KDD)<a class="headerlink" href="#finance-kdd" title="Permalink to this headline">¶</a></h2>
@@ -182,18 +184,20 @@
 <div class="section" id="criminology-compas">
 <h2>Criminology (Compas)<a class="headerlink" href="#criminology-compas" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="balanced-accuracy">
+<h2>Balanced Accuracy<a class="headerlink" href="#balanced-accuracy" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="equalized-odds">
+<h2>Equalized odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="abroca">
+<h2>ABROCA<a class="headerlink" href="#abroca" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="healthcare-diabetes">
 <h2>Healthcare (Diabetes)<a class="headerlink" href="#healthcare-diabetes" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="education-math">
 <h2>Education (Math)<a class="headerlink" href="#education-math" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="methodology">
-<h2>Methodology<a class="headerlink" href="#methodology" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Make all protected classes binary</p></li>
-<li><p>Perform logistic regression</p></li>
-</ul>
 </div>
 <div class="section" id="summary-accuracy-balance-fairness">
 <h2>Summary: accuracy, balance, fairness<a class="headerlink" href="#summary-accuracy-balance-fairness" title="Permalink to this headline">¶</a></h2>
@@ -321,9 +325,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#bayesian-network-structure-learning">Bayesian network structure learning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#finance-kdd">Finance (KDD)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#criminology-compas">Criminology (Compas)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#balanced-accuracy">Balanced Accuracy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#equalized-odds">Equalized odds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#abroca">ABROCA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#healthcare-diabetes">Healthcare (Diabetes)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#education-math">Education (Math)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#methodology">Methodology</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#summary-accuracy-balance-fairness">Summary: accuracy, balance, fairness</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-can-a-model-discrimintate-against-both-classes-simultaneously">How can a model discrimintate against both classes simultaneously?</a></li>
 </ul>

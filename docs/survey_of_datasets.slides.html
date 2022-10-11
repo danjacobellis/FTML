@@ -14803,7 +14803,21 @@ A survey on datasets for fairness-aware machine learning
 <li>$\text{SP}\in (0,1]$ occurs when the protected group is discriminated against</li>
 <li>$\text{SP}\in [-1,0)$ occurs when the unprotected group is discriminated against</li>
 </ul>
+<p>Use logistic regression model to get a baseline fairness scores for each dataset.</p>
 
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/ricci_logistic.png" width=650 height=650 class="center">
+</p>
 </div>
 </div>
 </div>
@@ -14838,7 +14852,7 @@ $$\max_{\scr{M^*}}{\left\{ P(\cal D | \scr M - \gamma \widehat {\scr M} \right\}
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/ricci_BN.png" width=650 height=650 class="center">
+<img src="_images/ricci_BN2.png" width=650 height=650 class="center">
 </p>
 </div>
 </div>
@@ -14866,6 +14880,39 @@ $$\max_{\scr{M^*}}{\left\{ P(\cal D | \scr M - \gamma \widehat {\scr M} \right\}
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Balanced-Accuracy">Balanced Accuracy<a class="anchor-link" href="#Balanced-Accuracy">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Equalized-odds">Equalized odds<a class="anchor-link" href="#Equalized-odds">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="ABROCA">ABROCA<a class="anchor-link" href="#ABROCA">&#182;</a></h2>
+</div>
+</div>
+</div>
 </div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -14885,21 +14932,6 @@ $$\max_{\scr{M^*}}{\left\{ P(\cal D | \scr M - \gamma \widehat {\scr M} \right\}
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Education-(Math)">Education (Math)<a class="anchor-link" href="#Education-(Math)">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Methodology">Methodology<a class="anchor-link" href="#Methodology">&#182;</a></h2><ul>
-<li>Make all protected classes binary</li>
-<li>Perform logistic regression</li>
-</ul>
-
 </div>
 </div>
 </div>
