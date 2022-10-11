@@ -14684,7 +14684,7 @@ A survey on datasets for fairness-aware machine learning
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Background-and-caveats">Background and caveats<a class="anchor-link" href="#Background-and-caveats">&#182;</a></h2><ul>
+<h2 id="Caveats">Caveats<a class="anchor-link" href="#Caveats">&#182;</a></h2><ul>
 <li>We will only explore tabular data</li>
 <li>We will use a <strong>Bayesian network (BN)</strong> to explore the relationships between features</li>
 <li>All numerical features will be discretized to make them categorical<ul>
@@ -14714,8 +14714,8 @@ A survey on datasets for fairness-aware machine learning
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Ricci-v.-DeStefano">Ricci v. DeStefano<a class="anchor-link" href="#Ricci-v.-DeStefano">&#182;</a></h2><ul>
 <li>Firefighter promotions determined by result of exam<ul>
-<li>19 whites, 1 hispanic passed exam</li>
-<li>zero out of 20 black firefighters passed exam</li>
+<li>Mostly whites passed exam</li>
+<li>Few black firefighters passed exam</li>
 <li>Supreme court ruled that <em>ignoring the exam</em> violates 1964 civil rights act</li>
 </ul>
 </li>
@@ -14761,6 +14761,48 @@ A survey on datasets for fairness-aware machine learning
 </tr>
 </tbody>
 </table>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Data-balance">Data balance<a class="anchor-link" href="#Data-balance">&#182;</a></h2><p style="text-align:center;">
+<img src="_images/data_balance.png" width=600 height=600 class="center">
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><img src="img/data_balance.png" alt=""></p>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Statistical-parity-score">Statistical parity score<a class="anchor-link" href="#Statistical-parity-score">&#182;</a></h2>$$\begin{align} \text{SP} &amp;= P(\hat{y}=+|S=\bar s) \\ &amp;- P(\hat{y}=+|S= s)\end{align}$$<ul>
+<li>$s$ is the protected group and $\bar s$ is the unprotected group</li>
+<li>$\text{SP}=0$ occurs when there is no discrimination</li>
+<li>$\text{SP}\in (0,1]$ occurs when the protected group is discriminated against</li>
+<li>$\text{SP}\in [-1,0)$ occurs when the unprotected group is discriminated against</li>
+</ul>
 
 </div>
 </div>
@@ -14853,28 +14895,6 @@ $$\max_{\scr{M^*}}{\left\{ P(\cal D | \scr M - \gamma \widehat {\scr M} \right\}
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Review-of-fairness-metrics">Review of fairness metrics<a class="anchor-link" href="#Review-of-fairness-metrics">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Review-data-balance">Review data balance<a class="anchor-link" href="#Review-data-balance">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Methodology">Methodology<a class="anchor-link" href="#Methodology">&#182;</a></h2><ul>
 <li>Make all protected classes binary</li>
 <li>Perform logistic regression</li>
@@ -14890,7 +14910,62 @@ $$\max_{\scr{M^*}}{\left\{ P(\cal D | \scr M - \gamma \widehat {\scr M} \right\}
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Results-showing-accuracy-and-fairness-measures">Results showing accuracy and fairness measures<a class="anchor-link" href="#Results-showing-accuracy-and-fairness-measures">&#182;</a></h2>
+<h2 id="Summary:-accuracy,-balance,-fairness">Summary: accuracy, balance, fairness<a class="anchor-link" href="#Summary:-accuracy,-balance,-fairness">&#182;</a></h2><table>
+<thead><tr>
+<th>Dataset</th>
+<th>Protected Attribute</th>
+<th>Group Distribution (%)</th>
+<th>Accuracy</th>
+<th>Balanced Accuracy</th>
+<th>Statistical Parity</th>
+<th>Equalized Odds</th>
+<th>ABROCA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ricci</td>
+<td>Race</td>
+<td>[12.7, 29.7, 34.7, 22.9]</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>0.1714</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>COMPAS Recid.</td>
+<td>Race</td>
+<td>[31.5, 28.7, 15.5, 24.3]</td>
+<td>0.6414</td>
+<td>0.6299</td>
+<td>-0.3398</td>
+<td>0.6452</td>
+<td>0.0675</td>
+</tr>
+<tr>
+<td>KDD Census-Income</td>
+<td>Sex</td>
+<td>[1.3, 50.7, 4.8, 43.2]</td>
+<td>0.9474</td>
+<td>0.6031</td>
+<td>0.0198</td>
+<td>0.0403</td>
+<td>0.0074</td>
+</tr>
+<tr>
+<td>Diabetes</td>
+<td>Gender</td>
+<td>[11.1, 34.1, 13.1, 41.7]</td>
+<td>0.7584</td>
+<td>0.5</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>0.0189</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
 </div>
@@ -14901,7 +14976,35 @@ $$\max_{\scr{M^*}}{\left\{ P(\cal D | \scr M - \gamma \widehat {\scr M} \right\}
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="How-can-a-model-discrimintate-against-both-classes-simultaneously?">How can a model discrimintate against both classes simultaneously?<a class="anchor-link" href="#How-can-a-model-discrimintate-against-both-classes-simultaneously?">&#182;</a></h2>
+<h2 id="How-can-a-model-discrimintate-against-both-classes-simultaneously?">How can a model discrimintate against both classes simultaneously?<a class="anchor-link" href="#How-can-a-model-discrimintate-against-both-classes-simultaneously?">&#182;</a></h2><table>
+<thead><tr>
+<th>Dataset</th>
+<th>Protected Attribute</th>
+<th>Group Distribution</th>
+<th>Accuracy</th>
+<th>Balanced Accuracy</th>
+<th>Statistical Parity</th>
+<th>Equalized Odds</th>
+<th>ABROCA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>COMPAS Recid.</td>
+<td>Race</td>
+<td>[31.5, 28.7, 15.5, 24.3]</td>
+<td>0.6414</td>
+<td>0.6299</td>
+<td><strong>-0.3398</strong></td>
+<td>0.6452</td>
+<td>0.0675</td>
+</tr>
+</tbody>
+</table>
+<p>A: Data are heavily imbalanced towards the protected class</p>
+<p style="text-align:center;">
+<img src="_images/ABROCA_COMPAS.png" width=600 height=600 class="center">
+</p>
 </div>
 </div>
 </div>
