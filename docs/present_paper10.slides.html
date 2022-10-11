@@ -50,6 +50,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */
 .highlight .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */
 .highlight .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */
+.highlight .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */
 .highlight .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */
 .highlight .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */
 .highlight .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */
@@ -14495,6 +14496,9 @@ a.anchor-link {
 .reveal {
   font-size: 160%;
 }
+.reveal table {
+  font-size: var(--jp-ui-font-size1);
+}
 .reveal pre {
   width: inherit;
   padding: 0.4em;
@@ -14538,6 +14542,23 @@ div.jp-OutputPrompt {
   margin: 5px 5px 0 0;
 }
 
+.reveal div.highlight {
+  margin: 0;
+}
+
+.reveal div.highlight > pre {
+  margin: 0;
+  width: 100%;
+  font-size: var(--jp-code-font-size);
+}
+
+.reveal div.jp-OutputArea-output > pre {
+  margin: 0;
+  width: 90%;
+  font-size: var(--jp-code-font-size);
+  box-shadow: none;
+}
+
 /* Reveal navigation controls */
 
 .reveal .controls .navigate-left,
@@ -14578,17 +14599,14 @@ div.jp-OutputPrompt {
 
 /* Scrollbars */
 
-::-webkit-scrollbar
-{
+::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
-::-webkit-scrollbar *
-{
-  background:transparent;
+::-webkit-scrollbar * {
+  background: transparent;
 }
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: #727272 !important;
 }
 </style>
@@ -14615,12 +14633,12 @@ div.jp-OutputPrompt {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 }
             });
-        
+
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14643,9 +14661,11 @@ div.jp-OutputPrompt {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <script>
     document.querySelector('head').innerHTML += '<style>.slides { zoom: 1.75 !important; }</style>';
-</script><center> <h1>
+</script>
+<center> <h1>
 Understanding Black-box Predictions via Influence functions
 </h1> </center>
+
 </div>
 </div>
 </div>
@@ -14659,7 +14679,7 @@ Understanding Black-box Predictions via Influence functions
 <h2 id="Background-and-caveats">Background and caveats<a class="anchor-link" href="#Background-and-caveats">&#182;</a></h2><ul>
 <li><p>Our goal is to gain insights about how particular training points influence a model</p>
 </li>
-<li><p>Loose definition of "black box" for this work</p>
+<li><p>Loose definition of &quot;black box&quot; for this work</p>
 <ul>
 <li>We <strong>do</strong> need to know the relationship between the loss and the model parameters</li>
 <li>However, we don't need to know anything about the model architecture or how it works. Massive DNNs are fine.</li>
@@ -14699,7 +14719,7 @@ Understanding Black-box Predictions via Influence functions
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Cook's-distance">Cook's distance<a class="anchor-link" href="#Cook's-distance">&#182;</a></h2><ul>
 <li>Dennis Cook, 1970: <em>Detection of influential observation in linear regression</em></li>
-<li>"Overall summary statistics (e.g. $R^2$, $\beta$) ... present a distorted and misleading picture"</li>
+<li>&quot;Overall summary statistics (e.g. $R^2$, $\beta$) ... present a distorted and misleading picture&quot;</li>
 <li><strong>Cook's distance</strong>: deviation of the model when point $i$ is excluded</li>
 </ul>
 $$D_i = \frac {1}{ps^2} \sum_{j=1}^{n}{(\hat y _j - \hat y_{j(i)}})^2$$<ul>
@@ -14734,9 +14754,10 @@ $$D_i = \frac {1}{ps^2} \sum_{j=1}^{n}{(\hat y _j - \hat y_{j(i)}})^2$$<ul>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Leverage">Leverage<a class="anchor-link" href="#Leverage">&#182;</a></h2><ul>
-<li>Also known as "Self-influence"</li>
-<li>Degree to which the $i$th measured value influences the $i$th predicted value
-$$h_{ii} = \frac {\partial \hat y_i}{\partial y_i}$$</li>
+<li>Also known as &quot;Self-influence&quot;</li>
+<li>Degree to which the $i$th measured value influences the $i$th predicted value</li>
+</ul>
+$$h_{ii} = \frac {\partial \hat y_i}{\partial y_i}$$<ul>
 <li>$ 0 \leq h_{ii} \leq 1$</li>
 <li>Common heuristic: $x_i$ is an outlier if $h_{ii} &gt; \frac {2p}{n}$</li>
 </ul>
@@ -14778,7 +14799,7 @@ $$h_{ii} = \frac {\partial \hat y_i}{\partial y_i}$$</li>
 <li>In particular, we will add at location $z$ in the distribution $F$ an infinitesimal mass $\epsilon \delta_z$, resulting in a new distribution $F^\prime$</li>
 </ul>
 $$F^\prime = F(1-\epsilon) + \epsilon \delta_z$$<ul>
-<li>The influence function is the derivative${}^\dagger$ of a model parameter $\hat \theta$ with respect to the distribution $F$. </li>
+<li>The influence function is the derivative${}^\dagger$ of a model parameter $\hat \theta$ with respect to the distribution $F$.</li>
 </ul>
 $$\mathcal I_{\hat \theta}(z) = \frac{d \hat \theta}{d F}^\dagger =  \lim_{\epsilon \to 0} \left[ \frac{ \hat \theta(F^\prime) - \hat \theta (F) }{\epsilon}\right]$$<p>$\dagger$ The derivative here is a functional derivative. In particular it is a Gateaux derivative.</p>
 
@@ -14843,8 +14864,7 @@ $$\mathcal I_{L}(z) = \frac{d L}{d F} =  \lim_{\epsilon \to 0} \left[ \frac{ \ha
 <h2 id="Influence-Function">Influence Function<a class="anchor-link" href="#Influence-Function">&#182;</a></h2><ul>
 <li>We can also define influence functions that describe the effect of 'moving' a training point</li>
 </ul>
-$$\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)$$<p></p>
-
+$$\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)$$
 </div>
 </div>
 </div>
@@ -14908,7 +14928,7 @@ $$\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)$$<p></p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Empirical-influence-function">Empirical influence function<a class="anchor-link" href="#Empirical-influence-function">&#182;</a></h2><h3 id="Cheaper-approach:-Locally-approximate-shape-of-loss-function">Cheaper approach: Locally approximate shape of loss function<a class="anchor-link" href="#Cheaper-approach:-Locally-approximate-shape-of-loss-function">&#182;</a></h3><ul>
 <li>Start with a model trained on all of the data, including $z,$ resulting in $\hat \theta$</li>
-<li>Use a quadratic approximation of the loss function to estimate the effect of "upweighting" a sample $z$.</li>
+<li>Use a quadratic approximation of the loss function to estimate the effect of &quot;upweighting&quot; a sample $z$.</li>
 </ul>
 $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 <li><p>$\nabla L$ is the gradient. $H$ is the <em>Hessian,</em> the matrix of all partial second derivatives.</p>
@@ -14930,7 +14950,7 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 <h2 id="Quadratic-approximation">Quadratic approximation<a class="anchor-link" href="#Quadratic-approximation">&#182;</a></h2><h3 id="Issue-%231:-Does-the-Hessian-even-exist?">Issue #1: Does the Hessian even exist?<a class="anchor-link" href="#Issue-%231:-Does-the-Hessian-even-exist?">&#182;</a></h3><ul>
 <li><p>We have to pick a nice loss function so that the Hessian is guaranteed to exist.</p>
 <ul>
-<li>Mean absolute error can be replaced with $\log \cosh (s)$. </li>
+<li>Mean absolute error can be replaced with $\log \cosh (s)$.</li>
 <li>Hinge with smooth version $t \log {\left(1+\exp{\left(\frac{1-s}{t}\right)}\right)}.$</li>
 </ul>
 </li>
@@ -14947,9 +14967,9 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Quadratic-approximation">Quadratic approximation<a class="anchor-link" href="#Quadratic-approximation">&#182;</a></h2><h3 id="Issue-%232:-Computing-and-storing-the-Hessian">Issue #2: Computing and storing the Hessian<a class="anchor-link" href="#Issue-%232:-Computing-and-storing-the-Hessian">&#182;</a></h3><ul>
-<li><p>It is <strong><em>very</em></strong> expensive to compute the Hessian. Even just storing the Hessian for a large neural network might be impossible.</p>
+<li><p>It is *<strong>very</strong>* expensive to compute the Hessian. Even just storing the Hessian for a large neural network might be impossible.</p>
 </li>
-<li><p>The "Pearlmutter trick" allows us to calculate a matrix-vector product with the hessian $\mathbf {Hv}$ <em>exactly</em> with about as much computation as a single gradient evaluation.</p>
+<li><p>The &quot;Pearlmutter trick&quot; allows us to calculate a matrix-vector product with the hessian $\mathbf {Hv}$ <em>exactly</em> with about as much computation as a single gradient evaluation.</p>
 </li>
 <li><p>There are variations of how to do this. Some are exact some are not with tradeoffs in complexity.</p>
 </li>
@@ -14998,6 +15018,7 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 <p style="text-align:center;">
 <img src="_images/performance_1.png" width=650 height=650 class="center">
 </p>
+
 </div>
 </div>
 </div>
@@ -15022,6 +15043,7 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 <p style="text-align:center;">
 <img src="_images/hinge_1.png" width=750 height=750 class="center">
 </p>
+
 </div>
 </div>
 </div>
@@ -15059,6 +15081,7 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 <p style="text-align:center;">
 <img src="_images/harmful_1.png" width=450 height=450 class="center">
 </p>
+
 </div>
 </div>
 </div>
@@ -15091,6 +15114,7 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 <p style="text-align:center;">
 <img src="_images/influence_1.png" width=650 height=650 class="center">
 </p>
+
 </div>
 </div>
 </div>
@@ -15135,6 +15159,7 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 <p style="text-align:center;">
 <img src="_images/mislabeled_1.png" width=250 height=250 class="center">
 </p>
+
 </div>
 </div>
 </div>
@@ -15165,6 +15190,7 @@ $$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$<ul>
 <p style="text-align:center;">
 <img src="_images/adversarial_1.png" width=750 height=750 class="center">
 </p>
+
 </div>
 </div>
 </div>
