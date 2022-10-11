@@ -34,7 +34,7 @@ myst_enable_extensions = [
     "smartquotes",
     "substitution",
     "tasklist",
-z]
+]
 
 jupyter_execute_notebooks = "off"
 
