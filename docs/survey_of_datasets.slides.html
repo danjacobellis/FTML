@@ -50,7 +50,6 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */
 .highlight .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */
 .highlight .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */
-.highlight .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */
 .highlight .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */
 .highlight .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */
 .highlight .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */
@@ -14496,9 +14495,6 @@ a.anchor-link {
 .reveal {
   font-size: 160%;
 }
-.reveal table {
-  font-size: var(--jp-ui-font-size1);
-}
 .reveal pre {
   width: inherit;
   padding: 0.4em;
@@ -14542,23 +14538,6 @@ div.jp-OutputPrompt {
   margin: 5px 5px 0 0;
 }
 
-.reveal div.highlight {
-  margin: 0;
-}
-
-.reveal div.highlight > pre {
-  margin: 0;
-  width: 100%;
-  font-size: var(--jp-code-font-size);
-}
-
-.reveal div.jp-OutputArea-output > pre {
-  margin: 0;
-  width: 90%;
-  font-size: var(--jp-code-font-size);
-  box-shadow: none;
-}
-
 /* Reveal navigation controls */
 
 .reveal .controls .navigate-left,
@@ -14599,14 +14578,17 @@ div.jp-OutputPrompt {
 
 /* Scrollbars */
 
-::-webkit-scrollbar {
+::-webkit-scrollbar
+{
   width: 6px;
   height: 6px;
 }
-::-webkit-scrollbar * {
-  background: transparent;
+::-webkit-scrollbar *
+{
+  background:transparent;
 }
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb
+{
   background: #727272 !important;
 }
 </style>
@@ -14633,12 +14615,12 @@ div.jp-OutputPrompt {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: {
-                    automatic: true
+                    linebreaks: { 
+                    automatic: true 
                     }
                 }
             });
-
+        
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14661,11 +14643,9 @@ div.jp-OutputPrompt {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <script>
     document.querySelector('head').innerHTML += '<style>.slides { zoom: 1.75 !important; }</style>';
-</script>
-<center> <h1>
+</script><center> <h1>
 A survey on datasets for fairness-aware machine learning
 </h1> </center>
-
 </div>
 </div>
 </div>
@@ -14714,7 +14694,7 @@ A survey on datasets for fairness-aware machine learning
 <li>We will examine relationships between specific, categorical features. Examples:<ul>
 <li>$A_1 = \text{sex} \in \{M,F\}$</li>
 <li>$A_2 = \text{race} \in \{\text{white},\text{nonwhite}\}$</li>
-<li>$A_3 = \text{race} \in \{\text{white}, \text{black}, \text{asian-pac-islander}, \text{amer-indian-eskimo}, \text{other}\}$</li>
+<li>$A_3 = \text{race} \in \{\text{white}, \text{black}, \text{asian-pac-islander}, \text{amer-indian}, \text{other}\}$</li>
 <li>$A_4 = \text{age} \in \{ 17, 18, \dots, 90 \}$</li>
 <li>$A_5 = \text{age} \in \{ 0, \dots, 255 \}$</li>
 <li>$A_6 = \text{age} \in \{ 25-60, &lt;25, &gt;60 \}$</li>
@@ -14740,6 +14720,47 @@ A survey on datasets for fairness-aware machine learning
 </ul>
 </li>
 </ul>
+<p>&nbsp;</p>
+<table>
+<thead><tr>
+<th>Attribute</th>
+<th>Values</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Position</td>
+<td>{Lieutenant,Captain}</td>
+<td>Desired promotion</td>
+</tr>
+<tr>
+<td>Race</td>
+<td>{White, Non-White}</td>
+<td>Self identified race</td>
+</tr>
+<tr>
+<td>Written</td>
+<td>[46-95]</td>
+<td>Written exam score</td>
+</tr>
+<tr>
+<td>Oral</td>
+<td>[40.83-92.8]</td>
+<td>Oral exam score</td>
+</tr>
+<tr>
+<td>Combined</td>
+<td>[45.93-92.8]</td>
+<td>0.6 *written + 0.4*oral</td>
+</tr>
+<tr>
+<td>Promoted</td>
+<td>{True,False}</td>
+<td>Whether a promotion was obtained</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>
@@ -14751,30 +14772,23 @@ A survey on datasets for fairness-aware machine learning
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Ricci-v.-DeStefano">Ricci v. DeStefano<a class="anchor-link" href="#Ricci-v.-DeStefano">&#182;</a></h2><p>| Attribute | Values               | Description                      |
-|-----------|----------------------|----------------------------------|
-| Position  | {Lieutenant,Captain} | Desired promotion                |
-| Race      | {White, Non-White}   | Self identified race             |
-| Written   | [46-95]              | Written exam score               |
-| Oral      | [40.83-92.8]         | Oral exam score                  |
-| Combined  | [45.93-92.8]         | 0.6 *written + 0.4*oral        |
-| Promoted  | {True,False}         | Whether a promotion was obtained |</p>
+<h2 id="Bayesian-network-structure-learning">Bayesian network structure learning<a class="anchor-link" href="#Bayesian-network-structure-learning">&#182;</a></h2><ul>
+<li>The structure of the network $\scr{M}$ should maximize the likelihood of generating the dataset $\cal{D}$</li>
+<li>Regularize the parameters of the network $\widehat{\scr{M}}$ (i.e. the edges of the graph)</li>
+<li>Ensure that the protected attribute $y$ is a leaf node</li>
+</ul>
+$$\max_{\scr{M^*}}{\left\{ P(\cal D | \scr M - \gamma \widehat {\scr M} \right\}}$$$$ \text{subject to } y\in \scr L$$<ul>
+<li>Optimization completed using the <a href="https://pomegranate.readthedocs.io/en/latest/BayesianNetwork.html">pomegranate</a> software<ul>
+<li>Exact and approximate algorithms are available</li>
+<li>All of the datasets used are small enough to use exact algorithms</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Ricci-v.-DeStefano">Ricci v. DeStefano<a class="anchor-link" href="#Ricci-v.-DeStefano">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -14782,9 +14796,8 @@ A survey on datasets for fairness-aware machine learning
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/ricci_BN.png" width=600 height=600 class="center">
+<img src="_images/ricci_BN.png" width=650 height=650 class="center">
 </p>
-
 </div>
 </div>
 </div>
