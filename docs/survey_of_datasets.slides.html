@@ -50,7 +50,6 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */
 .highlight .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */
 .highlight .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */
-.highlight .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */
 .highlight .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */
 .highlight .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */
 .highlight .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */
@@ -14496,9 +14495,6 @@ a.anchor-link {
 .reveal {
   font-size: 160%;
 }
-.reveal table {
-  font-size: var(--jp-ui-font-size1);
-}
 .reveal pre {
   width: inherit;
   padding: 0.4em;
@@ -14542,23 +14538,6 @@ div.jp-OutputPrompt {
   margin: 5px 5px 0 0;
 }
 
-.reveal div.highlight {
-  margin: 0;
-}
-
-.reveal div.highlight > pre {
-  margin: 0;
-  width: 100%;
-  font-size: var(--jp-code-font-size);
-}
-
-.reveal div.jp-OutputArea-output > pre {
-  margin: 0;
-  width: 90%;
-  font-size: var(--jp-code-font-size);
-  box-shadow: none;
-}
-
 /* Reveal navigation controls */
 
 .reveal .controls .navigate-left,
@@ -14599,14 +14578,17 @@ div.jp-OutputPrompt {
 
 /* Scrollbars */
 
-::-webkit-scrollbar {
+::-webkit-scrollbar
+{
   width: 6px;
   height: 6px;
 }
-::-webkit-scrollbar * {
-  background: transparent;
+::-webkit-scrollbar *
+{
+  background:transparent;
 }
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb
+{
   background: #727272 !important;
 }
 </style>
@@ -14633,12 +14615,12 @@ div.jp-OutputPrompt {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: {
-                    automatic: true
+                    linebreaks: { 
+                    automatic: true 
                     }
                 }
             });
-
+        
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14661,11 +14643,9 @@ div.jp-OutputPrompt {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <script>
     document.querySelector('head').innerHTML += '<style>.slides { zoom: 1.75 !important; }</style>';
-</script>
-<center> <h1>
+</script><center> <h1>
 A survey on datasets for fairness-aware machine learning
 </h1> </center>
-
 </div>
 </div>
 </div>
@@ -14735,13 +14715,59 @@ A survey on datasets for fairness-aware machine learning
 <h2 id="Overview-of-Datasets">Overview of Datasets<a class="anchor-link" href="#Overview-of-Datasets">&#182;</a></h2><ul>
 <li>Fifteen datasets total. Five representative shown below.</li>
 </ul>
-<p>|       Dataset       |   Attributes (cat/bin/num) |    Domain   | Class Ratio | Protected Attributes |        Target       |
-|:-------------------:|:--------------------------:|:-----------:|:-----------:|:--------------------:|:-------------------:|
-| KDD Census-Income   | 32/2/7                     | Finance     | 1:15.3      | Sex, race            | Income              |
-| Ricci               | 0/3/3                      | Society     | 1:1.1       | Race                 | Promotion           |
-| COMPAS Recid.       | 31/6/14                    | Criminology | 1:1.2       | Race, sex            | Two-year recidivism |
-| Diabetes            | 33/7/10                    | Healthcare  | 1:3.1       | Gender               | Readmit in 30 days  |
-| Student-Mathematics | 4/13/16                    | Education   | 1:2.0       | Sex, age             | Final grade         |</p>
+<table>
+<thead><tr>
+<th style="text-align:center">Dataset</th>
+<th style="text-align:center">Attributes (cat/bin/num)</th>
+<th style="text-align:center">Domain</th>
+<th style="text-align:center">Class Ratio</th>
+<th style="text-align:center">Protected Attributes</th>
+<th style="text-align:center">Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">KDD Census-Income</td>
+<td style="text-align:center">32/2/7</td>
+<td style="text-align:center">Finance</td>
+<td style="text-align:center">1:15.3</td>
+<td style="text-align:center">Sex, race</td>
+<td style="text-align:center">Income</td>
+</tr>
+<tr>
+<td style="text-align:center">Ricci</td>
+<td style="text-align:center">0/3/3</td>
+<td style="text-align:center">Society</td>
+<td style="text-align:center">1:1.1</td>
+<td style="text-align:center">Race</td>
+<td style="text-align:center">Promotion</td>
+</tr>
+<tr>
+<td style="text-align:center">COMPAS Recid.</td>
+<td style="text-align:center">31/6/14</td>
+<td style="text-align:center">Criminology</td>
+<td style="text-align:center">1:1.2</td>
+<td style="text-align:center">Race, sex</td>
+<td style="text-align:center">Two-year recidivism</td>
+</tr>
+<tr>
+<td style="text-align:center">Diabetes</td>
+<td style="text-align:center">33/7/10</td>
+<td style="text-align:center">Healthcare</td>
+<td style="text-align:center">1:3.1</td>
+<td style="text-align:center">Gender</td>
+<td style="text-align:center">Readmit in 30 days</td>
+</tr>
+<tr>
+<td style="text-align:center">Student-Mathematics</td>
+<td style="text-align:center">4/13/16</td>
+<td style="text-align:center">Education</td>
+<td style="text-align:center">1:2.0</td>
+<td style="text-align:center">Sex, age</td>
+<td style="text-align:center">Final grade</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>
@@ -14761,15 +14787,47 @@ A survey on datasets for fairness-aware machine learning
 </ul>
 </li>
 </ul>
-<p> </p>
-<p>| Attribute | Values               | Description                      |
-|-----------|----------------------|----------------------------------|
-| Position  | {Lieutenant,Captain} | Desired promotion                |
-| Race      | {White, Non-White}   | Self identified race             |
-| Written   | [46-95]              | Written exam score               |
-| Oral      | [40.83-92.8]         | Oral exam score                  |
-| Combined  | [45.93-92.8]         | 0.6 *written + 0.4*oral        |
-| Promoted  | {True,False}         | Whether a promotion was obtained |</p>
+<p>&nbsp;</p>
+<table>
+<thead><tr>
+<th>Attribute</th>
+<th>Values</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Position</td>
+<td>{Lieutenant,Captain}</td>
+<td>Desired promotion</td>
+</tr>
+<tr>
+<td>Race</td>
+<td>{White, Non-White}</td>
+<td>Self identified race</td>
+</tr>
+<tr>
+<td>Written</td>
+<td>[46-95]</td>
+<td>Written exam score</td>
+</tr>
+<tr>
+<td>Oral</td>
+<td>[40.83-92.8]</td>
+<td>Oral exam score</td>
+</tr>
+<tr>
+<td>Combined</td>
+<td>[45.93-92.8]</td>
+<td>0.6 *written + 0.4*oral</td>
+</tr>
+<tr>
+<td>Promoted</td>
+<td>{True,False}</td>
+<td>Whether a promotion was obtained</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>
@@ -14784,7 +14842,6 @@ A survey on datasets for fairness-aware machine learning
 <h2 id="Data-balance">Data balance<a class="anchor-link" href="#Data-balance">&#182;</a></h2><p style="text-align:center;">
 <img src="_images/data_balance.png" width=600 height=600 class="center">
 </p>
-
 </div>
 </div>
 </div>
@@ -14816,7 +14873,6 @@ A survey on datasets for fairness-aware machine learning
 <p style="text-align:center;">
 <img src="_images/ricci_logistic.png" width=650 height=650 class="center">
 </p>
-
 </div>
 </div>
 </div>
@@ -14853,7 +14909,6 @@ $$\max_{\scr{M^*}}{\left\{ P(\cal D | \scr M - \gamma \widehat {\scr M} \right\}
 <p style="text-align:center;">
 <img src="_images/ricci_BN2.png" width=650 height=650 class="center">
 </p>
-
 </div>
 </div>
 </div>
@@ -14867,7 +14922,6 @@ $$\max_{\scr{M^*}}{\left\{ P(\cal D | \scr M - \gamma \widehat {\scr M} \right\}
 <p style="text-align:center;">
 <img src="_images/diatbetes_bayesian.png" width=650 height=650 class="center">
 </p>
-
 </div>
 </div>
 </div>
@@ -14879,11 +14933,43 @@ $$\max_{\scr{M^*}}{\left\{ P(\cal D | \scr M - \gamma \widehat {\scr M} \right\}
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Balanced-Accuracy">Balanced Accuracy<a class="anchor-link" href="#Balanced-Accuracy">&#182;</a></h2>$$ \text{Accuracy} = \frac{ \text{TP} + \text{TN}}{\text{TP} + \text{TN}+\text{FP} + \text{FN}}$$$$ \begin{align}\text{Balanced Accuracy} &amp;= \frac 1 2 \left( \frac{\text{TP}}{\text{TP}+\text{FN}} + \frac{\text{TN}}{\text{TN}+\text{FP}} \right)\\
-&amp;= \frac 1 2 \left( \text{sensitivity} + \text{specificity} \right) \end{align}$$<p>| Student:   | 94% Acc.          | 93% Balanced      | KDD Income: | 94% Acc.        | 60% Balanced   |
-|------------|-------------------|-------------------|-------------|-----------------|----------------|
-|   <strong>Sex</strong>  | <strong>Passing Grade</strong> | <strong>Failing grade</strong> | <strong>Sex</strong>     | <strong>Low income</strong> | <strong>High income</strong> |
-| <strong>Male</strong>   | 33.7%             | 19.0%             | <strong>Male</strong>    | 1.3%            | 50.7%          |
-| <strong>Female</strong> | 33.3%             | 13.9%             | <strong>Female</strong>  | 4.8%            | 43.2%          |</p>
+&amp;= \frac 1 2 \left( \text{sensitivity} + \text{specificity} \right) \end{align}$$<table>
+<thead><tr>
+<th>Student:</th>
+<th>94% Acc.</th>
+<th>93% Balanced</th>
+<th>KDD Income:</th>
+<th>94% Acc.</th>
+<th>60% Balanced</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sex</strong></td>
+<td><strong>Passing Grade</strong></td>
+<td><strong>Failing grade</strong></td>
+<td><strong>Sex</strong></td>
+<td><strong>Low income</strong></td>
+<td><strong>High income</strong></td>
+</tr>
+<tr>
+<td><strong>Male</strong></td>
+<td>33.7%</td>
+<td>19.0%</td>
+<td><strong>Male</strong></td>
+<td>1.3%</td>
+<td>50.7%</td>
+</tr>
+<tr>
+<td><strong>Female</strong></td>
+<td>33.3%</td>
+<td>13.9%</td>
+<td><strong>Female</strong></td>
+<td>4.8%</td>
+<td>43.2%</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>
@@ -14937,7 +15023,6 @@ $$\begin{align} \text{ABROCA} &amp;= \text{ Absolute between-ROC area} \\ &amp;=
 <p style="text-align:center;">
 <img src="_images/abroca_mix.png" width=600 height=600 class="center">
 </p>
-
 </div>
 </div>
 </div>
@@ -14948,14 +15033,35 @@ $$\begin{align} \text{ABROCA} &amp;= \text{ Absolute between-ROC area} \\ &amp;=
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="How-can-a-model-discrimintate-against-both-classes-simultaneously?">How can a model discrimintate against both classes simultaneously?<a class="anchor-link" href="#How-can-a-model-discrimintate-against-both-classes-simultaneously?">&#182;</a></h2><p>| Dataset           | Protected Attribute | Group Distribution | Accuracy | Balanced Accuracy | Statistical Parity | Equalized Odds | ABROCA |
-|-------------------|---------------------|-----------------------------------------|----------|-------------------|--------------------|----------------|--------|
-| COMPAS Recid.     | Race                | [31.5, 28.7, 15.5, 24.3]                | 0.6414   | 0.6299            | <strong>-0.3398</strong>        | 0.6452         | 0.0675 |</p>
+<h2 id="How-can-a-model-discrimintate-against-both-classes-simultaneously?">How can a model discrimintate against both classes simultaneously?<a class="anchor-link" href="#How-can-a-model-discrimintate-against-both-classes-simultaneously?">&#182;</a></h2><table>
+<thead><tr>
+<th>Dataset</th>
+<th>Protected Attribute</th>
+<th>Group Distribution</th>
+<th>Accuracy</th>
+<th>Balanced Accuracy</th>
+<th>Statistical Parity</th>
+<th>Equalized Odds</th>
+<th>ABROCA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>COMPAS Recid.</td>
+<td>Race</td>
+<td>[31.5, 28.7, 15.5, 24.3]</td>
+<td>0.6414</td>
+<td>0.6299</td>
+<td><strong>-0.3398</strong></td>
+<td>0.6452</td>
+<td>0.0675</td>
+</tr>
+</tbody>
+</table>
 <p>A: Data are heavily imbalanced towards the protected class</p>
 <p style="text-align:center;">
 <img src="_images/ABROCA_COMPAS.png" width=600 height=600 class="center">
 </p>
-
 </div>
 </div>
 </div>
@@ -14966,12 +15072,61 @@ $$\begin{align} \text{ABROCA} &amp;= \text{ Absolute between-ROC area} \\ &amp;=
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Summary:-accuracy,-balance,-fairness">Summary: accuracy, balance, fairness<a class="anchor-link" href="#Summary:-accuracy,-balance,-fairness">&#182;</a></h2><p>| Dataset           | Protected Attribute | Group Distribution (%) | Accuracy | Balanced Accuracy | Statistical Parity | Equalized Odds | ABROCA |
-|-------------------|---------------------|-----------------------------------------|----------|-------------------|--------------------|----------------|--------|
-| Ricci             | Race                | [12.7, 29.7, 34.7, 22.9]                | N/A      | N/A               | 0.1714             | N/A            | N/A    |
-| COMPAS Recid.     | Race                | [31.5, 28.7, 15.5, 24.3]                | 0.6414   | 0.6299            | -0.3398            | 0.6452         | 0.0675 |
-| KDD Census-Income | Sex                 | [1.3, 50.7, 4.8, 43.2]                  | 0.9474   | 0.6031            | 0.0198             | 0.0403         | 0.0074 |
-| Diabetes          | Gender              | [11.1, 34.1, 13.1, 41.7]                | 0.7584   | 0.5               | N/A                | N/A            | 0.0189 |</p>
+<h2 id="Summary:-accuracy,-balance,-fairness">Summary: accuracy, balance, fairness<a class="anchor-link" href="#Summary:-accuracy,-balance,-fairness">&#182;</a></h2><table>
+<thead><tr>
+<th>Dataset</th>
+<th>Protected Attribute</th>
+<th>Group Distribution (%)</th>
+<th>Accuracy</th>
+<th>Balanced Accuracy</th>
+<th>Statistical Parity</th>
+<th>Equalized Odds</th>
+<th>ABROCA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ricci</td>
+<td>Race</td>
+<td>[12.7, 29.7, 34.7, 22.9]</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>0.1714</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>COMPAS Recid.</td>
+<td>Race</td>
+<td>[31.5, 28.7, 15.5, 24.3]</td>
+<td>0.6414</td>
+<td>0.6299</td>
+<td>-0.3398</td>
+<td>0.6452</td>
+<td>0.0675</td>
+</tr>
+<tr>
+<td>KDD Census-Income</td>
+<td>Sex</td>
+<td>[1.3, 50.7, 4.8, 43.2]</td>
+<td>0.9474</td>
+<td>0.6031</td>
+<td>0.0198</td>
+<td>0.0403</td>
+<td>0.0074</td>
+</tr>
+<tr>
+<td>Diabetes</td>
+<td>Gender</td>
+<td>[11.1, 34.1, 13.1, 41.7]</td>
+<td>0.7584</td>
+<td>0.5</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>0.0189</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>

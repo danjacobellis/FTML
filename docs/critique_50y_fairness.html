@@ -1,16 +1,15 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Critique of “50 Years of Test (Un)fairness” &#8212; Dan Jacobellis | FTML</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
@@ -18,14 +17,11 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="A survey on datasets for fairness-aware machine learning" href="survey_of_datasets.html" />
@@ -46,31 +42,31 @@
 
           <div class="body" role="main">
             
-  <section id="critique-of-50-years-of-test-un-fairness">
-<h1>Critique of “50 Years of Test (Un)fairness”<a class="headerlink" href="#critique-of-50-years-of-test-un-fairness" title="Permalink to this heading">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="critique-of-50-years-of-test-un-fairness">
+<h1>Critique of “50 Years of Test (Un)fairness”<a class="headerlink" href="#critique-of-50-years-of-test-un-fairness" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://danjacobellis.github.io/FTML/critique_50y_fairness.slides.html">Slides</a></p>
-<section id="context-of-fairness-definitions-and-measures">
-<h2>Context of fairness definitions and measures<a class="headerlink" href="#context-of-fairness-definitions-and-measures" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="context-of-fairness-definitions-and-measures">
+<h2>Context of fairness definitions and measures<a class="headerlink" href="#context-of-fairness-definitions-and-measures" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Train a model on some data</p></li>
 <li><p>Examine the behavior of the trained model</p>
 <ul>
 <li><p>Functions of TP, FP, TN, FN (e.g. sufficiency or separation)</p></li>
-<li><p>Correlation $\rho_{AR}$ between demographic feature $A$ and prediction $R$</p></li>
+<li><p>Correlation <span class="math notranslate nohighlight">\(\rho_{AR}\)</span> between demographic feature <span class="math notranslate nohighlight">\(A\)</span> and prediction <span class="math notranslate nohighlight">\(R\)</span></p></li>
 </ul>
 </li>
 </ul>
-</section>
-<section id="data-vs-model-fairness">
-<h2>Data vs Model Fairness<a class="headerlink" href="#data-vs-model-fairness" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="data-vs-model-fairness">
+<h2>Data vs Model Fairness<a class="headerlink" href="#data-vs-model-fairness" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>The same procedure may lead to a fair or unfair model depending on the data</p></li>
 <li><p>The <em>balance</em> will determine which types of fairness are achieved during ERM</p></li>
 </ul>
 <p><img alt="" src="_images/data_balance.png" /></p>
-</section>
-<section id="interpretability-vs-fairness">
-<h2>Interpretability vs Fairness<a class="headerlink" href="#interpretability-vs-fairness" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="interpretability-vs-fairness">
+<h2>Interpretability vs Fairness<a class="headerlink" href="#interpretability-vs-fairness" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Example: CORALS algorithm</p></li>
 </ul>
@@ -82,9 +78,9 @@
 </ul>
 </li>
 </ul>
-</section>
-<section id="what-is-the-takeaway-supposed-to-be">
-<h2>What is the takeaway supposed to be?<a class="headerlink" href="#what-is-the-takeaway-supposed-to-be" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="what-is-the-takeaway-supposed-to-be">
+<h2>What is the takeaway supposed to be?<a class="headerlink" href="#what-is-the-takeaway-supposed-to-be" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>The author’s advise us to look into the behavior of unfair models to debug them</p>
 <ul>
@@ -97,8 +93,8 @@
 </ul>
 </li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
           </div>
@@ -148,7 +144,7 @@
     </form>
     </div>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -165,7 +161,7 @@
       &copy;.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.2.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
