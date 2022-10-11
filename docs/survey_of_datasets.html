@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -18,14 +18,14 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Critique of “50 Years of Test (Un)fairness”" href="critique_50y_fairness.html" />
@@ -45,12 +45,12 @@
 
           <div class="body" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="a-survey-on-datasets-for-fairness-aware-machine-learning">
-<h1>A survey on datasets for fairness-aware machine learning<a class="headerlink" href="#a-survey-on-datasets-for-fairness-aware-machine-learning" title="Permalink to this headline">¶</a></h1>
+  <section id="a-survey-on-datasets-for-fairness-aware-machine-learning">
+<h1>A survey on datasets for fairness-aware machine learning<a class="headerlink" href="#a-survey-on-datasets-for-fairness-aware-machine-learning" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://wires.onlinelibrary.wiley.com/doi/10.1002/widm.1452">Paper</a></p>
 <p><a class="reference external" href="https://danjacobellis.github.io/FTML/survey_of_datasets.slides.html">Slides</a></p>
 <section id="three-ways-to-intervene-in-the-name-of-fairness">
-<h2>Three ways to intervene in the name of fairness<a class="headerlink" href="#three-ways-to-intervene-in-the-name-of-fairness" title="Permalink to this headline">¶</a></h2>
+<h2>Three ways to intervene in the name of fairness<a class="headerlink" href="#three-ways-to-intervene-in-the-name-of-fairness" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Interventions in the original data</p>
 <ul>
@@ -73,7 +73,7 @@
 </ul>
 </section>
 <section id="caveats">
-<h2>Caveats<a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h2>
+<h2>Caveats<a class="headerlink" href="#caveats" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>We will only explore tabular data</p></li>
 <li><p>We will use a <strong>Bayesian network (BN)</strong> to explore the relationships between features</p></li>
@@ -84,25 +84,25 @@
 </li>
 <li><p>We will examine relationships between specific, categorical features. Examples:</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(A_1 = \text{sex} \in \{M,F\}\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(A_2 = \text{race} \in \{\text{white},\text{nonwhite}\}\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(A_3 = \text{race} \in \{\text{white}, \text{black}, \text{asian-pac-islander}, \text{amer-indian}, \text{other}\}\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(A_4 = \text{age} \in \{ 17, 18, \dots, 90 \}\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(A_5 = \text{age} \in \{ 0, \dots, 255 \}\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(A_6 = \text{age} \in \{ 25-60, &lt;25, &gt;60 \}\)</span></p></li>
+<li><p>$A_1 = \text{sex} \in {M,F}$</p></li>
+<li><p>$A_2 = \text{race} \in {\text{white},\text{nonwhite}}$</p></li>
+<li><p>$A_3 = \text{race} \in {\text{white}, \text{black}, \text{asian-pac-islander}, \text{amer-indian}, \text{other}}$</p></li>
+<li><p>$A_4 = \text{age} \in { 17, 18, \dots, 90 }$</p></li>
+<li><p>$A_5 = \text{age} \in { 0, \dots, 255 }$</p></li>
+<li><p>$A_6 = \text{age} \in { 25-60, &lt;25, &gt;60 }$</p></li>
 </ul>
 </li>
 </ul>
 </section>
 <section id="overview-of-datasets">
-<h2>Overview of Datasets<a class="headerlink" href="#overview-of-datasets" title="Permalink to this headline">¶</a></h2>
+<h2>Overview of Datasets<a class="headerlink" href="#overview-of-datasets" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Fifteen datasets total. Five representative shown below.</p></li>
 </ul>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="text-center head"><p>Dataset</p></th>
-<th class="head"><p># Attributes (cat/bin/num)</p></th>
+<th class="text-center head"><p>Attributes (cat/bin/num)</p></th>
 <th class="text-center head"><p>Domain</p></th>
 <th class="text-center head"><p>Class Ratio</p></th>
 <th class="text-center head"><p>Protected Attributes</p></th>
@@ -111,35 +111,35 @@
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-center"><p>KDD Census-Income</p></td>
-<td><p>32/2/7</p></td>
+<td class="text-center"><p>32/2/7</p></td>
 <td class="text-center"><p>Finance</p></td>
 <td class="text-center"><p>1:15.3</p></td>
 <td class="text-center"><p>Sex, race</p></td>
 <td class="text-center"><p>Income</p></td>
 </tr>
 <tr class="row-odd"><td class="text-center"><p>Ricci</p></td>
-<td><p>0/3/3</p></td>
+<td class="text-center"><p>0/3/3</p></td>
 <td class="text-center"><p>Society</p></td>
 <td class="text-center"><p>1:1.1</p></td>
 <td class="text-center"><p>Race</p></td>
 <td class="text-center"><p>Promotion</p></td>
 </tr>
 <tr class="row-even"><td class="text-center"><p>COMPAS Recid.</p></td>
-<td><p>31/6/14</p></td>
+<td class="text-center"><p>31/6/14</p></td>
 <td class="text-center"><p>Criminology</p></td>
 <td class="text-center"><p>1:1.2</p></td>
 <td class="text-center"><p>Race, sex</p></td>
 <td class="text-center"><p>Two-year recidivism</p></td>
 </tr>
 <tr class="row-odd"><td class="text-center"><p>Diabetes</p></td>
-<td><p>33/7/10</p></td>
+<td class="text-center"><p>33/7/10</p></td>
 <td class="text-center"><p>Healthcare</p></td>
 <td class="text-center"><p>1:3.1</p></td>
 <td class="text-center"><p>Gender</p></td>
 <td class="text-center"><p>Readmit in 30 days</p></td>
 </tr>
 <tr class="row-even"><td class="text-center"><p>Student-Mathematics</p></td>
-<td><p>4/13/16</p></td>
+<td class="text-center"><p>4/13/16</p></td>
 <td class="text-center"><p>Education</p></td>
 <td class="text-center"><p>1:2.0</p></td>
 <td class="text-center"><p>Sex, age</p></td>
@@ -147,10 +147,9 @@
 </tr>
 </tbody>
 </table>
-<p><span class="math notranslate nohighlight">\(^*\)</span> Full list at end</p>
 </section>
 <section id="ricci-v-destefano">
-<h2>Ricci v. DeStefano<a class="headerlink" href="#ricci-v-destefano" title="Permalink to this headline">¶</a></h2>
+<h2>Ricci v. DeStefano<a class="headerlink" href="#ricci-v-destefano" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Firefighter promotions determined by result of exam</p>
 <ul>
@@ -198,29 +197,26 @@
 <p><img alt="" src="_images/data_balance.png" /></p>
 </section>
 <section id="statistical-parity-score">
-<h2>Statistical parity score<a class="headerlink" href="#statistical-parity-score" title="Permalink to this headline">¶</a></h2>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align} \text{SP} &amp;= P(\hat{y}=+|S=\bar s) \\ &amp;- P(\hat{y}=+|S= s)\end{align}\end{split}\]</div>
+<h2>Statistical parity score<a class="headerlink" href="#statistical-parity-score" title="Permalink to this heading">¶</a></h2>
+<p>$$\begin{align} \text{SP} &amp;= P(\hat{y}=+|S=\bar s) \ &amp;- P(\hat{y}=+|S= s)\end{align}$$</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(s\)</span> is the protected group and <span class="math notranslate nohighlight">\(\bar s\)</span> is the unprotected group</p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{SP}=0\)</span> occurs when there is no discrimination</p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{SP}\in (0,1]\)</span> occurs when the protected group is discriminated against</p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{SP}\in [-1,0)\)</span> occurs when the unprotected group is discriminated against</p></li>
+<li><p>$s$ is the protected group and $\bar s$ is the unprotected group</p></li>
+<li><p>$\text{SP}=0$ occurs when there is no discrimination</p></li>
+<li><p>$\text{SP}\in (0,1]$ occurs when the protected group is discriminated against</p></li>
+<li><p>$\text{SP}\in [-1,0)$ occurs when the unprotected group is discriminated against</p></li>
 </ul>
 <p>Use logistic regression model to get a baseline fairness scores for each dataset.</p>
 <p><img alt="" src="_images/ricci_logistic.png" /></p>
 </section>
 <section id="bayesian-network-structure-learning">
-<h2>Bayesian network structure learning<a class="headerlink" href="#bayesian-network-structure-learning" title="Permalink to this headline">¶</a></h2>
+<h2>Bayesian network structure learning<a class="headerlink" href="#bayesian-network-structure-learning" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>The structure of the network <span class="math notranslate nohighlight">\(\scr{M}\)</span> should maximize the likelihood of generating the dataset <span class="math notranslate nohighlight">\(\cal{D}\)</span></p></li>
-<li><p>Regularize the parameters of the network <span class="math notranslate nohighlight">\(\widehat{\scr{M}}\)</span> (i.e. the edges of the graph)</p></li>
-<li><p>Ensure that the protected attribute <span class="math notranslate nohighlight">\(y\)</span> is a leaf node</p></li>
+<li><p>The structure of the network $\scr{M}$ should maximize the likelihood of generating the dataset $\cal{D}$</p></li>
+<li><p>Regularize the parameters of the network $\widehat{\scr{M}}$ (i.e. the edges of the graph)</p></li>
+<li><p>Ensure that the protected attribute $y$ is a leaf node</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[\max_{\scr{M^*}}{\left\{ P(\cal D | \scr M - \gamma \widehat {\scr M} \right\}}\]</div>
-<div class="math notranslate nohighlight">
-\[ \text{subject to } y\in \scr L\]</div>
+<p>$$\max_{\scr{M^*}}{\left{ P(\cal D | \scr M - \gamma \widehat {\scr M} \right}}$$
+$$ \text{subject to } y\in \scr L$$</p>
 <ul class="simple">
 <li><p>Optimization completed using the <a class="reference external" href="https://pomegranate.readthedocs.io/en/latest/BayesianNetwork.html">pomegranate</a> software</p>
 <ul>
@@ -233,12 +229,10 @@
 <p><img alt="" src="_images/diatbetes_bayesian.png" /></p>
 </section>
 <section id="balanced-accuracy">
-<h2>Balanced Accuracy<a class="headerlink" href="#balanced-accuracy" title="Permalink to this headline">¶</a></h2>
-<div class="math notranslate nohighlight">
-\[ \text{Accuracy} = \frac{ \text{TP} + \text{TN}}{\text{TP} + \text{TN}+\text{FP} + \text{FN}}\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split} \begin{align}\text{Balanced Accuracy} &amp;= \frac 1 2 \left( \frac{\text{TP}}{\text{TP}+\text{FN}} + \frac{\text{TN}}{\text{TN}+\text{FP}} \right)\\
-&amp;= \frac 1 2 \left( \text{sensitivity} + \text{specificity} \right) \end{align}\end{split}\]</div>
+<h2>Balanced Accuracy<a class="headerlink" href="#balanced-accuracy" title="Permalink to this heading">¶</a></h2>
+<p>$$ \text{Accuracy} = \frac{ \text{TP} + \text{TN}}{\text{TP} + \text{TN}+\text{FP} + \text{FN}}$$</p>
+<p>$$ \begin{align}\text{Balanced Accuracy} &amp;= \frac 1 2 \left( \frac{\text{TP}}{\text{TP}+\text{FN}} + \frac{\text{TN}}{\text{TN}+\text{FP}} \right)\
+&amp;= \frac 1 2 \left( \text{sensitivity} + \text{specificity} \right) \end{align}$$</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Student:</p></th>
@@ -275,35 +269,33 @@
 </table>
 </section>
 <section id="equalized-odds">
-<h2>Equalized odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">¶</a></h2>
+<h2>Equalized odds<a class="headerlink" href="#equalized-odds" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Equalized odds is preserved when the predictions <span class="math notranslate nohighlight">\(\hat y\)</span> conditional on the ground truth <span class="math notranslate nohighlight">\(y\)</span> are equal for both groups (<span class="math notranslate nohighlight">\(s\)</span> and <span class="math notranslate nohighlight">\(\bar s\)</span>).</p></li>
+<li><p>Equalized odds is preserved when the predictions $\hat y$ conditional on the ground truth $y$ are equal for both groups ($s$ and $\bar s$).</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[\begin{split} \begin{align} \text{EO} &amp;= \text{Degree of violating equalized odds} \\ &amp;= \sum_{y\in{+,-}}{\left| P(\hat y=+ |S=s, Y=y) - P(\hat y=+ |S=\bar s, Y=y) \right|}\end{align}\end{split}\]</div>
+<p>$$ \begin{align} \text{EO} &amp;= \text{Degree of violating equalized odds} \ &amp;= \sum_{y\in{+,-}}{\left| P(\hat y=+ |S=s, Y=y) - P(\hat y=+ |S=\bar s, Y=y) \right|}\end{align}$$</p>
 <ul class="simple">
-<li><p>Degree of equalized odds violation <span class="math notranslate nohighlight">\(EO\in[0,2]\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{EO}=0\)</span> occurs when there is no discrimination</p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{EO}=2\)</span> indicates the maximum discrimination</p></li>
+<li><p>Degree of equalized odds violation $EO\in[0,2]$</p></li>
+<li><p>$\text{EO}=0$ occurs when there is no discrimination</p></li>
+<li><p>$\text{EO}=2$ indicates the maximum discrimination</p></li>
 </ul>
 </section>
 <section id="between-roc-area">
-<h2>Between-ROC Area<a class="headerlink" href="#between-roc-area" title="Permalink to this headline">¶</a></h2>
+<h2>Between-ROC Area<a class="headerlink" href="#between-roc-area" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Measure the divergence between ROC curves for protected and non-protected groups</p></li>
-<li><p>Integrate over all possible decision threshold <span class="math notranslate nohighlight">\(t\in[0,1]\)</span></p></li>
+<li><p>Integrate over all possible decision threshold $t\in[0,1]$</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align} \text{ABROCA} &amp;= \text{ Absolute between-ROC area} \\ &amp;= \int_{t=0}^{1}{\left| \text{ROC}_s(t) - \text{ROC}_{\bar s}(t)\right|}\end{align}\end{split}\]</div>
+<p>$$\begin{align} \text{ABROCA} &amp;= \text{ Absolute between-ROC area} \ &amp;= \int_{t=0}^{1}{\left| \text{ROC}<em>s(t) - \text{ROC}</em>{\bar s}(t)\right|}\end{align}$$</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\text{ABROCA}\in[0,1]\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{ABROCA} = 0\)</span> is a perfectly fair model</p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{ABROCA} = 1\)</span> is the most unfair model</p></li>
+<li><p>$\text{ABROCA}\in[0,1]$</p></li>
+<li><p>$\text{ABROCA} = 0$ is a perfectly fair model</p></li>
+<li><p>$\text{ABROCA} = 1$ is the most unfair model</p></li>
 </ul>
 <p><img alt="" src="_images/abroca_mix.png" /></p>
 </section>
 <section id="how-can-a-model-discrimintate-against-both-classes-simultaneously">
-<h2>How can a model discrimintate against both classes simultaneously?<a class="headerlink" href="#how-can-a-model-discrimintate-against-both-classes-simultaneously" title="Permalink to this headline">¶</a></h2>
+<h2>How can a model discrimintate against both classes simultaneously?<a class="headerlink" href="#how-can-a-model-discrimintate-against-both-classes-simultaneously" title="Permalink to this heading">¶</a></h2>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Dataset</p></th>
@@ -334,7 +326,7 @@
 </p><p><img alt="" src="_images/ABROCA_COMPAS.png" /></p>
 </section>
 <section id="summary-accuracy-balance-fairness">
-<h2>Summary: accuracy, balance, fairness<a class="headerlink" href="#summary-accuracy-balance-fairness" title="Permalink to this headline">¶</a></h2>
+<h2>Summary: accuracy, balance, fairness<a class="headerlink" href="#summary-accuracy-balance-fairness" title="Permalink to this heading">¶</a></h2>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Dataset</p></th>
@@ -443,7 +435,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -460,7 +452,7 @@
       &copy;.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.2.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

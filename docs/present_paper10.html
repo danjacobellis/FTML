@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -18,14 +18,14 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Critique of “50 Years of Test (Un)fairness”" href="critique_50y_fairness.html" />
@@ -46,8 +46,8 @@
 
           <div class="body" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="understanding-black-box-predictions-via-influence-functions">
-<h1>Understanding Black-box Predictions via Influence functions<a class="headerlink" href="#understanding-black-box-predictions-via-influence-functions" title="Permalink to this headline">¶</a></h1>
+  <section id="understanding-black-box-predictions-via-influence-functions">
+<h1>Understanding Black-box Predictions via Influence functions<a class="headerlink" href="#understanding-black-box-predictions-via-influence-functions" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="http://proceedings.mlr.press/v70/koh17a/koh17a.pdf">Paper</a></p>
 <p><a class="reference external" href="https://danjacobellis.github.io/FTML/present_paper10.slides.html">Slides</a></p>
 <script>
@@ -56,7 +56,7 @@
 <center> <h1>
 Understanding Black-box Predictions via Influence functions
 </h1> </center><section id="background-and-caveats">
-<h2>Background and caveats<a class="headerlink" href="#background-and-caveats" title="Permalink to this headline">¶</a></h2>
+<h2>Background and caveats<a class="headerlink" href="#background-and-caveats" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Our goal is to gain insights about how particular training points influence a model</p></li>
 <li><p>Loose definition of “black box” for this work</p>
@@ -74,15 +74,14 @@ Understanding Black-box Predictions via Influence functions
 <p>That’s cook’s distance. It’s quite useful. We can use it to find influential points for many reasons. We can go see if maybe that point was mislabeled. We can try to understand why that point was influential.</p>
 <p>We can also use it to try to identify where we should sample the next time we go collect data.</p>
 </section>
-<section id="cooks-distance">
-<h2>Cook’s distance<a class="headerlink" href="#cooks-distance" title="Permalink to this headline">¶</a></h2>
+<section id="cook-s-distance">
+<h2>Cook’s distance<a class="headerlink" href="#cook-s-distance" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Dennis Cook, 1970: <em>Detection of influential observation in linear regression</em></p></li>
-<li><p>“Overall summary statistics (e.g. <span class="math notranslate nohighlight">\(R^2\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span>) … present a distorted and misleading picture”</p></li>
-<li><p><strong>Cook’s distance</strong>: deviation of the model when point <span class="math notranslate nohighlight">\(i\)</span> is excluded</p></li>
+<li><p>“Overall summary statistics (e.g. $R^2$, $\beta$) … present a distorted and misleading picture”</p></li>
+<li><p><strong>Cook’s distance</strong>: deviation of the model when point $i$ is excluded</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[D_i = \frac {1}{ps^2} \sum_{j=1}^{n}{(\hat y _j - \hat y_{j(i)}})^2\]</div>
+<p>$$D_i = \frac {1}{ps^2} \sum_{j=1}^{n}{(\hat y <em>j - \hat y</em>{j(i)}})^2$$</p>
 <ul class="simple">
 <li><p>Identify influential points</p></li>
 <li><p>Identify regions to sample when collecting subsequent data</p></li>
@@ -92,13 +91,13 @@ Understanding Black-box Predictions via Influence functions
 <p>Next, I’ll define some different types of influence functions but just keep in mind that these functions are trying to do something similar to cook’s distance or leverage, where we’re looking at how particular point influence the model.</p>
 </section>
 <section id="leverage">
-<h2>Leverage<a class="headerlink" href="#leverage" title="Permalink to this headline">¶</a></h2>
+<h2>Leverage<a class="headerlink" href="#leverage" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Also known as “Self-influence”</p></li>
-<li><p>Degree to which the <span class="math notranslate nohighlight">\(i\)</span>th measured value influences the <span class="math notranslate nohighlight">\(i\)</span>th predicted value
-$<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}{\partial y_i}\)</span>$</p></li>
-<li><p><span class="math notranslate nohighlight">\( 0 \leq h_{ii} \leq 1\)</span></p></li>
-<li><p>Common heuristic: <span class="math notranslate nohighlight">\(x_i\)</span> is an outlier if <span class="math notranslate nohighlight">\(h_{ii} &gt; \frac {2p}{n}\)</span></p></li>
+<li><p>Degree to which the $i$th measured value influences the $i$th predicted value
+$$h_{ii} = \frac {\partial \hat y_i}{\partial y_i}$$</p></li>
+<li><p>$ 0 \leq h_{ii} \leq 1$</p></li>
+<li><p>Common heuristic: $x_i$ is an outlier if $h_{ii} &gt; \frac {2p}{n}$</p></li>
 </ul>
 <p>Let’s start with the first type of influence function. Suppose you train a model. You minimize the empirical risk, resulting in some estimate of the best model parameters theta hat.</p>
 <p>This theta hat is a function of the data distribution F. If we had a different set of data that we trained on that came from a different distribution, we would have gotten different estimates for our parameters.</p>
@@ -109,45 +108,41 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <p>So that’s the first type of influence function, the rate of change of the model parameters when we add mass to some point in the distribution z.</p>
 </section>
 <section id="influence-function">
-<h2>Influence function<a class="headerlink" href="#influence-function" title="Permalink to this headline">¶</a></h2>
+<h2>Influence function<a class="headerlink" href="#influence-function" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Consider a model parameter <span class="math notranslate nohighlight">\(\theta\)</span> and our estimate of the best value after training <span class="math notranslate nohighlight">\(\hat \theta \)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\hat \theta\)</span> is a function of the data distribution <span class="math notranslate nohighlight">\(F\)</span></p></li>
-<li><p>The influence function describes the effect on <span class="math notranslate nohighlight">\(\hat \theta\)</span> when we make a small perturbation to the data</p></li>
-<li><p>In particular, we will add at location <span class="math notranslate nohighlight">\(z\)</span> in the distribution <span class="math notranslate nohighlight">\(F\)</span> an infinitesimal mass <span class="math notranslate nohighlight">\(\epsilon \delta_z\)</span>, resulting in a new distribution <span class="math notranslate nohighlight">\(F^\prime\)</span></p></li>
+<li><p>Consider a model parameter $\theta$ and our estimate of the best value after training $\hat \theta $</p></li>
+<li><p>$\hat \theta$ is a function of the data distribution $F$</p></li>
+<li><p>The influence function describes the effect on $\hat \theta$ when we make a small perturbation to the data</p></li>
+<li><p>In particular, we will add at location $z$ in the distribution $F$ an infinitesimal mass $\epsilon \delta_z$, resulting in a new distribution $F^\prime$</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[F^\prime = F(1-\epsilon) + \epsilon \delta_z\]</div>
+<p>$$F^\prime = F(1-\epsilon) + \epsilon \delta_z$$</p>
 <ul class="simple">
-<li><p>The influence function is the derivative<span class="math notranslate nohighlight">\({}^\dagger\)</span> of a model parameter <span class="math notranslate nohighlight">\(\hat \theta\)</span> with respect to the distribution <span class="math notranslate nohighlight">\(F\)</span>.</p></li>
+<li><p>The influence function is the derivative${}^\dagger$ of a model parameter $\hat \theta$ with respect to the distribution $F$.</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[\mathcal I_{\hat \theta}(z) = \frac{d \hat \theta}{d F}^\dagger =  \lim_{\epsilon \to 0} \left[ \frac{ \hat \theta(F^\prime) - \hat \theta (F) }{\epsilon}\right]\]</div>
-<p><span class="math notranslate nohighlight">\(\dagger\)</span> The derivative here is a functional derivative. In particular it is a Gateaux derivative.</p>
+<p>$$\mathcal I_{\hat \theta}(z) = \frac{d \hat \theta}{d F}^\dagger =  \lim_{\epsilon \to 0} \left[ \frac{ \hat \theta(F^\prime) - \hat \theta (F) }{\epsilon}\right]$$</p>
+<p>$\dagger$ The derivative here is a functional derivative. In particular it is a Gateaux derivative.</p>
 <p>The second type of influence function IL is similar, except instead of looking at the model parameters, we’re looking at the loss function.</p>
 <p>So, this is the rate of change in the loss function as we add mass to some location z.</p>
 </section>
 <section id="id1">
-<h2>Influence function<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>Influence function<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>We can define a second type of influence function that describes the effect on the loss when we make a small perturbation to the data</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[\mathcal I_{L}(z) = \frac{d L}{d F} =  \lim_{\epsilon \to 0} \left[ \frac{ \hat L(F^\prime) - L (F) }{\epsilon}\right]\]</div>
+<p>$$\mathcal I_{L}(z) = \frac{d L}{d F} =  \lim_{\epsilon \to 0} \left[ \frac{ \hat L(F^\prime) - L (F) }{\epsilon}\right]$$</p>
 <ul class="simple">
-<li><p>A model is trained resulting in parameters <span class="math notranslate nohighlight">\(\hat \theta\)</span>. We test it on a point <span class="math notranslate nohighlight">\(z_{test}\)</span>. <span class="math notranslate nohighlight">\(\mathcal I_{L}(z,z_{test})\)</span> is the rate at which the loss on <span class="math notranslate nohighlight">\(z_{test}\)</span>  increases as we make the training point <span class="math notranslate nohighlight">\(z\)</span> more prevalent</p></li>
+<li><p>A model is trained resulting in parameters $\hat \theta$. We test it on a point $z_{test}$. $\mathcal I_{L}(z,z_{test})$ is the rate at which the loss on $z_{test}$  increases as we make the training point $z$ more prevalent</p></li>
 </ul>
 <p>Finally, we have this third type of influence function I pert</p>
 <p>Instead of just adding a mass to some point in the distribution, we’re also going to remove mass from some other point.</p>
 <p>So this is basically just a difference between to influence functions of the normal type.</p>
 </section>
 <section id="id2">
-<h2>Influence Function<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>Influence Function<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>We can also define influence functions that describe the effect of ‘moving’ a training point</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)\]</div>
+<p>$$\mathcal I_{pert} = \mathcal I(z_2) -  \mathcal I(z_1)$$</p>
 <p>So how do we actually calculate these influence functions?</p>
 <p>Well the simplest approach is to just do something like we did for cook’s distance and just train the model with all points except one point located at z. That will give us the influence function at z.</p>
 <p>Clearly, this can get expensive quickly, so we’d like to have a more efficient method.</p>
@@ -155,12 +150,12 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <p>However, the authors go one step further. Why stop at the first derivative when we can use the second derivative? So that’s what they do.</p>
 </section>
 <section id="empirical-influence-function">
-<h2>Empirical influence function<a class="headerlink" href="#empirical-influence-function" title="Permalink to this headline">¶</a></h2>
+<h2>Empirical influence function<a class="headerlink" href="#empirical-influence-function" title="Permalink to this heading">¶</a></h2>
 <section id="expensive-approach-leave-one-out">
-<h3>Expensive approach: Leave one out<a class="headerlink" href="#expensive-approach-leave-one-out" title="Permalink to this headline">¶</a></h3>
+<h3>Expensive approach: Leave one out<a class="headerlink" href="#expensive-approach-leave-one-out" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Train the model with all data, including some sample <span class="math notranslate nohighlight">\(z\)</span>, resulting in <span class="math notranslate nohighlight">\(\hat \theta\)</span></p></li>
-<li><p>To estimate <span class="math notranslate nohighlight">\(\mathcal I_{\hat \theta}(z)\)</span>, train the model without the point <span class="math notranslate nohighlight">\(z\)</span>, resulting in <span class="math notranslate nohighlight">\(\hat \theta _ {(z)}\)</span></p></li>
+<li><p>Train the model with all data, including some sample $z$, resulting in $\hat \theta$</p></li>
+<li><p>To estimate $\mathcal I_{\hat \theta}(z)$, train the model without the point $z$, resulting in $\hat \theta _ {(z)}$</p></li>
 </ul>
 <p>We train the model with all of the data, resulting in the estimate of the optimal parameter values theta hat.</p>
 <p>Starting from there, we locally approximate the loss function as a quadratic.</p>
@@ -170,42 +165,41 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 </section>
 </section>
 <section id="id3">
-<h2>Empirical influence function<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>Empirical influence function<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <section id="cheaper-approach-locally-approximate-shape-of-loss-function">
-<h3>Cheaper approach: Locally approximate shape of loss function<a class="headerlink" href="#cheaper-approach-locally-approximate-shape-of-loss-function" title="Permalink to this headline">¶</a></h3>
+<h3>Cheaper approach: Locally approximate shape of loss function<a class="headerlink" href="#cheaper-approach-locally-approximate-shape-of-loss-function" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Start with a model trained on all of the data, including <span class="math notranslate nohighlight">\(z,\)</span> resulting in <span class="math notranslate nohighlight">\(\hat \theta\)</span></p></li>
-<li><p>Use a quadratic approximation of the loss function to estimate the effect of “upweighting” a sample <span class="math notranslate nohighlight">\(z\)</span>.</p></li>
+<li><p>Start with a model trained on all of the data, including $z,$ resulting in $\hat \theta$</p></li>
+<li><p>Use a quadratic approximation of the loss function to estimate the effect of “upweighting” a sample $z$.</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L\]</div>
+<p>$$\mathcal I_{\hat \theta}(z) \approx -H_{\hat \theta} ^{-1} \nabla L$$</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\nabla L\)</span> is the gradient. <span class="math notranslate nohighlight">\(H\)</span> is the <em>Hessian,</em> the matrix of all partial second derivatives.</p></li>
-<li><p><span class="math notranslate nohighlight">\(-H_{\hat \theta} ^{-1} \nabla L\)</span> is the direction you would move in while optimizing a function using Newton’s method.</p></li>
+<li><p>$\nabla L$ is the gradient. $H$ is the <em>Hessian,</em> the matrix of all partial second derivatives.</p></li>
+<li><p>$-H_{\hat \theta} ^{-1} \nabla L$ is the direction you would move in while optimizing a function using Newton’s method.</p></li>
 </ul>
 </section>
 </section>
 <section id="quadratic-approximation">
-<h2>Quadratic approximation<a class="headerlink" href="#quadratic-approximation" title="Permalink to this headline">¶</a></h2>
+<h2>Quadratic approximation<a class="headerlink" href="#quadratic-approximation" title="Permalink to this heading">¶</a></h2>
 <section id="issue-1-does-the-hessian-even-exist">
-<h3>Issue #1: Does the Hessian even exist?<a class="headerlink" href="#issue-1-does-the-hessian-even-exist" title="Permalink to this headline">¶</a></h3>
+<h3>Issue #1: Does the Hessian even exist?<a class="headerlink" href="#issue-1-does-the-hessian-even-exist" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>We have to pick a nice loss function so that the Hessian is guaranteed to exist.</p>
 <ul>
-<li><p>Mean absolute error can be replaced with <span class="math notranslate nohighlight">\(\log \cosh (s)\)</span>.</p></li>
-<li><p>Hinge with smooth version <span class="math notranslate nohighlight">\(t \log {\left(1+\exp{\left(\frac{1-s}{t}\right)}\right)}.\)</span></p></li>
+<li><p>Mean absolute error can be replaced with $\log \cosh (s)$.</p></li>
+<li><p>Hinge with smooth version $t \log {\left(1+\exp{\left(\frac{1-s}{t}\right)}\right)}.$</p></li>
 </ul>
 </li>
 </ul>
 </section>
 </section>
 <section id="id4">
-<h2>Quadratic approximation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>Quadratic approximation<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <section id="issue-2-computing-and-storing-the-hessian">
-<h3>Issue #2: Computing and storing the Hessian<a class="headerlink" href="#issue-2-computing-and-storing-the-hessian" title="Permalink to this headline">¶</a></h3>
+<h3>Issue #2: Computing and storing the Hessian<a class="headerlink" href="#issue-2-computing-and-storing-the-hessian" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>It is <em><strong>very</strong></em> expensive to compute the Hessian. Even just storing the Hessian for a large neural network might be impossible.</p></li>
-<li><p>The “Pearlmutter trick” allows us to calculate a matrix-vector product with the hessian <span class="math notranslate nohighlight">\(\mathbf {Hv}\)</span> <em>exactly</em> with about as much computation as a single gradient evaluation.</p></li>
+<li><p>The “Pearlmutter trick” allows us to calculate a matrix-vector product with the hessian $\mathbf {Hv}$ <em>exactly</em> with about as much computation as a single gradient evaluation.</p></li>
 <li><p>There are variations of how to do this. Some are exact some are not with tradeoffs in complexity.</p></li>
 <li><p>FOSS libraries rolled out in 2018 that allow you plug in your model and efficiently compute the influence using this method.</p>
 <ul>
@@ -217,18 +211,18 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 </section>
 </section>
 <section id="experiments-and-applications">
-<h2>Experiments and Applications<a class="headerlink" href="#experiments-and-applications" title="Permalink to this headline">¶</a></h2>
+<h2>Experiments and Applications<a class="headerlink" href="#experiments-and-applications" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="how-well-does-the-quadratic-approximation-work">
-<h2>How well does the quadratic approximation work?<a class="headerlink" href="#how-well-does-the-quadratic-approximation-work" title="Permalink to this headline">¶</a></h2>
+<h2>How well does the quadratic approximation work?<a class="headerlink" href="#how-well-does-the-quadratic-approximation-work" title="Permalink to this heading">¶</a></h2>
 <p><img alt="" src="_images/performance_1.png" /></p>
 </section>
 <section id="do-differentiable-versions-of-the-loss-function-work">
-<h2>Do differentiable versions of the loss function work?<a class="headerlink" href="#do-differentiable-versions-of-the-loss-function-work" title="Permalink to this headline">¶</a></h2>
+<h2>Do differentiable versions of the loss function work?<a class="headerlink" href="#do-differentiable-versions-of-the-loss-function-work" title="Permalink to this heading">¶</a></h2>
 <p><img alt="" src="_images/hinge_1.png" /></p>
 </section>
 <section id="find-helpful-and-harmful-training-samples">
-<h2>Find helpful and harmful training samples<a class="headerlink" href="#find-helpful-and-harmful-training-samples" title="Permalink to this headline">¶</a></h2>
+<h2>Find helpful and harmful training samples<a class="headerlink" href="#find-helpful-and-harmful-training-samples" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Other methods exist to find relevant training samples.</p>
 <ul>
@@ -237,45 +231,45 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 </li>
 <li><p>The influence function can tell us if a training sample either helps or hurts when evaluating a particular test sample.</p>
 <ul>
-<li><p>If <span class="math notranslate nohighlight">\(\mathcal I_{L}(z,z_{test})\)</span> is positive, then the training point <span class="math notranslate nohighlight">\(z\)</span> is harmful</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(\mathcal I_{L}(z,z_{test})\)</span> is negative, then the training point <span class="math notranslate nohighlight">\(z\)</span> is helpful</p></li>
+<li><p>If $\mathcal I_{L}(z,z_{test})$ is positive, then the training point $z$ is harmful</p></li>
+<li><p>If $\mathcal I_{L}(z,z_{test})$ is negative, then the training point $z$ is helpful</p></li>
 </ul>
 </li>
 </ul>
 <p><img alt="" src="_images/harmful_1.png" /></p>
 </section>
 <section id="identify-overfitting-and-compare-models">
-<h2>Identify overfitting and compare models<a class="headerlink" href="#identify-overfitting-and-compare-models" title="Permalink to this headline">¶</a></h2>
+<h2>Identify overfitting and compare models<a class="headerlink" href="#identify-overfitting-and-compare-models" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Compare <span class="math notranslate nohighlight">\(\mathcal I_{L}(z,z_{test})\)</span> with the euclidian distance</p></li>
+<li><p>Compare $\mathcal I_{L}(z,z_{test})$ with the euclidian distance</p></li>
 <li><p>If the model is overfitting, then all of the most influential training points will be neighbors.</p></li>
 <li><p>If the model generalizes, then the influential points will be spread out, not just overfit to neighboring points.</p></li>
 </ul>
 <p><img alt="" src="_images/influence_1.png" /></p>
 </section>
 <section id="debugging-mismatch-in-distributions">
-<h2>Debugging mismatch in distributions<a class="headerlink" href="#debugging-mismatch-in-distributions" title="Permalink to this headline">¶</a></h2>
+<h2>Debugging mismatch in distributions<a class="headerlink" href="#debugging-mismatch-in-distributions" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Consider a point the sample space <span class="math notranslate nohighlight">\(z\)</span> and the surrounding region</p></li>
+<li><p>Consider a point the sample space $z$ and the surrounding region</p></li>
 <li><p>The training data may be very dense or very sparse in this region</p></li>
 <li><p>When deployed, the density may be quite different</p></li>
-<li><p><span class="math notranslate nohighlight">\(\mathcal I_{\hat \theta, pert}(z)\)</span> tells us exactly how we should update the model to account for this</p></li>
+<li><p>$\mathcal I_{\hat \theta, pert}(z)$ tells us exactly how we should update the model to account for this</p></li>
 </ul>
 </section>
 <section id="debugging-mislabeled-examples-and-identifying-places-to-collect-new-data">
-<h2>Debugging mislabeled examples and identifying places to collect new data<a class="headerlink" href="#debugging-mislabeled-examples-and-identifying-places-to-collect-new-data" title="Permalink to this headline">¶</a></h2>
+<h2>Debugging mislabeled examples and identifying places to collect new data<a class="headerlink" href="#debugging-mislabeled-examples-and-identifying-places-to-collect-new-data" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Checking the top 5% highest magnitude influence points gives roughly the same performance as checking 60% of the training data exhaustively</p></li>
 </ul>
 <p><img alt="" src="_images/mislabeled_1.png" /></p>
 </section>
 <section id="constructing-and-identifying-adversarial-examples">
-<h2>Constructing and identifying adversarial examples<a class="headerlink" href="#constructing-and-identifying-adversarial-examples" title="Permalink to this headline">¶</a></h2>
+<h2>Constructing and identifying adversarial examples<a class="headerlink" href="#constructing-and-identifying-adversarial-examples" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Find an example that is difficult or ambiguous to start with</p></li>
-<li><p>At this point, find the gradient of the loss with respect to the data <span class="math notranslate nohighlight">\(\nabla _x L\)</span></p></li>
-<li><p>Training on the point <span class="math notranslate nohighlight">\(x + \mu \nabla _x L\)</span> will massively increase the error rate on any data near <span class="math notranslate nohighlight">\(x\)</span></p></li>
-<li><p>The magnitude of <span class="math notranslate nohighlight">\(\mathcal I_{pert}(z)\)</span> tells us how vulnerable a model is to an attack near <span class="math notranslate nohighlight">\(z\)</span></p></li>
+<li><p>At this point, find the gradient of the loss with respect to the data $\nabla _x L$</p></li>
+<li><p>Training on the point $x + \mu \nabla _x L$ will massively increase the error rate on any data near $x$</p></li>
+<li><p>The magnitude of $\mathcal I_{pert}(z)$ tells us how vulnerable a model is to an attack near $z$</p></li>
 </ul>
 <p><img alt="" src="_images/adversarial_1.png" /></p>
 </section>
@@ -302,7 +296,7 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
 <li class="toctree-l1"><a class="reference internal" href="critique_paper2.html">Critique of Paper 2</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Understanding Black-box Predictions via Influence functions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#background-and-caveats">Background and caveats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cooks-distance">Cook’s distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cook-s-distance">Cook’s distance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#leverage">Leverage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#influence-function">Influence function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Influence function</a></li>
@@ -343,7 +337,7 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -360,7 +354,7 @@ $<span class="math notranslate nohighlight">\(h_{ii} = \frac {\partial \hat y_i}
       &copy;.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.2.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
