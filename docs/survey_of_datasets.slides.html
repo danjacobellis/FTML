@@ -14676,14 +14676,22 @@ A survey on datasets for fairness-aware machine learning
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Three-ways-to-intervene-in-the-name-of-fairness">Three ways to intervene in the name of fairness<a class="anchor-link" href="#Three-ways-to-intervene-in-the-name-of-fairness">&#182;</a></h2><ol>
-<li>Use a different learning algorithm</li>
-<li>Post processing of the model outputs</li>
-<li>Interventions in the original data</li>
-</ol>
-<ul>
-<li>There are many ways that a dataset can lead to an unfair model during ERM</li>
-<li>We need a collection datasets to evaluate potential fairness interventions</li>
+<h2 id="Three-ways-to-intervene-in-the-name-of-fairness">Three ways to intervene in the name of fairness<a class="anchor-link" href="#Three-ways-to-intervene-in-the-name-of-fairness">&#182;</a></h2><ul>
+<li>Interventions in the original data<ul>
+<li>Class modification</li>
+<li>Sampling</li>
+</ul>
+</li>
+<li>Change the learning algorithm<ul>
+<li>Regularization</li>
+<li>Incorporate fairness into objective function</li>
+</ul>
+</li>
+<li>Post processing of the model outputs<ul>
+<li>Move decision boundary</li>
+<li>Cascade fair classifier with black box model</li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -14717,14 +14725,40 @@ A survey on datasets for fairness-aware machine learning
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Bayesian-Network">Bayesian Network<a class="anchor-link" href="#Bayesian-Network">&#182;</a></h2><p>[put a simple example]</p>
+<h2 id="Ricci-v.-DeStefano">Ricci v. DeStefano<a class="anchor-link" href="#Ricci-v.-DeStefano">&#182;</a></h2><ul>
+<li>Firefighter promotions determined by result of exam<ul>
+<li>19 whites, 1 hispanic passed exam</li>
+<li>zero out of 20 black firefighters passed exam</li>
+<li>Supreme court ruled that <em>ignoring the exam</em> violates 1964 civil rights act</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Ricci-v.-DeStefano">Ricci v. DeStefano<a class="anchor-link" href="#Ricci-v.-DeStefano">&#182;</a></h2><p>| Attribute | Values               | Description                      |
+|-----------|----------------------|----------------------------------|
+| Position  | {Lieutenant,Captain} | Desired promotion                |
+| Race      | {White, Non-White}   | Self identified race             |
+| Written   | [46-95]              | Written exam score               |
+| Oral      | [40.83-92.8]         | Oral exam score                  |
+| Combined  | [45.93-92.8]         | 0.6 *written + 0.4*oral        |
+| Promoted  | {True,False}         | Whether a promotion was obtained |</p>
 
 </div>
 </div>
@@ -14736,7 +14770,7 @@ A survey on datasets for fairness-aware machine learning
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Show-some-of-the-networks-(Ricci)">Show some of the networks (Ricci)<a class="anchor-link" href="#Show-some-of-the-networks-(Ricci)">&#182;</a></h2>
+<h2 id="Ricci-v.-DeStefano">Ricci v. DeStefano<a class="anchor-link" href="#Ricci-v.-DeStefano">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -14746,56 +14780,60 @@ A survey on datasets for fairness-aware machine learning
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Employment">Employment<a class="anchor-link" href="#Employment">&#182;</a></h2>
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/ricci_BN.png" width=600 height=600 class="center">
+</p>
+
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Finance">Finance<a class="anchor-link" href="#Finance">&#182;</a></h2>
+<h2 id="Finance-(KDD)">Finance (KDD)<a class="anchor-link" href="#Finance-(KDD)">&#182;</a></h2><p>-balance -bayes</p>
+
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Criminology">Criminology<a class="anchor-link" href="#Criminology">&#182;</a></h2>
+<h2 id="Criminology-(Compas)">Criminology (Compas)<a class="anchor-link" href="#Criminology-(Compas)">&#182;</a></h2>
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Healthcare">Healthcare<a class="anchor-link" href="#Healthcare">&#182;</a></h2>
+<h2 id="Healthcare-(Diabetes)">Healthcare (Diabetes)<a class="anchor-link" href="#Healthcare-(Diabetes)">&#182;</a></h2>
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Education">Education<a class="anchor-link" href="#Education">&#182;</a></h2>
+<h2 id="Education-(Math)">Education (Math)<a class="anchor-link" href="#Education-(Math)">&#182;</a></h2>
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -14806,7 +14844,7 @@ A survey on datasets for fairness-aware machine learning
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -14817,7 +14855,7 @@ A survey on datasets for fairness-aware machine learning
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -14832,7 +14870,7 @@ A survey on datasets for fairness-aware machine learning
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -14843,7 +14881,7 @@ A survey on datasets for fairness-aware machine learning
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
