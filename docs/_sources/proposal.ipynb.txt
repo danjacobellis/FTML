@@ -5,17 +5,67 @@
    "id": "2be97a0b-8b28-4498-9eba-42efb34b5a10",
    "metadata": {},
    "source": [
-    "## Proposal: Training on Lossy Encoded Data\n",
-    "\n",
+    "# Proposal: Training on Lossy Encoded Data\n",
+    "### Dan Jacobellis, Matthew Qin"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "fc608f05-82ca-4012-83bf-90a0e5246000",
+   "metadata": {},
+   "source": [
     "## Problem/Motivation\n",
     "\n",
     "When learning audio, image, and video models, data are typically stored using conventional lossy codecs such as MPEG, JPEG, and HEVC which perform quantization in the time-frequency or space-frequency transform domains.\n",
     "\n",
     "At training time, data are decoded so that the input layers of a model can expect to receive audio samples or RGB pixel values. This pipeline is counterproductive because the increase in information density that was achieved by the lossy compression must be repeated by the initial layers of the network for most tasks.\n",
     "\n",
-    "To large companies such as Amazon, Facebook, this is a small additional cost to training their  end-to-end models with billions of parameters.\n",
+    "To large companies such as Amazon, Facebook, or Google this is a small additional cost to training their end-to-end models with billions of parameters. However, individual data scientists and small institutions cannot realistically train a similar model and must resort to tuning the pre-trained weights of the ones created by these larger organizations. This large divide in computational power raises the issue of third-parties being inable to validate these models since they cannot reproduce it.   \n",
     "\n",
-    "It has been shown in [Faster Neural Networks Straight from JPEG] that training directly on the quantized transform representation used in JPEG results in faster training and more accurate results. Since standard lossy encoders can have extremely high compression ratios (commonly 200:1 for video) any layers in a network primarily function to increase information density may be eliminated. We speculate that there are a number of other advantages of compressed training with regard to fairness and explainability.\n"
+    "It has been shown in [Faster Neural Networks Straight from JPEG](https://papers.nips.cc/paper/2018/hash/7af6266cc52234b5aa339b16695f7fc4-Abstract.html) that training directly on the quantized transform representation used in JPEG results in faster training and more accurate results. Since standard lossy encoders can have extremely high compression ratios (commonly 200:1 for video) any layers in a network primarily function to increase information density may be eliminated. We speculate that there are a number of other advantages of compressed training with regard to fairness and explainability.\n",
+    "\n",
+    "\n",
+    "1. Gradient-based attacks are less likely to be imperceptible because the quantization of the compressed representation will only allow encoding of perceptible features.\n",
+    "\n",
+    "2. With faster training, smaller model sizes, and simplifying the training pipeline to reduce the resources needed by an MPEG/JPEG encoder, model debugging becomes much easier.\n",
+    "\n",
+    "3. Conventional model architectures require a fixed input size, so a resampler is typically used in conjunction with the MPEG/JPEG decoder before training so that all data have the same resolution for images or sampling rate for audio. This can cause the model to be more sensitive to drift when the encoding quality or resolution of the data changes. Training on frequency domain representations eliminates the need for a resampler and has potential to reduce the influence of this type of drift."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3b96fce9-f3de-4c97-9483-9859b34604e7",
+   "metadata": {},
+   "source": [
+    "## Datasets\n",
+    "\n",
+    "We plan to perform our tests on audio and images compressed using MPEG-3 and JPEG respectively.\n",
+    "\n",
+    "### Audios\n",
+    "\n",
+    "For audio, we will use the [fashion-MNIST](https://keras.io/api/datasets/fashion_mnist/) dataset and the [Python audio coder](https://github.com/TUIlmenauAMS/Python-Audio-Coder) for partially decoding the audio.\n",
+    "\n",
+    "### Images\n",
+    "\n",
+    "For images, we will use the [CIFAR-10](https://keras.io/api/datasets/cifar10/) dataset and the [jpeg2dct](https://github.com/uber-research/jpeg2dct) library for partially decoding the images."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "cf974497-17a4-4ec7-a78b-4c860fbc63f6",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "## Possible Approaches/Experiments\n",
+    "\n",
+    "We plan to conduct three types of experiments based on our predictions about the behavior of training on lossy-encoded data. For each experiment will will train two models: One on the transform coefficients and one on the original audio samples or RGB pixel values.\n",
+    "\n",
+    "1. We will construct a gradient-based attack on several images in the RGB pixel domain as well as in the quantized transform domain. The gradient will be quantized using the same number of bits per channel as the original data. We hypothesize that the gradient attack will necessarily result in visual markers in the image for the compressed training but will be imperceiptibly concentrated in the least significant bits in the RGB case.\n",
+    "\n",
+    "2. We will compare the amount of model complexity required to acheive similar performance for the two cases\n",
+    "\n",
+    "3. To evaluate how the encoding can affect data drift, we will choose a class in the training set to encode with poor quality and another class to encode with high quality. The remaining classes will be encoded at medium quality. In the test set, will use the opposite quality encoding for the experimental classes. We hypothesize that the model will be more sensitive to learning quality as a proxy rather than generalizing to the classes when trained on raw values compared to transform coefficients.\n"
    ]
   }
  ],
@@ -35,7 +85,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.10.2"
+   "version": "3.10.6"
   }
  },
  "nbformat": 4,
