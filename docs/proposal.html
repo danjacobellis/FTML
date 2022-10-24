@@ -26,6 +26,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="A survey on datasets for fairness-aware machine learning" href="survey_of_datasets.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -44,40 +45,32 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="proposal-training-on-lossy-encoded-data">
 <h1>Proposal: Training on Lossy Encoded Data<a class="headerlink" href="#proposal-training-on-lossy-encoded-data" title="Permalink to this headline">¶</a></h1>
-<section id="dan-jacobellis-matthew-qin">
-<h2>Dan Jacobellis, Matthew Qin<a class="headerlink" href="#dan-jacobellis-matthew-qin" title="Permalink to this headline">¶</a></h2>
-</section>
+<p>Dan Jacobellis and Matthew Qin</p>
 <section id="problem-motivation">
 <h2>Problem/Motivation<a class="headerlink" href="#problem-motivation" title="Permalink to this headline">¶</a></h2>
 <p>When learning audio, image, and video models, data are typically stored using conventional lossy codecs such as MPEG, JPEG, and HEVC which perform quantization in the time-frequency or space-frequency transform domains.</p>
 <p>At training time, data are decoded so that the input layers of a model can expect to receive audio samples or RGB pixel values. This pipeline is counterproductive because the increase in information density that was achieved by the lossy compression must be repeated by the initial layers of the network for most tasks.</p>
-<p>To large companies such as Amazon, Facebook, or Google this is a small additional cost to training their end-to-end models with billions of parameters. However, individual data scientists and small institutions cannot realistically train a similar model and must resort to tuning the pre-trained weights of the ones created by these larger organizations. This large divide in computational power raises the issue of third-parties being inable to validate these models since they cannot reproduce it.</p>
-<p>It has been shown in <a class="reference external" href="https://papers.nips.cc/paper/2018/hash/7af6266cc52234b5aa339b16695f7fc4-Abstract.html">Faster Neural Networks Straight from JPEG</a> that training directly on the quantized transform representation used in JPEG results in faster training and more accurate results. Since standard lossy encoders can have extremely high compression ratios (commonly 200:1 for video) any layers in a network primarily function to increase information density may be eliminated. We speculate that there are a number of other advantages of compressed training with regard to fairness and explainability.</p>
+<p>To large companies such as Amazon, Facebook, or Google this is a small additional cost to training their end-to-end models with billions of parameters. However, individual data scientists and small institutions cannot realistically train a similar model and must resort to tuning the pre-trained weights of the ones created by these larger organizations. This large divide in computational power raises the issue of third parties being unable to validate these models since they cannot reproduce them.</p>
+<p>It has been shown in <a class="reference external" href="https://papers.nips.cc/paper/2018/hash/7af6266cc52234b5aa339b16695f7fc4-Abstract.html">Faster Neural Networks Straight from JPEG</a> that training directly on the quantized transform representation used in JPEG results in faster training and more accurate results. Since standard lossy encoders can have extremely high compression ratios (commonly 200:1 for video) any layers in a network that primarily function to increase information density may be reduced or eliminated. We speculate that there are a number of other advantages of compressed training with regard to fairness and explainability.</p>
 <ol class="simple">
-<li><p>Gradient-based attacks are less likely to be imperceptible because the quantization of the compressed representation will only allow encoding of perceptible features.</p></li>
-<li><p>With faster training, smaller model sizes, and simplifying the training pipeline to reduce the resources needed by an MPEG/JPEG encoder, model debugging becomes much easier.</p></li>
-<li><p>Conventional model architectures require a fixed input size, so a resampler is typically used in conjunction with the MPEG/JPEG decoder before training so that all data have the same resolution for images or sampling rate for audio. This can cause the model to be more sensitive to drift when the encoding quality or resolution of the data changes. Training on frequency domain representations eliminates the need for a resampler and has potential to reduce the influence of this type of drift.</p></li>
+<li><p>Gradient-based attacks are less likely to be imperceptible because the quantization of the compressed representation will only allow the encoding of perceptible features.</p></li>
+<li><p>Faster training, smaller model sizes, and removal of the MPEG/JPEG decoder vastly simplify the training processes. This makes model debugging faster and easier.</p></li>
+<li><p>Conventional model architectures require a fixed input size, so a resampler is typically used in conjunction with the MPEG/JPEG decoder before training so that all data have the same resolution for images or sampling rate for audio. This can cause the model to be more sensitive to drift when the encoding quality or resolution of the data changes. Training on frequency domain representations eliminates the need for a resampler and has the potential to reduce the influence of this type of drift.</p></li>
 </ol>
 </section>
 <section id="datasets">
 <h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h2>
 <p>We plan to perform our tests on audio and images compressed using MPEG-3 and JPEG respectively.</p>
-<section id="audios">
-<h3>Audios<a class="headerlink" href="#audios" title="Permalink to this headline">¶</a></h3>
-<p>For audio, we will use the <a class="reference external" href="https://keras.io/api/datasets/fashion_mnist/">fashion-MNIST</a> dataset and the <a class="reference external" href="https://github.com/TUIlmenauAMS/Python-Audio-Coder">Python audio coder</a> for partially decoding the audio.</p>
-</section>
-<section id="images">
-<h3>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h3>
+<p>For audio, we will use the <a class="reference external" href="https://www.tensorflow.org/datasets/catalog/speech_commands">speech commands</a> dataset and the <a class="reference external" href="https://github.com/TUIlmenauAMS/Python-Audio-Coder">Python audio coder</a> for partially decoding the audio.</p>
 <p>For images, we will use the <a class="reference external" href="https://keras.io/api/datasets/cifar10/">CIFAR-10</a> dataset and the <a class="reference external" href="https://github.com/uber-research/jpeg2dct">jpeg2dct</a> library for partially decoding the images.</p>
-</section>
 </section>
 <section id="possible-approaches-experiments">
 <h2>Possible Approaches/Experiments<a class="headerlink" href="#possible-approaches-experiments" title="Permalink to this headline">¶</a></h2>
-<p>We plan to conduct three types of experiments based on our predictions about the behavior of training on lossy-encoded data. For each experiment will will train two models: One on the transform coefficients and one on the original audio samples or RGB pixel values.</p>
+<p>We plan to conduct three types of experiments based on our predictions about the behavior of training on lossy-encoded data. For each experiment will train two models: One on the transform coefficients and one on the original audio samples or RGB pixel values.</p>
 <ol class="simple">
-<li><p>We will construct a gradient-based attack on several images in the RGB pixel domain as well as in the quantized transform domain. The gradient will be quantized using the same number of bits per channel as the original data. We hypothesize that the gradient attack will necessarily result in visual markers in the image for the compressed training but will be imperceiptibly concentrated in the least significant bits in the RGB case.</p></li>
-<li><p>We will compare the amount of model complexity required to acheive similar performance for the two cases</p></li>
-<li><p>To evaluate how the encoding can affect data drift, we will choose a class in the training set to encode with poor quality and another class to encode with high quality. The remaining classes will be encoded at medium quality. In the test set, will use the opposite quality encoding for the experimental classes. We hypothesize that the model will be more sensitive to learning quality as a proxy rather than generalizing to the classes when trained on raw values compared to transform coefficients.</p></li>
+<li><p>We will construct a gradient-based attack on samples from the original domain as well as in the quantized transform domain. The gradient will be quantized using the same number of bits per channel as the original data. We hypothesize that the quantized gradient will necessarily result in artifacts while the unquantized gradient will be imperceptibly concentrated in the least significant bits of the original domain.</p></li>
+<li><p>We will compare the amount of model complexity required to achieve similar performance for the raw sample/RGB domains vs the trasform domain.</p></li>
+<li><p>To evaluate sensitivity to drift, we will choose a class in the training set to encode with poor quality and another class to encode with high quality. The remaining classes will be encoded at medium quality. In the test set, will use the opposite quality encoding for the experimental classes. We hypothesize that the model will be more sensitive to learning quality as a proxy rather than generalizing to the classes when trained on raw values compared to transform coefficients.</p></li>
 </ol>
 </section>
 </section>
@@ -99,17 +92,24 @@
 
 
 <h3>Navigation</h3>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="critique_paper2.html">Critique of Paper 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="present_paper10.html">Understanding Black-box Predictions via Influence functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="critique_50y_fairness.html">Critique of “50 Years of Test (Un)fairness”</a></li>
 <li class="toctree-l1"><a class="reference internal" href="survey_of_datasets.html">A survey on datasets for fairness-aware machine learning</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Proposal: Training on Lossy Encoded Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#problem-motivation">Problem/Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#possible-approaches-experiments">Possible Approaches/Experiments</a></li>
+</ul>
+</li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="survey_of_datasets.html" title="previous chapter">A survey on datasets for fairness-aware machine learning</a></li>
   </ul></li>
 </ul>
 </div>
