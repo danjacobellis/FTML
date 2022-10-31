@@ -44,8 +44,8 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="critique-of-critique-of-failing-loudly-an-empirical-study-of-methods-for-detecting-dataset-shift">
 <h1>Critique of Critique of “Failing Loudly: An Empirical Study of Methods for Detecting Dataset Shift”<a class="headerlink" href="#critique-of-critique-of-failing-loudly-an-empirical-study-of-methods-for-detecting-dataset-shift" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://proceedings.neurips.cc/paper/2019/hash/846c260d715e5b854ffad5f70a516c88-Abstract.html">Paper</a>
-<a class="reference external" href="https://danjacobellis.github.io/FTML/failing_loudly.slides.html">Slides</a></p>
+<p><a class="reference external" href="https://proceedings.neurips.cc/paper/2019/hash/846c260d715e5b854ffad5f70a516c88-Abstract.html">Paper</a></p>
+<p><a class="reference external" href="https://danjacobellis.github.io/FTML/failing_loudly.slides.html">Slides</a></p>
 <section id="detection-vs-adaptation">
 <h2>Detection vs Adaptation<a class="headerlink" href="#detection-vs-adaptation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -56,9 +56,104 @@
 <li><p>Is the drift harmful?</p></li>
 </ul>
 </li>
-<li><p><a class="reference external" href="https://proceedings.neurips.cc/paper/2020/file/3430095c577593aad3c39c701712bcfe-Paper.pdf">Adaptation</a></p>
+<li><p>Adaption</p>
 <ul>
 <li><p>What should the new model parameters be?</p></li>
+<li><p>How do we leverage information about changes in the distribution?</p></li>
+<li><p>Many approaches have been proposed</p>
+<ul>
+<li><p><a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5617646/">Causal discovery</a></p></li>
+<li><p><a class="reference external" href="https://proceedings.neurips.cc/paper/2020/file/3430095c577593aad3c39c701712bcfe-Paper.pdf">Graphical model</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="dimensionality-reduction-dr">
+<h2>Dimensionality reduction (DR)<a class="headerlink" href="#dimensionality-reduction-dr" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Authors explore several DR techniques</p>
+<ul>
+<li><p>Principle components analysis</p></li>
+<li><p>Autoencoder</p>
+<ul>
+<li><p>3 convolutional layers, one fully connected</p></li>
+<li><p>Untrained (random weights) and trained</p></li>
+</ul>
+</li>
+<li><p>Output from black box predictor</p>
+<ul>
+<li><p>Softmax</p></li>
+<li><p>Hard threshold</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Critique of Critique of “Failing Loudly: An Empirical Study of Methods for Detecting Dataset Shift”<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://proceedings.neurips.cc/paper/2019/hash/846c260d715e5b854ffad5f70a516c88-Abstract.html">Paper</a></p>
+<p><a class="reference external" href="https://danjacobellis.github.io/FTML/failing_loudly.slides.html">Slides</a></p>
+<section id="id2">
+<h2>Dimensionality reduction (DR)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Authors explore several DR techniques</p>
+<ul>
+<li><p>Principle components analysis</p></li>
+<li><p>Autoencoder</p>
+<ul>
+<li><p>3 convolutional layers, one fully connected</p></li>
+<li><p>Untrained (random weights) and trained</p></li>
+</ul>
+</li>
+<li><p>Output from black box predictor</p>
+<ul>
+<li><p>Softmax</p></li>
+<li><p>Hard threshold</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="advances-in-representation-learning">
+<h2>Advances in representation learning<a class="headerlink" href="#advances-in-representation-learning" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Variational autoencoder</p>
+<ul>
+<li><p>Uses a Gaussian prior</p></li>
+</ul>
+</li>
+<li><p>Vector-quantized variational autoencoder</p>
+<ul>
+<li><p>Uses uniform discrete prior</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id3">
+<h2>Detection vs Adaptation<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Detection</p>
+<ul>
+<li><p>Is drift occuring?</p></li>
+<li><p>In what direction is the drift occuring?</p></li>
+<li><p>Is the drift harmful?</p></li>
+</ul>
+</li>
+<li><p>Adaption</p>
+<ul>
+<li><p>What should the new model parameters be?</p></li>
+<li><p>How do we leverage information about changes in the distribution?</p></li>
+<li><p>Many approaches have been proposed</p>
+<ul>
+<li><p><a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5617646/">Causal discovery</a></p></li>
+<li><p><a class="reference external" href="https://proceedings.neurips.cc/paper/2020/file/3430095c577593aad3c39c701712bcfe-Paper.pdf">Graphical model</a></p></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
