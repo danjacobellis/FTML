@@ -24,7 +24,7 @@ def build():
     result = run("jupyter-nbconvert --to slides survey_of_datasets.ipynb --output docs/survey_of_datasets --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags='remove-nb-cell'",capture_output=True, shell=True)
     print(result.stdout.decode("utf-8"))
     
-    result = run("jupyter-nbconvert --to slides failing_loudly.ipynb --output docs/failing_loudly --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags='remove-nb-cell'",capture_output=True, shell=True)
+    result = run("jupyter-nbconvert --to slides failing_loudly.ipynb --output docs/failing_loudly --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags='remove-nb-cell' --TagRemovePreprocessor.remove_input_tags='remove-nb-input'",capture_output=True, shell=True)
     print(result.stdout.decode("utf-8"))
     
 if __name__ == '__main__':
