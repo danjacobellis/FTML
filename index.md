@@ -8,4 +8,5 @@ critique_50y_fairness
 survey_of_datasets
 proposal
 failing_loudly
+uncertainty_quantification
 ```
