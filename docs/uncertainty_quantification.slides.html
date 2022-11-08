@@ -14674,7 +14674,427 @@ Uncertainty quantification in deep learning
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Slide-1">Slide 1<a class="anchor-link" href="#Slide-1">&#182;</a></h2>
+<h2 id="Uncertainty-quantification">Uncertainty quantification<a class="anchor-link" href="#Uncertainty-quantification">&#182;</a></h2><ul>
+<li>According to <a href="https://science.osti.gov/-/media/ascr/pdf/program-documents/docs/Nnsa_grand_challenges_report.pdf">US Dept of energy (2009)</a>, uncertainty from many sources should be considered<ul>
+<li>Stochastic measurement error</li>
+<li>Limitations of theoretical models</li>
+<li>Numerical representations of models</li>
+<li>Approximations</li>
+<li>Human error</li>
+<li>Ignorance</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Predictive-uncertainty">Predictive uncertainty<a class="anchor-link" href="#Predictive-uncertainty">&#182;</a></h2><ul>
+<li>Consider a statistical learning model that makes predictions $\hat{y}$ based on previously seen data $(x_{\text{train}},y_{\text{train}})$</li>
+<li>The model's predictions will have some error $e = y_{\text{GT}}-\hat{y}$</li>
+<li>We can never know the actual error $e$</li>
+<li>However, we can try to characterize our confidence in $\hat{y}$</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Aleatoric-Uncertainty">Aleatoric Uncertainty<a class="anchor-link" href="#Aleatoric-Uncertainty">&#182;</a></h2><ul>
+<li>Variation that is consistant across repititions of an experiement</li>
+<li>Often possible to characterize the distribution accurately</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/aleatoric.png" width=600 height=600 class="center">
+</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Epistemic-Uncertainty">Epistemic Uncertainty<a class="anchor-link" href="#Epistemic-Uncertainty">&#182;</a></h2><ul>
+<li>Lack of knowledge</li>
+<li>Imperfect model or model parameters</li>
+<li>Difficult to chacterize the distribution</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/aleatoric_epistemic.png" width=600 height=600 class="center">
+</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Uncertainty-propagation-in-forward-problem">Uncertainty propagation in forward problem<a class="anchor-link" href="#Uncertainty-propagation-in-forward-problem">&#182;</a></h2><ul>
+<li>Example: Determine uncertainty in restistance from measurements of voltage and current.</li>
+</ul>
+$$R = h(V,I)= \frac{V}{I}$$$$f_R(r) = f_{V, I}\left(h^{-1}(r)\right) \left|\text{det}(\mathbf J\{h^{-1} \}) \right|$$$$\sigma_R=R\sqrt{\left(\frac{\sigma_V}{V}\right)^2 +\left(\frac{\sigma_I}{I} \right)^2}$$
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Uncertainty-in-inverse-problem">Uncertainty in inverse problem<a class="anchor-link" href="#Uncertainty-in-inverse-problem">&#182;</a></h2><ul>
+<li>Dereverberation: determine original audio signal from noisy, reverberant recording</li>
+<li>Forward model: Wave equation
+$$c^2 \nabla^2 p = \frac{\partial^2 p}{\partial t^2}$$</li>
+<li>Parameters<ul>
+<li>Size/shape of room</li>
+<li>Reflectivity/absorption of materials</li>
+<li>Noise distribution</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Uncertainty-in-inverse-problem">Uncertainty in inverse problem<a class="anchor-link" href="#Uncertainty-in-inverse-problem">&#182;</a></h2><ul>
+<li>Consider an acoustic propagation model<ul>
+<li>We can check if the parameters fit the data using the forward model</li>
+<li>Many combinations of parameter values will fit the data</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/measured_modeled.png" width=600 height=600 class="center">
+</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Sources-of-uncertainty-in-deep-learning">Sources of uncertainty in deep learning<a class="anchor-link" href="#Sources-of-uncertainty-in-deep-learning">&#182;</a></h2><ul>
+<li>Aleatoric<ul>
+<li>Limited computational resources</li>
+<li>Limited training data</li>
+</ul>
+</li>
+<li>Epistemic<ul>
+<li>Data collection process</li>
+<li>Accuracy of training data</li>
+<li>Distribution drift</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Bayesian-neural-networks">Bayesian neural networks<a class="anchor-link" href="#Bayesian-neural-networks">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/BNN.png" width=600 height=600 class="center">
+</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Bayesian-neural-networks">Bayesian neural networks<a class="anchor-link" href="#Bayesian-neural-networks">&#182;</a></h2><p><a href="https://arxiv.org/pdf/2007.06823.pdf">BNN</a></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/bnn_arch.png" width=600 height=600 class="center">
+</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Monte-Carlo-dropout">Monte Carlo dropout<a class="anchor-link" href="#Monte-Carlo-dropout">&#182;</a></h2><ul>
+<li>Monte carlo sampling can be used to obtain posterior in BNN<ul>
+<li>Extremely expensive. Limited to shallow networks.</li>
+</ul>
+</li>
+<li>Dropout is a common regularization technique in NNs<ul>
+<li>randomly drop units to prevent excessive codependence</li>
+<li><a href="https://arxiv.org/pdf/1506.02142.pdf">Dropout training approximates Bayesian inference</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="MC-dropout-on-segmentation-tasks">MC dropout on segmentation tasks<a class="anchor-link" href="#MC-dropout-on-segmentation-tasks">&#182;</a></h2><p><a href="https://arxiv.org/pdf/1511.02680.pdf">bayesian segnet</a></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/bayes_seg_net.png" width=600 height=600 class="center">
+</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Variational-inference">Variational inference<a class="anchor-link" href="#Variational-inference">&#182;</a></h2><ul>
+<li>Frame the Bayesian inference problem as an optimization problem</li>
+<li>Approximate posterior distribution over the weights of the NN</li>
+<li>Minimize KL divergence between variational distribution and true posterior</li>
+</ul>
+<p><a href="https://arxiv.org/pdf/2003.03396.pdf">Scalable Uncertainty</a></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/vi_scal_uncer.png" width=600 height=600 class="center">
+</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Variational-autoencoders">Variational autoencoders<a class="anchor-link" href="#Variational-autoencoders">&#182;</a></h2><ul>
+<li>Maps high-dimensional data to low-dimensional latent variables</li>
+<li>Provides a generative model that can be used for UQ</li>
+</ul>
+<p><a href="https://arxiv.org/pdf/1910.10046.pdf">UQ using generative models</a></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/uq_gen_mnist.png" width=600 height=600 class="center">
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Bayes-by-backprop">Bayes by backprop<a class="anchor-link" href="#Bayes-by-backprop">&#182;</a></h2><ul>
+<li>Minimize variational free energy</li>
+</ul>
+<p><img src="img/bbb.png" alt=""></p>
+<p><a href="https://arxiv.org/pdf/1505.05424.pdf">weight uncertainty</a></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Laplacian-approximations">Laplacian approximations<a class="anchor-link" href="#Laplacian-approximations">&#182;</a></h2><ul>
+<li>Build a gaussian distribution around the true posterior<ul>
+<li>Use a taylor expansion around the MAP</li>
+</ul>
+</li>
+</ul>
+<p><img src="img/laplace_sd.png" alt=""></p>
+<p><a href="https://openreview.net/pdf?id=Skdvd2xAZ">laplacian</a></p>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Ensemble-techniques">Ensemble techniques<a class="anchor-link" href="#Ensemble-techniques">&#182;</a></h2><ul>
+<li>An ensemble of models can enchance predictive performance</li>
+<li>How can we use an ensemble to generate uncertainty estimates?</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/ensemble.png" width=600 height=600 class="center">
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><a href="https://arxiv.org/pdf/1807.07356.pdf">brain</a></p>
+<p><img src="img/ensemble_brain.png" alt=""></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Ensemble-techniques">Ensemble techniques<a class="anchor-link" href="#Ensemble-techniques">&#182;</a></h2><p><img src="img/michigan.png" alt=""></p>
+<p><a href="https://arxiv.org/pdf/1911.04061.pdf">air pollution</a></p>
+
 </div>
 </div>
 </div>

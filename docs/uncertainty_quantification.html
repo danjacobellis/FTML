@@ -24,6 +24,8 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Critique of Critique of “Failing Loudly: An Empirical Study of Methods for Detecting Dataset Shift”" href="failing_loudly.html" />
@@ -47,8 +49,187 @@
 <h1>A review of uncertainty quantification in deep learning<a class="headerlink" href="#a-review-of-uncertainty-quantification-in-deep-learning" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S1566253521001081">Paper</a></p>
 <p><a class="reference external" href="https://danjacobellis.github.io/FTML/uncertainty_quantification.slides.html">Slides</a></p>
-<section id="slide-1">
-<h2>Slide 1<a class="headerlink" href="#slide-1" title="Permalink to this headline">¶</a></h2>
+<section id="uncertainty-quantification">
+<h2>Uncertainty quantification<a class="headerlink" href="#uncertainty-quantification" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>According to <a class="reference external" href="https://science.osti.gov/-/media/ascr/pdf/program-documents/docs/Nnsa_grand_challenges_report.pdf">US Dept of energy (2009)</a>, uncertainty from many sources should be considered</p>
+<ul>
+<li><p>Stochastic measurement error</p></li>
+<li><p>Limitations of theoretical models</p></li>
+<li><p>Numerical representations of models</p></li>
+<li><p>Approximations</p></li>
+<li><p>Human error</p></li>
+<li><p>Ignorance</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="predictive-uncertainty">
+<h2>Predictive uncertainty<a class="headerlink" href="#predictive-uncertainty" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Consider a statistical learning model that makes predictions <span class="math notranslate nohighlight">\(\hat{y}\)</span> based on previously seen data <span class="math notranslate nohighlight">\((x_{\text{train}},y_{\text{train}})\)</span></p></li>
+<li><p>The model’s predictions will have some error <span class="math notranslate nohighlight">\(e = y_{\text{GT}}-\hat{y}\)</span></p></li>
+<li><p>We can never know the actual error <span class="math notranslate nohighlight">\(e\)</span></p></li>
+<li><p>However, we can try to characterize our confidence in <span class="math notranslate nohighlight">\(\hat{y}\)</span></p></li>
+</ul>
+</section>
+<section id="aleatoric-uncertainty">
+<h2>Aleatoric Uncertainty<a class="headerlink" href="#aleatoric-uncertainty" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Variation that is consistant across repititions of an experiement</p></li>
+<li><p>Often possible to characterize the distribution accurately</p></li>
+</ul>
+<p><img alt="" src="_images/aleatoric.png" /></p>
+</section>
+<section id="epistemic-uncertainty">
+<h2>Epistemic Uncertainty<a class="headerlink" href="#epistemic-uncertainty" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Lack of knowledge</p></li>
+<li><p>Imperfect model or model parameters</p></li>
+<li><p>Difficult to chacterize the distribution</p></li>
+</ul>
+<p><img alt="" src="_images/aleatoric_epistemic.jpg" /></p>
+</section>
+<section id="uncertainty-propagation-in-forward-problem">
+<h2>Uncertainty propagation in forward problem<a class="headerlink" href="#uncertainty-propagation-in-forward-problem" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Example: Determine uncertainty in restistance from measurements of voltage and current.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[R = h(V,I)= \frac{V}{I}\]</div>
+<div class="math notranslate nohighlight">
+\[f_R(r) = f_{V, I}\left(h^{-1}(r)\right) \left|\text{det}(\mathbf J\{h^{-1} \}) \right|\]</div>
+<div class="math notranslate nohighlight">
+\[\sigma_R=R\sqrt{\left(\frac{\sigma_V}{V}\right)^2 +\left(\frac{\sigma_I}{I} \right)^2}\]</div>
+</section>
+<section id="uncertainty-in-inverse-problem">
+<h2>Uncertainty in inverse problem<a class="headerlink" href="#uncertainty-in-inverse-problem" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Dereverberation: determine original audio signal from noisy, reverberant recording</p></li>
+<li><p>Forward model: Wave equation
+$<span class="math notranslate nohighlight">\(c^2 \nabla^2 p = \frac{\partial^2 p}{\partial t^2}\)</span>$</p></li>
+<li><p>Parameters</p>
+<ul>
+<li><p>Size/shape of room</p></li>
+<li><p>Reflectivity/absorption of materials</p></li>
+<li><p>Noise distribution</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id1">
+<h2>Uncertainty in inverse problem<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Consider an acoustic propagation model</p>
+<ul>
+<li><p>We can check if the parameters fit the data using the forward model</p></li>
+<li><p>Many combinations of parameter values will fit the data</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="_images/measured_modeled.png" /></p>
+</section>
+<section id="sources-of-uncertainty-in-deep-learning">
+<h2>Sources of uncertainty in deep learning<a class="headerlink" href="#sources-of-uncertainty-in-deep-learning" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Aleatoric</p>
+<ul>
+<li><p>Limited computational resources</p></li>
+<li><p>Limited training data</p></li>
+</ul>
+</li>
+<li><p>Epistemic</p>
+<ul>
+<li><p>Data collection process</p></li>
+<li><p>Accuracy of training data</p></li>
+<li><p>Distribution drift</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="bayesian-neural-networks">
+<h2>Bayesian neural networks<a class="headerlink" href="#bayesian-neural-networks" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/BNN.png" /></p>
+</section>
+<section id="id2">
+<h2>Bayesian neural networks<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://arxiv.org/pdf/2007.06823.pdf">BNN</a></p>
+<p><img alt="" src="_images/bnn_arch.png" /></p>
+</section>
+<section id="monte-carlo-dropout">
+<h2>Monte Carlo dropout<a class="headerlink" href="#monte-carlo-dropout" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Monte carlo sampling can be used to obtain posterior in BNN</p>
+<ul>
+<li><p>Extremely expensive. Limited to shallow networks.</p></li>
+</ul>
+</li>
+<li><p>Dropout is a common regularization technique in NNs</p>
+<ul>
+<li><p>randomly drop units to prevent excessive codependence</p></li>
+<li><p><a class="reference external" href="https://arxiv.org/pdf/1506.02142.pdf">Dropout training approximates Bayesian inference</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="mc-dropout-on-segmentation-tasks">
+<h2>MC dropout on segmentation tasks<a class="headerlink" href="#mc-dropout-on-segmentation-tasks" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://arxiv.org/pdf/1511.02680.pdf">bayesian segnet</a></p>
+<p><img alt="" src="_images/bayes_seg_net.png" /></p>
+</section>
+<section id="variational-inference">
+<h2>Variational inference<a class="headerlink" href="#variational-inference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Frame the Bayesian inference problem as an optimization problem</p></li>
+<li><p>Approximate posterior distribution over the weights of the NN</p></li>
+<li><p>Minimize KL divergence between variational distribution and true posterior</p></li>
+</ul>
+<p><a class="reference external" href="https://arxiv.org/pdf/2003.03396.pdf">Scalable Uncertainty</a></p>
+<p><img alt="" src="_images/vi_scal_uncer.png" /></p>
+</section>
+<section id="variational-autoencoders">
+<h2>Variational autoencoders<a class="headerlink" href="#variational-autoencoders" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Maps high-dimensional data to low-dimensional latent variables</p></li>
+<li><p>Provides a generative model that can be used for UQ</p></li>
+</ul>
+<p><a class="reference external" href="https://arxiv.org/pdf/1910.10046.pdf">UQ using generative models</a></p>
+<p><img alt="" src="_images/uq_gen_mnist.png" /></p>
+</section>
+<section id="bayes-by-backprop">
+<h2>Bayes by backprop<a class="headerlink" href="#bayes-by-backprop" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Minimize variational free energy</p></li>
+</ul>
+<p><img alt="" src="_images/bbb.png" /></p>
+<p><a class="reference external" href="https://arxiv.org/pdf/1505.05424.pdf">weight uncertainty</a></p>
+</section>
+<section id="laplacian-approximations">
+<h2>Laplacian approximations<a class="headerlink" href="#laplacian-approximations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Build a gaussian distribution around the true posterior</p>
+<ul>
+<li><p>Use a taylor expansion around the MAP</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="_images/laplace_sd.png" /></p>
+<p><a class="reference external" href="https://openreview.net/pdf?id=Skdvd2xAZ">laplacian</a></p>
+</section>
+<section id="ensemble-techniques">
+<h2>Ensemble techniques<a class="headerlink" href="#ensemble-techniques" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>An ensemble of models can enchance predictive performance</p></li>
+<li><p>How can we use an ensemble to generate uncertainty estimates?</p></li>
+</ul>
+<p><img alt="" src="_images/ensemble.png" /></p>
+<p><a class="reference external" href="https://arxiv.org/pdf/1807.07356.pdf">brain</a></p>
+<p><img alt="" src="_images/ensemble_brain.png" /></p>
+</section>
+<section id="id3">
+<h2>Ensemble techniques<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/michigan.png" /></p>
+<p><a class="reference external" href="https://arxiv.org/pdf/1911.04061.pdf">air pollution</a></p>
 </section>
 </section>
 
@@ -77,7 +258,24 @@
 <li class="toctree-l1"><a class="reference internal" href="proposal.html">Proposal: Training on Lossy Encoded Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="failing_loudly.html">Critique of Critique of “Failing Loudly: An Empirical Study of Methods for Detecting Dataset Shift”</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">A review of uncertainty quantification in deep learning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#slide-1">Slide 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uncertainty-quantification">Uncertainty quantification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#predictive-uncertainty">Predictive uncertainty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aleatoric-uncertainty">Aleatoric Uncertainty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#epistemic-uncertainty">Epistemic Uncertainty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uncertainty-propagation-in-forward-problem">Uncertainty propagation in forward problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uncertainty-in-inverse-problem">Uncertainty in inverse problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Uncertainty in inverse problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sources-of-uncertainty-in-deep-learning">Sources of uncertainty in deep learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bayesian-neural-networks">Bayesian neural networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Bayesian neural networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monte-carlo-dropout">Monte Carlo dropout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mc-dropout-on-segmentation-tasks">MC dropout on segmentation tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#variational-inference">Variational inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#variational-autoencoders">Variational autoencoders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bayes-by-backprop">Bayes by backprop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#laplacian-approximations">Laplacian approximations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ensemble-techniques">Ensemble techniques</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Ensemble techniques</a></li>
 </ul>
 </li>
 </ul>
