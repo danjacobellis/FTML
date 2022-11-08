@@ -14758,7 +14758,7 @@ Uncertainty quantification in deep learning
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/aleatoric_epistemic.png" width=600 height=600 class="center">
+<img src="_images/aleatoric_epistemic.jpg" width=500 height=500 class="center">
 </p>
 </div>
 </div>
@@ -14785,29 +14785,7 @@ $$R = h(V,I)= \frac{V}{I}$$$$f_R(r) = f_{V, I}\left(h^{-1}(r)\right) \left|\text
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Uncertainty-in-inverse-problem">Uncertainty in inverse problem<a class="anchor-link" href="#Uncertainty-in-inverse-problem">&#182;</a></h2><ul>
-<li>Dereverberation: determine original audio signal from noisy, reverberant recording</li>
-<li>Forward model: Wave equation
-$$c^2 \nabla^2 p = \frac{\partial^2 p}{\partial t^2}$$</li>
-<li>Parameters<ul>
-<li>Size/shape of room</li>
-<li>Reflectivity/absorption of materials</li>
-<li>Noise distribution</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Uncertainty-in-inverse-problem">Uncertainty in inverse problem<a class="anchor-link" href="#Uncertainty-in-inverse-problem">&#182;</a></h2><ul>
-<li>Consider an acoustic propagation model<ul>
+<li>Consider an acoustic propagation model governed by the wave equation $c^2 \nabla^2 p = \frac{\partial^2 p}{\partial t^2}$<ul>
 <li>We can check if the parameters fit the data using the forward model</li>
 <li>Many combinations of parameter values will fit the data</li>
 </ul>
@@ -14931,18 +14909,6 @@ $$c^2 \nabla^2 p = \frac{\partial^2 p}{\partial t^2}$$</li>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="MC-dropout-on-segmentation-tasks">MC dropout on segmentation tasks<a class="anchor-link" href="#MC-dropout-on-segmentation-tasks">&#182;</a></h2><p><a href="https://arxiv.org/pdf/1511.02680.pdf">bayesian segnet</a></p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
 <img src="_images/bayes_seg_net.png" width=600 height=600 class="center">
@@ -14962,7 +14928,6 @@ $$c^2 \nabla^2 p = \frac{\partial^2 p}{\partial t^2}$$</li>
 <li>Approximate posterior distribution over the weights of the NN</li>
 <li>Minimize KL divergence between variational distribution and true posterior</li>
 </ul>
-<p><a href="https://arxiv.org/pdf/2003.03396.pdf">Scalable Uncertainty</a></p>
 
 </div>
 </div>
@@ -15009,41 +14974,6 @@ $$c^2 \nabla^2 p = \frac{\partial^2 p}{\partial t^2}$$</li>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Bayes-by-backprop">Bayes by backprop<a class="anchor-link" href="#Bayes-by-backprop">&#182;</a></h2><ul>
-<li>Minimize variational free energy</li>
-</ul>
-<p><img src="img/bbb.png" alt=""></p>
-<p><a href="https://arxiv.org/pdf/1505.05424.pdf">weight uncertainty</a></p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Laplacian-approximations">Laplacian approximations<a class="anchor-link" href="#Laplacian-approximations">&#182;</a></h2><ul>
-<li>Build a gaussian distribution around the true posterior<ul>
-<li>Use a taylor expansion around the MAP</li>
-</ul>
-</li>
-</ul>
-<p><img src="img/laplace_sd.png" alt=""></p>
-<p><a href="https://openreview.net/pdf?id=Skdvd2xAZ">laplacian</a></p>
-
-</div>
-</div>
-</div>
 </div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -15069,32 +14999,6 @@ $$c^2 \nabla^2 p = \frac{\partial^2 p}{\partial t^2}$$</li>
 <p style="text-align:center;">
 <img src="_images/ensemble.png" width=600 height=600 class="center">
 </p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><a href="https://arxiv.org/pdf/1807.07356.pdf">brain</a></p>
-<p><img src="img/ensemble_brain.png" alt=""></p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Ensemble-techniques">Ensemble techniques<a class="anchor-link" href="#Ensemble-techniques">&#182;</a></h2><p><img src="img/michigan.png" alt=""></p>
-<p><a href="https://arxiv.org/pdf/1911.04061.pdf">air pollution</a></p>
-
 </div>
 </div>
 </div>

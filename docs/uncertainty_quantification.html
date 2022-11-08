@@ -105,22 +105,7 @@
 <section id="uncertainty-in-inverse-problem">
 <h2>Uncertainty in inverse problem<a class="headerlink" href="#uncertainty-in-inverse-problem" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Dereverberation: determine original audio signal from noisy, reverberant recording</p></li>
-<li><p>Forward model: Wave equation
-$<span class="math notranslate nohighlight">\(c^2 \nabla^2 p = \frac{\partial^2 p}{\partial t^2}\)</span>$</p></li>
-<li><p>Parameters</p>
-<ul>
-<li><p>Size/shape of room</p></li>
-<li><p>Reflectivity/absorption of materials</p></li>
-<li><p>Noise distribution</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="id1">
-<h2>Uncertainty in inverse problem<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Consider an acoustic propagation model</p>
+<li><p>Consider an acoustic propagation model governed by the wave equation <span class="math notranslate nohighlight">\(c^2 \nabla^2 p = \frac{\partial^2 p}{\partial t^2}\)</span></p>
 <ul>
 <li><p>We can check if the parameters fit the data using the forward model</p></li>
 <li><p>Many combinations of parameter values will fit the data</p></li>
@@ -151,8 +136,8 @@ $<span class="math notranslate nohighlight">\(c^2 \nabla^2 p = \frac{\partial^2 
 <h2>Bayesian neural networks<a class="headerlink" href="#bayesian-neural-networks" title="Permalink to this headline">¶</a></h2>
 <p><img alt="" src="_images/BNN.png" /></p>
 </section>
-<section id="id2">
-<h2>Bayesian neural networks<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<section id="id1">
+<h2>Bayesian neural networks<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://arxiv.org/pdf/2007.06823.pdf">BNN</a></p>
 <p><img alt="" src="_images/bnn_arch.png" /></p>
 </section>
@@ -171,11 +156,8 @@ $<span class="math notranslate nohighlight">\(c^2 \nabla^2 p = \frac{\partial^2 
 </ul>
 </li>
 </ul>
-</section>
-<section id="mc-dropout-on-segmentation-tasks">
-<h2>MC dropout on segmentation tasks<a class="headerlink" href="#mc-dropout-on-segmentation-tasks" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://arxiv.org/pdf/1511.02680.pdf">bayesian segnet</a></p>
-<p><img alt="" src="_images/bayes_seg_net.png" /></p>
+<p><a class="reference external" href="https://arxiv.org/pdf/1511.02680.pdf">bayesian segnet</a>
+<img alt="" src="_images/bayes_seg_net.png" /></p>
 </section>
 <section id="variational-inference">
 <h2>Variational inference<a class="headerlink" href="#variational-inference" title="Permalink to this headline">¶</a></h2>
@@ -184,8 +166,8 @@ $<span class="math notranslate nohighlight">\(c^2 \nabla^2 p = \frac{\partial^2 
 <li><p>Approximate posterior distribution over the weights of the NN</p></li>
 <li><p>Minimize KL divergence between variational distribution and true posterior</p></li>
 </ul>
-<p><a class="reference external" href="https://arxiv.org/pdf/2003.03396.pdf">Scalable Uncertainty</a></p>
-<p><img alt="" src="_images/vi_scal_uncer.png" /></p>
+<p><a class="reference external" href="https://arxiv.org/pdf/2003.03396.pdf">Scalable Uncertainty</a>
+<img alt="" src="_images/vi_scal_uncer.png" /></p>
 </section>
 <section id="variational-autoencoders">
 <h2>Variational autoencoders<a class="headerlink" href="#variational-autoencoders" title="Permalink to this headline">¶</a></h2>
@@ -226,8 +208,8 @@ $<span class="math notranslate nohighlight">\(c^2 \nabla^2 p = \frac{\partial^2 
 <p><a class="reference external" href="https://arxiv.org/pdf/1807.07356.pdf">brain</a></p>
 <p><img alt="" src="_images/ensemble_brain.png" /></p>
 </section>
-<section id="id3">
-<h2>Ensemble techniques<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<section id="id2">
+<h2>Ensemble techniques<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p><img alt="" src="_images/michigan.png" /></p>
 <p><a class="reference external" href="https://arxiv.org/pdf/1911.04061.pdf">air pollution</a></p>
 </section>
@@ -264,18 +246,16 @@ $<span class="math notranslate nohighlight">\(c^2 \nabla^2 p = \frac{\partial^2 
 <li class="toctree-l2"><a class="reference internal" href="#epistemic-uncertainty">Epistemic Uncertainty</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#uncertainty-propagation-in-forward-problem">Uncertainty propagation in forward problem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#uncertainty-in-inverse-problem">Uncertainty in inverse problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Uncertainty in inverse problem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sources-of-uncertainty-in-deep-learning">Sources of uncertainty in deep learning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bayesian-neural-networks">Bayesian neural networks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Bayesian neural networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Bayesian neural networks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#monte-carlo-dropout">Monte Carlo dropout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mc-dropout-on-segmentation-tasks">MC dropout on segmentation tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#variational-inference">Variational inference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#variational-autoencoders">Variational autoencoders</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bayes-by-backprop">Bayes by backprop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#laplacian-approximations">Laplacian approximations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ensemble-techniques">Ensemble techniques</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">Ensemble techniques</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Ensemble techniques</a></li>
 </ul>
 </li>
 </ul>
