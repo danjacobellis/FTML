@@ -138,8 +138,8 @@
 </section>
 <section id="id1">
 <h2>Bayesian neural networks<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://arxiv.org/pdf/2007.06823.pdf">BNN</a></p>
-<p><img alt="" src="_images/bnn_arch.png" /></p>
+<p><a class="reference external" href="https://arxiv.org/pdf/2007.06823.pdf">BNN</a>
+<img alt="" src="_images/bnn_arch.png" /></p>
 </section>
 <section id="monte-carlo-dropout">
 <h2>Monte Carlo dropout<a class="headerlink" href="#monte-carlo-dropout" title="Permalink to this headline">¶</a></h2>
@@ -152,7 +152,7 @@
 <li><p>Dropout is a common regularization technique in NNs</p>
 <ul>
 <li><p>randomly drop units to prevent excessive codependence</p></li>
-<li><p><a class="reference external" href="https://arxiv.org/pdf/1506.02142.pdf">Dropout training approximates Bayesian inference</a></p></li>
+<li><p>Dropout training approximates Bayesian inference</p></li>
 </ul>
 </li>
 </ul>
@@ -175,8 +175,8 @@
 <li><p>Maps high-dimensional data to low-dimensional latent variables</p></li>
 <li><p>Provides a generative model that can be used for UQ</p></li>
 </ul>
-<p><a class="reference external" href="https://arxiv.org/pdf/1910.10046.pdf">UQ using generative models</a></p>
-<p><img alt="" src="_images/uq_gen_mnist.png" /></p>
+<p><a class="reference external" href="https://arxiv.org/pdf/1910.10046.pdf">UQ using generative models</a>
+<img alt="" src="_images/uq_gen_mnist.png" /></p>
 </section>
 <section id="bayes-by-backprop">
 <h2>Bayes by backprop<a class="headerlink" href="#bayes-by-backprop" title="Permalink to this headline">¶</a></h2>
@@ -207,12 +207,48 @@
 <p><img alt="" src="_images/ensemble.png" /></p>
 <p><a class="reference external" href="https://arxiv.org/pdf/1807.07356.pdf">brain</a></p>
 <p><img alt="" src="_images/ensemble_brain.png" /></p>
-</section>
+<p style="text-align:center;">
+<img src="_images/mass.png" width=600 height=600 class="center">
+</p></section>
 <section id="id2">
 <h2>Ensemble techniques<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p><img alt="" src="_images/michigan.png" /></p>
+<p><img alt="" src="_images/mass.png" /></p>
 <p><a class="reference external" href="https://arxiv.org/pdf/1911.04061.pdf">air pollution</a></p>
 </section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="summary-and-references">
+<h1>Summary and references<a class="headerlink" href="#summary-and-references" title="Permalink to this headline">¶</a></h1>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Advantages</p></th>
+<th class="head"><p>Disadvantages</p></th>
+<th class="head"><p>References</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Monte Carlo</p></td>
+<td><p>No change to training procedure</p></td>
+<td><p>Not reliable for OoD</p></td>
+<td><p><a class="reference external" href="https://arxiv.org/pdf/1506.02142.pdf">[1]</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Variational Inference</p></td>
+<td><p>Fast and scalable</p></td>
+<td><p>Strong dependence on initial conditions</p></td>
+<td><p><a class="reference external" href="https://arxiv.org/pdf/1506.02158.pdf">[2]</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Variational Autoencoder</p></td>
+<td><p>Latent space is easier to work with</p></td>
+<td><p>Lower reconstruction quality</p></td>
+<td><p><a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0020025519308618">[3]</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Ensembles</p></td>
+<td><p>Robust. Works well on OoD</p></td>
+<td><p>Weak performance on smaller problems</p></td>
+<td><p><a class="reference external" href="https://arxiv.org/pdf/2002.12636.pdf">[4]</a></p></td>
+</tr>
+</tbody>
+</table>
 </section>
 
 
@@ -258,6 +294,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#id2">Ensemble techniques</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#summary-and-references">Summary and references</a></li>
 </ul>
 
 <div class="relations">

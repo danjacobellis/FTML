@@ -292,9 +292,7 @@
     "tags": []
    },
    "source": [
-    "## Bayesian neural networks\n",
-    "\n",
-    "[BNN](https://arxiv.org/pdf/2007.06823.pdf)"
+    "## Bayesian neural networks"
    ]
   },
   {
@@ -307,7 +305,7 @@
    },
    "source": [
     "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/bnn_arch.png\" width=600 height=600 class=\"center\">\n",
+    "<img src=\"_images/bnn_arch.png\" width=700 height=700 class=\"center\">\n",
     "</p>"
    ]
   },
@@ -320,6 +318,7 @@
     ]
    },
    "source": [
+    "[BNN](https://arxiv.org/pdf/2007.06823.pdf)\n",
     "![](img/bnn_arch.png)"
    ]
   },
@@ -339,7 +338,7 @@
     "  * Extremely expensive. Limited to shallow networks.\n",
     "* Dropout is a common regularization technique in NNs\n",
     "  * randomly drop units to prevent excessive codependence\n",
-    "  * [Dropout training approximates Bayesian inference](https://arxiv.org/pdf/1506.02142.pdf)"
+    "  * Dropout training approximates Bayesian inference"
    ]
   },
   {
@@ -429,9 +428,7 @@
     "## Variational autoencoders\n",
     "\n",
     "* Maps high-dimensional data to low-dimensional latent variables\n",
-    "* Provides a generative model that can be used for UQ\n",
-    "\n",
-    "[UQ using generative models](https://arxiv.org/pdf/1910.10046.pdf)"
+    "* Provides a generative model that can be used for UQ"
    ]
   },
   {
@@ -444,7 +441,7 @@
    },
    "source": [
     "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/uq_gen_mnist.png\" width=600 height=600 class=\"center\">\n",
+    "<img src=\"_images/uq_gen_mnist.png\" width=650 height=650 class=\"center\">\n",
     "</p>"
    ]
   },
@@ -457,6 +454,7 @@
     ]
    },
    "source": [
+    "[UQ using generative models](https://arxiv.org/pdf/1910.10046.pdf)\n",
     "![](img/uq_gen_mnist.png)"
    ]
   },
@@ -557,6 +555,16 @@
   },
   {
    "cell_type": "markdown",
+   "id": "ad2648e8-16f8-489b-8053-84a8eaa83e1e",
+   "metadata": {},
+   "source": [
+    "<p style=\"text-align:center;\">\n",
+    "<img src=\"_images/mass.png\" width=600 height=600 class=\"center\">\n",
+    "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "f0a88555-6948-4550-984d-3ce47c3aac4b",
    "metadata": {
     "slideshow": {
@@ -566,9 +574,24 @@
    },
    "source": [
     "## Ensemble techniques\n",
-    "![](img/michigan.png)\n",
+    "![](img/mass.png)\n",
     "\n",
     "[air pollution](https://arxiv.org/pdf/1911.04061.pdf)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c03ccf5d-fcda-4375-8ffd-7235697ce15b",
+   "metadata": {},
+   "source": [
+    "# Summary and references\n",
+    "\n",
+    "| Method                  | Advantages                          | Disadvantages                           | References                                |\n",
+    "|-------------------------|-------------------------------------|-----------------------------------------|-------------------------------------------|\n",
+    "| Monte Carlo             | No change to training procedure     |           Not reliable for OoD          | [\\[1\\]](https://arxiv.org/pdf/1506.02142.pdf) |\n",
+    "|  Variational Inference  | Fast and scalable                   | Strong dependence on initial conditions | [\\[2\\]](https://arxiv.org/pdf/1506.02158.pdf)                                          |\n",
+    "| Variational Autoencoder | Latent space is easier to work with | Lower reconstruction quality            | [\\[3\\]](https://www.sciencedirect.com/science/article/pii/S0020025519308618)|\n",
+    "| Ensembles               | Robust. Works well on OoD           | Weak performance on smaller problems    | [\\[4\\]](https://arxiv.org/pdf/2002.12636.pdf)                                       |"
    ]
   }
  ],

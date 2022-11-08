@@ -14863,8 +14863,7 @@ $$R = h(V,I)= \frac{V}{I}$$$$f_R(r) = f_{V, I}\left(h^{-1}(r)\right) \left|\text
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Bayesian-neural-networks">Bayesian neural networks<a class="anchor-link" href="#Bayesian-neural-networks">&#182;</a></h2><p><a href="https://arxiv.org/pdf/2007.06823.pdf">BNN</a></p>
-
+<h2 id="Bayesian-neural-networks">Bayesian neural networks<a class="anchor-link" href="#Bayesian-neural-networks">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -14876,7 +14875,7 @@ $$R = h(V,I)= \frac{V}{I}$$$$f_R(r) = f_{V, I}\left(h^{-1}(r)\right) \left|\text
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/bnn_arch.png" width=600 height=600 class="center">
+<img src="_images/bnn_arch.png" width=700 height=700 class="center">
 </p>
 </div>
 </div>
@@ -14895,7 +14894,7 @@ $$R = h(V,I)= \frac{V}{I}$$$$f_R(r) = f_{V, I}\left(h^{-1}(r)\right) \left|\text
 </li>
 <li>Dropout is a common regularization technique in NNs<ul>
 <li>randomly drop units to prevent excessive codependence</li>
-<li><a href="https://arxiv.org/pdf/1506.02142.pdf">Dropout training approximates Bayesian inference</a></li>
+<li>Dropout training approximates Bayesian inference</li>
 </ul>
 </li>
 </ul>
@@ -14956,7 +14955,6 @@ $$R = h(V,I)= \frac{V}{I}$$$$f_R(r) = f_{V, I}\left(h^{-1}(r)\right) \left|\text
 <li>Maps high-dimensional data to low-dimensional latent variables</li>
 <li>Provides a generative model that can be used for UQ</li>
 </ul>
-<p><a href="https://arxiv.org/pdf/1910.10046.pdf">UQ using generative models</a></p>
 
 </div>
 </div>
@@ -14969,7 +14967,7 @@ $$R = h(V,I)= \frac{V}{I}$$$$f_R(r) = f_{V, I}\left(h^{-1}(r)\right) \left|\text
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/uq_gen_mnist.png" width=600 height=600 class="center">
+<img src="_images/uq_gen_mnist.png" width=650 height=650 class="center">
 </p>
 </div>
 </div>
@@ -14999,6 +14997,65 @@ $$R = h(V,I)= \frac{V}{I}$$$$f_R(r) = f_{V, I}\left(h^{-1}(r)\right) \left|\text
 <p style="text-align:center;">
 <img src="_images/ensemble.png" width=600 height=600 class="center">
 </p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/mass.png" width=600 height=600 class="center">
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Summary-and-references">Summary and references<a class="anchor-link" href="#Summary-and-references">&#182;</a></h1><table>
+<thead><tr>
+<th>Method</th>
+<th>Advantages</th>
+<th>Disadvantages</th>
+<th>References</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monte Carlo</td>
+<td>No change to training procedure</td>
+<td>Not reliable for OoD</td>
+<td><a href="https://arxiv.org/pdf/1506.02142.pdf">[1]</a></td>
+</tr>
+<tr>
+<td>Variational Inference</td>
+<td>Fast and scalable</td>
+<td>Strong dependence on initial conditions</td>
+<td><a href="https://arxiv.org/pdf/1506.02158.pdf">[2]</a></td>
+</tr>
+<tr>
+<td>Variational Autoencoder</td>
+<td>Latent space is easier to work with</td>
+<td>Lower reconstruction quality</td>
+<td><a href="https://www.sciencedirect.com/science/article/pii/S0020025519308618">[3]</a></td>
+</tr>
+<tr>
+<td>Ensembles</td>
+<td>Robust. Works well on OoD</td>
+<td>Weak performance on smaller problems</td>
+<td><a href="https://arxiv.org/pdf/2002.12636.pdf">[4]</a></td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
 </div>
