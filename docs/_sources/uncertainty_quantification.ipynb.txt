@@ -556,7 +556,12 @@
   {
    "cell_type": "markdown",
    "id": "ad2648e8-16f8-489b-8053-84a8eaa83e1e",
-   "metadata": {},
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
    "source": [
     "<p style=\"text-align:center;\">\n",
     "<img src=\"_images/mass.png\" width=600 height=600 class=\"center\">\n",
@@ -582,9 +587,14 @@
   {
    "cell_type": "markdown",
    "id": "c03ccf5d-fcda-4375-8ffd-7235697ce15b",
-   "metadata": {},
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
    "source": [
-    "# Summary and references\n",
+    "## Summary and references\n",
     "\n",
     "| Method                  | Advantages                          | Disadvantages                           | References                                |\n",
     "|-------------------------|-------------------------------------|-----------------------------------------|-------------------------------------------|\n",
