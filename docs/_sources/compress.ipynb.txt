@@ -57,7 +57,12 @@
   {
    "cell_type": "markdown",
    "id": "55cceef4-a58e-4224-ad47-f25c36d2dcfe",
-   "metadata": {},
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
    "source": [
     "## Types of data threats\n",
     "\n",
