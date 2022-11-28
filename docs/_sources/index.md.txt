@@ -9,4 +9,5 @@ survey_of_datasets
 proposal
 failing_loudly
 uncertainty_quantification
+compress
 ```
