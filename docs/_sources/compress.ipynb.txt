@@ -1,0 +1,203 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "267e4f8c-85dd-4f36-9ee4-0462952afe5d",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
+    "# Lossy compression to prevent evasion and poisoning\n",
+    "\n",
+    "[Slides](https://danjacobellis.github.io/FTML/compress.slides.html)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c0e072a5-d669-4465-9a53-03cf7f807acd",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": [
+     "remove-cell"
+    ]
+   },
+   "source": [
+    "<script>\n",
+    "    document.querySelector('head').innerHTML += '<style>.slides { zoom: 1.75 !important; }</style>';\n",
+    "</script>\n",
+    "\n",
+    "<center> <h1>\n",
+    "Lossy compression to prevent evasion and poisoning\n",
+    "</h1> </center>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "341ce89f-dd34-4461-ac0b-f616194c5866",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Types of data threats\n",
+    "\n",
+    "* Evasion\n",
+    "  * Exploit knowledge a model that's already been trained\n",
+    "  * Example: email spam filter\n",
+    "    * Attacker wants to avoid detection while preserving the semantic an email\n",
+    "    * Full or partial knowledge of model can be used to find \"magic words\" that cause an email to be classified as not spam"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "55cceef4-a58e-4224-ad47-f25c36d2dcfe",
+   "metadata": {},
+   "source": [
+    "## Types of data threats\n",
+    "\n",
+    "* Poisoning\n",
+    "  * Attacker contaminates dataset causing major changes to behavior of model\n",
+    "  * Example: facial recognition\n",
+    "    * Attacker wants to prevent facial recognition from working on one or more subjects\n",
+    "    * Attacker uploads altered image to public where dataset is sourced for training"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7d827aed-d51e-4c20-bfae-07edc379ceed",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Gradient attacks"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "63790ddb-bc5f-4f42-ab2f-fc7e0f4850d0",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Lossy compression"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8b89dcee-9137-4c99-809c-fdcbccc827ea",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Lossy compression to prevent evasion"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "64073461-5ed8-49af-acaa-623be9b75291",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": [
+     "remove-cell"
+    ]
+   },
+   "source": [
+    "<p style=\"text-align:center;\">\n",
+    "<img src=\"_images/JPEG_evasion1.png\" width=600 height=600 class=\"center\">\n",
+    "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "80b86a3b-262e-4a2b-9e47-1442f64a36f0",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
+    "![](img/JPEG_evasion1.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "905794bd-6ea8-46b5-865e-5e7f5902b8ff",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": [
+     "remove-cell"
+    ]
+   },
+   "source": [
+    "<p style=\"text-align:center;\">\n",
+    "<img src=\"_images/JPEG_evasion2.png\" width=600 height=600 class=\"center\">\n",
+    "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "df00fd50-0938-476c-b9d3-dff041f88c7e",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
+    "![](img/JPEG_evasion2.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "17f3fc12-45b0-4124-bae8-7789650b5e9b",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Compressed training to prevent poisoning"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
