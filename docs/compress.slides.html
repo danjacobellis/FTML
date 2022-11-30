@@ -14718,7 +14718,23 @@ Lossy compression to prevent evasion and poisoning
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Gradient-attacks">Gradient attacks<a class="anchor-link" href="#Gradient-attacks">&#182;</a></h2>
+<h2 id="Fast-gradient-sign-method">Fast gradient sign method<a class="anchor-link" href="#Fast-gradient-sign-method">&#182;</a></h2>$$adv\_x = x + \epsilon*\text{sign}(\nabla_xJ(\theta, x, y))$$<p><img src="img/doog.png" alt=""></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="%22Robust%22-features">"Robust" features<a class="anchor-link" href="#%22Robust%22-features">&#182;</a></h2><ul>
+<li>"Overall, attaining models that are robust and interpretable will require explicitly encoding human priors into the training process"</li>
+</ul>
+<p><img src="img/robust_doog.png" alt=""></p>
+
 </div>
 </div>
 </div>
@@ -14730,6 +14746,19 @@ Lossy compression to prevent evasion and poisoning
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Lossy-compression">Lossy compression<a class="anchor-link" href="#Lossy-compression">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/lossy_lossless.png" width=700 height=700 class="center">
+</p>
 </div>
 </div>
 </div>
@@ -14770,6 +14799,77 @@ Lossy compression to prevent evasion and poisoning
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="How-small-of-a-perturbation-is-visible?">How small of a perturbation is visible?<a class="anchor-link" href="#How-small-of-a-perturbation-is-visible?">&#182;</a></h2><p><a href="https://deepai.org/publication/frequency-tuned-universal-adversarial-attacks#S2.SS3.p1">https://deepai.org/publication/frequency-tuned-universal-adversarial-attacks#S2.SS3.p1</a></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Gradient-matching">Gradient matching<a class="anchor-link" href="#Gradient-matching">&#182;</a></h2><ul>
+<li>Proposed in 2020 as a more efficient method to poison large datasets<ul>
+<li>Attacker chooses a specific image and chooses a label that they want the image to be classified as</li>
+<li>Using small perturbations to as little as 0.1% of the dataset, the chosen image can be classified as desired by the attacker</li>
+<li>Requires larger perturbations that evasion attacks but are still mostly imperceptible</li>
+<li>Does not require full knowledge of model architecture. Shown to translate to different models<ul>
+<li>Example: Poisoning data assuming a resnet20 model still works when a VGG13 model is trained  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Impact-of-lossy-compression-on-training">Impact of lossy compression on training<a class="anchor-link" href="#Impact-of-lossy-compression-on-training">&#182;</a></h2><ul>
+<li>Accuracy on attacked image vs fidelity</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Sanitization-to-prevent-poisoning">Sanitization to prevent poisoning<a class="anchor-link" href="#Sanitization-to-prevent-poisoning">&#182;</a></h2><ul>
+<li>Test accuracy vs fidelity plot<ul>
+<li>JPEG 0%</li>
+<li>JPEG 25%</li>
+<li>JPEG 50%</li>
+<li>JPEG 75%</li>
+<li>JPEG 100%</li>
+<li>Uncompressed</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
 </div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -14777,7 +14877,17 @@ Lossy compression to prevent evasion and poisoning
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Compressed-training-to-prevent-poisoning">Compressed training to prevent poisoning<a class="anchor-link" href="#Compressed-training-to-prevent-poisoning">&#182;</a></h2>
+<h2 id="Compressed-training-to-prevent-poisoning">Compressed training to prevent poisoning<a class="anchor-link" href="#Compressed-training-to-prevent-poisoning">&#182;</a></h2><ul>
+<li>An attacker wants the poisoning attack to be imperceptible</li>
+<li>Requires the "poison" part of the data to be mostly contained in the least significant bits or high frequencies</li>
+<li>Instead of training in pixel space, train on quantized transform coefficients<ul>
+<li>Details in the least significant bits as well as high frequencies will be discarded</li>
+<li>Details important for classification are kept</li>
+<li>Poisoning may still be possible, but poisoned samples will be much easier to detect</li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 </div>

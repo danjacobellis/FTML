@@ -24,6 +24,8 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="A review of uncertainty quantification in deep learning" href="uncertainty_quantification.html" />
@@ -78,19 +80,83 @@
 </li>
 </ul>
 </section>
-<section id="gradient-attacks">
-<h2>Gradient attacks<a class="headerlink" href="#gradient-attacks" title="Permalink to this headline">¶</a></h2>
+<section id="fast-gradient-sign-method">
+<h2>Fast gradient sign method<a class="headerlink" href="#fast-gradient-sign-method" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[adv\_x = x + \epsilon*\text{sign}(\nabla_xJ(\theta, x, y))\]</div>
+<p><img alt="" src="_images/doog.png" /></p>
+</section>
+<section id="robust-features">
+<h2>“Robust” features<a class="headerlink" href="#robust-features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>“Overall, attaining models that are robust and interpretable will require explicitly encoding human priors into the training process”</p></li>
+</ul>
+<p><img alt="" src="_images/robust_doog.png" /></p>
 </section>
 <section id="lossy-compression">
 <h2>Lossy compression<a class="headerlink" href="#lossy-compression" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/lossy_lossless.png" /></p>
 </section>
 <section id="lossy-compression-to-prevent-evasion">
 <h2>Lossy compression to prevent evasion<a class="headerlink" href="#lossy-compression-to-prevent-evasion" title="Permalink to this headline">¶</a></h2>
 <p><img alt="" src="_images/JPEG_evasion1.png" /></p>
 <p><img alt="" src="_images/JPEG_evasion2.png" /></p>
 </section>
+<section id="how-small-of-a-perturbation-is-visible">
+<h2>How small of a perturbation is visible?<a class="headerlink" href="#how-small-of-a-perturbation-is-visible" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://deepai.org/publication/frequency-tuned-universal-adversarial-attacks#S2.SS3.p1">https://deepai.org/publication/frequency-tuned-universal-adversarial-attacks#S2.SS3.p1</a></p>
+</section>
+<section id="gradient-matching">
+<h2>Gradient matching<a class="headerlink" href="#gradient-matching" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Proposed in 2020 as a more efficient method to poison large datasets</p>
+<ul>
+<li><p>Attacker chooses a specific image and chooses a label that they want the image to be classified as</p></li>
+<li><p>Using small perturbations to as little as 0.1% of the dataset, the chosen image can be classified as desired by the attacker</p></li>
+<li><p>Requires larger perturbations that evasion attacks but are still mostly imperceptible</p></li>
+<li><p>Does not require full knowledge of model architecture. Shown to translate to different models</p>
+<ul>
+<li><p>Example: Poisoning data assuming a resnet20 model still works when a VGG13 model is trained</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="impact-of-lossy-compression-on-training">
+<h2>Impact of lossy compression on training<a class="headerlink" href="#impact-of-lossy-compression-on-training" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Accuracy on attacked image vs fidelity</p></li>
+</ul>
+</section>
+<section id="sanitization-to-prevent-poisoning">
+<h2>Sanitization to prevent poisoning<a class="headerlink" href="#sanitization-to-prevent-poisoning" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Test accuracy vs fidelity plot</p>
+<ul>
+<li><p>JPEG 0%</p></li>
+<li><p>JPEG 25%</p></li>
+<li><p>JPEG 50%</p></li>
+<li><p>JPEG 75%</p></li>
+<li><p>JPEG 100%</p></li>
+<li><p>Uncompressed</p></li>
+</ul>
+</li>
+</ul>
+</section>
 <section id="compressed-training-to-prevent-poisoning">
 <h2>Compressed training to prevent poisoning<a class="headerlink" href="#compressed-training-to-prevent-poisoning" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>An attacker wants the poisoning attack to be imperceptible</p></li>
+<li><p>Requires the “poison” part of the data to be mostly contained in the least significant bits or high frequencies</p></li>
+<li><p>Instead of training in pixel space, train on quantized transform coefficients</p>
+<ul>
+<li><p>Details in the least significant bits as well as high frequencies will be discarded</p></li>
+<li><p>Details important for classification are kept</p></li>
+<li><p>Poisoning may still be possible, but poisoned samples will be much easier to detect</p></li>
+</ul>
+</li>
+</ul>
 </section>
 </section>
 
@@ -122,9 +188,14 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Lossy compression to prevent evasion and poisoning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#types-of-data-threats">Types of data threats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Types of data threats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#gradient-attacks">Gradient attacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fast-gradient-sign-method">Fast gradient sign method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robust-features">“Robust” features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lossy-compression">Lossy compression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lossy-compression-to-prevent-evasion">Lossy compression to prevent evasion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-small-of-a-perturbation-is-visible">How small of a perturbation is visible?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gradient-matching">Gradient matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#impact-of-lossy-compression-on-training">Impact of lossy compression on training</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sanitization-to-prevent-poisoning">Sanitization to prevent poisoning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#compressed-training-to-prevent-poisoning">Compressed training to prevent poisoning</a></li>
 </ul>
 </li>

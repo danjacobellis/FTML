@@ -83,7 +83,20 @@
     "tags": []
    },
    "source": [
-    "## Gradient attacks"
+    "## Fast gradient sign method\n",
+    "$$adv\\_x = x + \\epsilon*\\text{sign}(\\nabla_xJ(\\theta, x, y))$$\n",
+    "![](img/doog.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c299f879-228f-400e-8d04-0d772448e267",
+   "metadata": {},
+   "source": [
+    "## \"Robust\" features\n",
+    "* \"Overall, attaining models that are robust and interpretable will require explicitly encoding human priors into the training process\"\n",
+    "\n",
+    "![](img/robust_doog.png)"
    ]
   },
   {
@@ -97,6 +110,32 @@
    },
    "source": [
     "## Lossy compression"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8b9600e0-09bc-45a5-b2db-2e81b61abc93",
+   "metadata": {
+    "tags": [
+     "remove-cell"
+    ]
+   },
+   "source": [
+    "<p style=\"text-align:center;\">\n",
+    "<img src=\"_images/lossy_lossless.png\" width=700 height=700 class=\"center\">\n",
+    "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "301a2407-41b1-4361-bcaf-8a299b831288",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
+    "![](img/lossy_lossless.png)"
    ]
   },
   {
@@ -172,6 +211,56 @@
   },
   {
    "cell_type": "markdown",
+   "id": "50f4e8ef-0d35-4dca-ad6b-e8067badce83",
+   "metadata": {},
+   "source": [
+    "## How small of a perturbation is visible?\n",
+    "https://deepai.org/publication/frequency-tuned-universal-adversarial-attacks#S2.SS3.p1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4549ccd3-b843-4cf4-baa4-f92deb21afb0",
+   "metadata": {},
+   "source": [
+    "## Gradient matching\n",
+    "\n",
+    "* Proposed in 2020 as a more efficient method to poison large datasets\n",
+    "  * Attacker chooses a specific image and chooses a label that they want the image to be classified as\n",
+    "  * Using small perturbations to as little as 0.1% of the dataset, the chosen image can be classified as desired by the attacker\n",
+    "  * Requires larger perturbations that evasion attacks but are still mostly imperceptible\n",
+    "  * Does not require full knowledge of model architecture. Shown to translate to different models\n",
+    "    * Example: Poisoning data assuming a resnet20 model still works when a VGG13 model is trained  "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5eeea2b5-2109-41ae-a05f-67b10eef0dde",
+   "metadata": {},
+   "source": [
+    "## Impact of lossy compression on training\n",
+    "\n",
+    "* Accuracy on attacked image vs fidelity"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5d208f40-1e9e-4bc1-bae4-cf958536b859",
+   "metadata": {},
+   "source": [
+    "## Sanitization to prevent poisoning\n",
+    "\n",
+    "* Test accuracy vs fidelity plot\n",
+    "    * JPEG 0%\n",
+    "    * JPEG 25%\n",
+    "    * JPEG 50%\n",
+    "    * JPEG 75%\n",
+    "    * JPEG 100%\n",
+    "    * Uncompressed"
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "17f3fc12-45b0-4124-bae8-7789650b5e9b",
    "metadata": {
     "slideshow": {
@@ -180,7 +269,14 @@
     "tags": []
    },
    "source": [
-    "## Compressed training to prevent poisoning"
+    "## Compressed training to prevent poisoning\n",
+    "\n",
+    "* An attacker wants the poisoning attack to be imperceptible\n",
+    "* Requires the \"poison\" part of the data to be mostly contained in the least significant bits or high frequencies\n",
+    "* Instead of training in pixel space, train on quantized transform coefficients\n",
+    "  * Details in the least significant bits as well as high frequencies will be discarded\n",
+    "  * Details important for classification are kept\n",
+    "  * Poisoning may still be possible, but poisoned samples will be much easier to detect"
    ]
   }
  ],
