@@ -104,10 +104,10 @@
 </section>
 <section id="how-small-of-a-perturbation-is-visible">
 <h2>How small of a perturbation is visible?<a class="headerlink" href="#how-small-of-a-perturbation-is-visible" title="Permalink to this headline">¶</a></h2>
-<p><img alt="" src="_images/dither.png" /></p>
 <ul class="simple">
 <li><p>Most perturbations are imperceptible if contained in the four least significant bits.</p></li>
 </ul>
+<p><img alt="" src="_images/dither.png" /></p>
 </section>
 <section id="defending-against-larger-perturbations">
 <h2>Defending against larger perturbations<a class="headerlink" href="#defending-against-larger-perturbations" title="Permalink to this headline">¶</a></h2>
@@ -116,6 +116,8 @@
 </section>
 <section id="impact-of-lossy-compression-on-training">
 <h2>Impact of lossy compression on training<a class="headerlink" href="#impact-of-lossy-compression-on-training" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split} \text{Performance of perturbed sampled} = \begin{cases} \text{label confidence} &amp; \text{label is correct} \\ -\text{label confidence} &amp; \text{label is incorrect} \end{cases}\end{split}\]</div>
 <p><img alt="" src="_images/accuracy_vs_fidelity.png" /></p>
 </section>
 <section id="gradient-matching">
