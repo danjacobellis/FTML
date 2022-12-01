@@ -215,7 +215,38 @@
    "metadata": {},
    "source": [
     "## How small of a perturbation is visible?\n",
+    "\n",
+    "![](img/dither.png)\n",
+    "\n",
+    "* Most perturbations are imperceptible if contained in the four least significant bits."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b0d3ffc3-a010-445a-97a8-9cba97dc2315",
+   "metadata": {},
+   "source": [
+    "## Defending against larger perturbations\n",
+    "\n",
+    "![](img/jpeg_vs_gif.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b5af3006-5d4a-47f8-ac64-5bbb2c6305e2",
+   "metadata": {},
+   "source": [
     "https://deepai.org/publication/frequency-tuned-universal-adversarial-attacks#S2.SS3.p1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5eeea2b5-2109-41ae-a05f-67b10eef0dde",
+   "metadata": {},
+   "source": [
+    "## Impact of lossy compression on training\n",
+    "\n",
+    "![](img/accuracy_vs_fidelity.png)"
    ]
   },
   {
@@ -231,16 +262,6 @@
     "  * Requires larger perturbations that evasion attacks but are still mostly imperceptible\n",
     "  * Does not require full knowledge of model architecture. Shown to translate to different models\n",
     "    * Example: Poisoning data assuming a resnet20 model still works when a VGG13 model is trained  "
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "5eeea2b5-2109-41ae-a05f-67b10eef0dde",
-   "metadata": {},
-   "source": [
-    "## Impact of lossy compression on training\n",
-    "\n",
-    "* Accuracy on attacked image vs fidelity"
    ]
   },
   {
