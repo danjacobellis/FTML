@@ -319,6 +319,45 @@
   },
   {
    "cell_type": "markdown",
+   "id": "c108bf1a-4256-49b9-b83b-e44203ae0de2",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Visual perception of quantization"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "eaaf2134-37c1-4a6e-b685-1fbe3e266da1",
+   "metadata": {
+    "tags": [
+     "remove-cell"
+    ]
+   },
+   "source": [
+    "<p style=\"text-align:center;\">\n",
+    "<img src=\"_images/doog.png\" width=700 height=700 class=\"center\">\n",
+    "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1349cbbf-f39b-4777-bfb1-972cfb0a36c3",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
+    "![](img/doog.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "b0d3ffc3-a010-445a-97a8-9cba97dc2315",
    "metadata": {
     "slideshow": {
