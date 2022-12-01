@@ -100,6 +100,9 @@
 <section id="lossy-compression-to-prevent-evasion">
 <h2>Lossy compression to prevent evasion<a class="headerlink" href="#lossy-compression-to-prevent-evasion" title="Permalink to this headline">¶</a></h2>
 <p><img alt="" src="_images/JPEG_evasion1.png" /></p>
+</section>
+<section id="id2">
+<h2>Lossy compression to prevent evasion<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p><img alt="" src="_images/JPEG_evasion2.png" /></p>
 </section>
 <section id="how-small-of-a-perturbation-is-visible">
@@ -114,11 +117,12 @@
 <p><img alt="" src="_images/jpeg_vs_gif.png" /></p>
 <p><a class="reference external" href="https://deepai.org/publication/frequency-tuned-universal-adversarial-attacks#S2.SS3.p1">https://deepai.org/publication/frequency-tuned-universal-adversarial-attacks#S2.SS3.p1</a></p>
 </section>
-<section id="impact-of-lossy-compression-on-training">
-<h2>Impact of lossy compression on training<a class="headerlink" href="#impact-of-lossy-compression-on-training" title="Permalink to this headline">¶</a></h2>
+<section id="how-lossy-to-compress">
+<h2>How lossy to compress?<a class="headerlink" href="#how-lossy-to-compress" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight">
-\[\begin{split} \text{Performance of perturbed sampled} = \begin{cases} \text{label confidence} &amp; \text{label is correct} \\ -\text{label confidence} &amp; \text{label is incorrect} \end{cases}\end{split}\]</div>
+\[\begin{split} \text{Performance on perturbed test sample} = \begin{cases} \text{label confidence} &amp; \text{label is correct} \\ -\text{label confidence} &amp; \text{label is incorrect} \end{cases}\end{split}\]</div>
 <p><img alt="" src="_images/accuracy_vs_fidelity.png" /></p>
+<p>* Preliminary results on one image</p>
 </section>
 <section id="gradient-matching">
 <h2>Gradient matching<a class="headerlink" href="#gradient-matching" title="Permalink to this headline">¶</a></h2>
@@ -137,21 +141,6 @@
 </li>
 </ul>
 </section>
-<section id="sanitization-to-prevent-poisoning">
-<h2>Sanitization to prevent poisoning<a class="headerlink" href="#sanitization-to-prevent-poisoning" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Test accuracy vs fidelity plot</p>
-<ul>
-<li><p>JPEG 0%</p></li>
-<li><p>JPEG 25%</p></li>
-<li><p>JPEG 50%</p></li>
-<li><p>JPEG 75%</p></li>
-<li><p>JPEG 100%</p></li>
-<li><p>Uncompressed</p></li>
-</ul>
-</li>
-</ul>
-</section>
 <section id="compressed-training-to-prevent-poisoning">
 <h2>Compressed training to prevent poisoning<a class="headerlink" href="#compressed-training-to-prevent-poisoning" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -159,11 +148,72 @@
 <li><p>Requires the “poison” part of the data to be mostly contained in the least significant bits or high frequencies</p></li>
 <li><p>Instead of training in pixel space, train on quantized transform coefficients</p>
 <ul>
-<li><p>Details in the least significant bits as well as high frequencies will be discarded</p></li>
+<li><p>Discards details in the least significant bits as well as high frequencies</p></li>
 <li><p>Details important for classification are kept</p></li>
-<li><p>Poisoning may still be possible, but poisoned samples will be much easier to detect</p></li>
 </ul>
 </li>
+</ul>
+</section>
+<section id="audio-classification-baseline">
+<h2>Audio classification: baseline<a class="headerlink" href="#audio-classification-baseline" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Dataset: Speech commands</p>
+<ul>
+<li><p>One second speech segments of 8 possible words</p></li>
+<li><p>‘stop,’ ‘down,’ ‘no,’ ‘right,’ ‘go,’ ‘up,’ ‘yes,’ ‘left’</p></li>
+</ul>
+</li>
+<li><p>Baseline model:</p>
+<ul>
+<li><p>Input size: <span class="math notranslate nohighlight">\(128 \times 128\)</span> time-frequency distribution represented at full precision</p></li>
+<li><p>119.52 MiB Feature size</p></li>
+<li><p>2.26 GFLOPs per pass</p></li>
+<li><p>Achieves test accuracy of about 84%</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="audio-classification-vq-bnn">
+<h2>Audio classification: VQ + BNN<a class="headerlink" href="#audio-classification-vq-bnn" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Encode 2x2 time-frequency blocks via vector quantization</p>
+<ul>
+<li><p>Use mini-batch k-means to learn codebook of 16 vectors (4 bits)</p></li>
+<li><p>Compression ratio of 16:1 (before any entropy coding)</p></li>
+</ul>
+</li>
+<li><p>Input size: <span class="math notranslate nohighlight">\(64 \times 64 \times 4\)</span> binary codes</p></li>
+</ul>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><audio controls="controls"><source src="./_static/left01.wav" type="audio/wav"></audio></p></th>
+<th class="head"><p><audio controls="controls"><source src="./_static/right01.wav" type="audio/wav"></audio></p></th>
+<th class="head"><p><audio controls="controls"><source src="./_static/yes01.wav" type="audio/wav"></audio></p></th>
+<th class="head"><p><audio controls="controls"><source src="./_static/no01.wav" type="audio/wav"></audio></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><audio controls="controls"><source src="./_static/left01_vq.wav" type="audio/wav"></audio></p></td>
+<td><p><audio controls="controls"><source src="./_static/right01_vq.wav" type="audio/wav"></audio></p></td>
+<td><p><audio controls="controls"><source src="./_static/yes01_vq.wav" type="audio/wav"></audio></p></td>
+<td><p><audio controls="controls"><source src="./_static/no01_vq.wav" type="audio/wav"></audio></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id3">
+<h2>Audio classification: VQ + BNN<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Input size: <span class="math notranslate nohighlight">\(64 \times 64 \times 4\)</span> binary codes</p></li>
+<li><p>3.74 MiB feature size</p></li>
+<li><p>Multiply-accumulate instead of FP</p>
+<ul>
+<li><p>4-way MAC unit uses about 55% of the area of a FP16 FPU</p></li>
+<li><p><span class="math notranslate nohighlight">\(4-8 \times\)</span> more power efficient compared to bfloat16</p></li>
+<li><p><span class="math notranslate nohighlight">\(&gt;20 \times\)</span> more power efficient compared to FP32</p></li>
+</ul>
+</li>
+<li><p>Achieves test accuracy of about 79% (down from baseline of 84%)</p></li>
 </ul>
 </section>
 </section>
@@ -200,12 +250,15 @@
 <li class="toctree-l2"><a class="reference internal" href="#robust-features">“Robust” features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lossy-compression">Lossy compression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lossy-compression-to-prevent-evasion">Lossy compression to prevent evasion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Lossy compression to prevent evasion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-small-of-a-perturbation-is-visible">How small of a perturbation is visible?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#defending-against-larger-perturbations">Defending against larger perturbations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#impact-of-lossy-compression-on-training">Impact of lossy compression on training</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-lossy-to-compress">How lossy to compress?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#gradient-matching">Gradient matching</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sanitization-to-prevent-poisoning">Sanitization to prevent poisoning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#compressed-training-to-prevent-poisoning">Compressed training to prevent poisoning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#audio-classification-baseline">Audio classification: baseline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#audio-classification-vq-bnn">Audio classification: VQ + BNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Audio classification: VQ + BNN</a></li>
 </ul>
 </li>
 </ul>

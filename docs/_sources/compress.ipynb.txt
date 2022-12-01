@@ -32,6 +32,10 @@
     "\n",
     "<center> <h1>\n",
     "Lossy compression to prevent evasion and poisoning\n",
+    "</h1> </center>\n",
+    "\n",
+    "<center> <h1>\n",
+    "Dan Jacobellis, Matthew Qin\n",
     "</h1> </center>"
    ]
   },
@@ -104,7 +108,11 @@
   {
    "cell_type": "markdown",
    "id": "36e6f06d-b6fa-4d01-a7d0-e87db0903084",
-   "metadata": {},
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
    "source": [
     "![](img/doog.png)"
    ]
@@ -140,7 +148,11 @@
   {
    "cell_type": "markdown",
    "id": "7c02d8a4-dab2-4179-8c2c-15c82e597f88",
-   "metadata": {},
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
    "source": [
     "![](img/robust_doog.png)"
    ]
@@ -168,7 +180,7 @@
    },
    "source": [
     "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/lossy_lossless.png\" width=700 height=700 class=\"center\">\n",
+    "<img src=\"_images/lossy_lossless.png\" width=800 height=800 class=\"center\">\n",
     "</p>"
    ]
   },
@@ -201,16 +213,13 @@
    "cell_type": "markdown",
    "id": "64073461-5ed8-49af-acaa-623be9b75291",
    "metadata": {
-    "slideshow": {
-     "slide_type": "slide"
-    },
     "tags": [
      "remove-cell"
     ]
    },
    "source": [
     "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/JPEG_evasion1.png\" width=600 height=600 class=\"center\">\n",
+    "<img src=\"_images/JPEG_evasion1.png\" width=800 height=800 class=\"center\">\n",
     "</p>"
    ]
   },
@@ -228,6 +237,19 @@
   },
   {
    "cell_type": "markdown",
+   "id": "a45012f1-6308-49d4-b904-c5992879abc6",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Lossy compression to prevent evasion"
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "905794bd-6ea8-46b5-865e-5e7f5902b8ff",
    "metadata": {
     "slideshow": {
@@ -239,7 +261,7 @@
    },
    "source": [
     "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/JPEG_evasion2.png\" width=600 height=600 class=\"center\">\n",
+    "<img src=\"_images/JPEG_evasion2.png\" width=800 height=800 class=\"center\">\n",
     "</p>"
    ]
   },
@@ -287,7 +309,11 @@
   {
    "cell_type": "markdown",
    "id": "345fdb42-8d72-4b3d-90b5-670aa437d546",
-   "metadata": {},
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
    "source": [
     "![](img/dither.png)"
    ]
@@ -315,14 +341,18 @@
    },
    "source": [
     "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/jpg_vs_gif.png\" width=700 height=700 class=\"center\">\n",
+    "<img src=\"_images/jpeg_vs_gif.png\" width=700 height=700 class=\"center\">\n",
     "</p>"
    ]
   },
   {
    "cell_type": "markdown",
    "id": "d9a20421-91ee-4bfd-ba55-1826c8eed556",
-   "metadata": {},
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
    "source": [
     "![](img/jpeg_vs_gif.png)"
    ]
@@ -345,7 +375,7 @@
     "tags": []
    },
    "source": [
-    "## Impact of lossy compression on training"
+    "## How lossy to compress?"
    ]
   },
   {
@@ -353,7 +383,7 @@
    "id": "e1f01cc7-a62a-4366-a5c2-696bdf6f1c8f",
    "metadata": {},
    "source": [
-    "$$ \\text{Performance of perturbed sampled} = \\begin{cases} \\text{label confidence} & \\text{label is correct} \\\\ -\\text{label confidence} & \\text{label is incorrect} \\end{cases}$$"
+    "$$ \\text{Performance on perturbed test sample} = \\begin{cases} \\text{label confidence} & \\text{label is correct} \\\\ -\\text{label confidence} & \\text{label is incorrect} \\end{cases}$$"
    ]
   },
   {
@@ -373,9 +403,21 @@
   {
    "cell_type": "markdown",
    "id": "5a3ce377-c2fe-4862-90f6-ea7b8f57c313",
-   "metadata": {},
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
    "source": [
     "![](img/accuracy_vs_fidelity.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "674fc3b4-d033-4c72-89d6-5fd87d69f2a6",
+   "metadata": {},
+   "source": [
+    "\\* Preliminary results on one image"
    ]
   },
   {
@@ -402,10 +444,10 @@
    "cell_type": "markdown",
    "id": "5d208f40-1e9e-4bc1-bae4-cf958536b859",
    "metadata": {
-    "slideshow": {
-     "slide_type": "slide"
-    },
-    "tags": []
+    "tags": [
+     "remove-nb-cell",
+     "remove-cell"
+    ]
    },
    "source": [
     "## Sanitization to prevent poisoning\n",
@@ -434,9 +476,70 @@
     "* An attacker wants the poisoning attack to be imperceptible\n",
     "* Requires the \"poison\" part of the data to be mostly contained in the least significant bits or high frequencies\n",
     "* Instead of training in pixel space, train on quantized transform coefficients\n",
-    "  * Details in the least significant bits as well as high frequencies will be discarded\n",
-    "  * Details important for classification are kept\n",
-    "  * Poisoning may still be possible, but poisoned samples will be much easier to detect"
+    "  * Discards details in the least significant bits as well as high frequencies\n",
+    "  * Details important for classification are kept"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "dd740b42-1aaa-40a3-94f8-7e3eb9cc9c92",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Audio classification: baseline\n",
+    "* Dataset: Speech commands\n",
+    "  * One second speech segments of 8 possible words\n",
+    "  * 'stop,' 'down,' 'no,' 'right,' 'go,' 'up,' 'yes,' 'left'\n",
+    "* Baseline model:\n",
+    "  * Input size: $128 \\times 128$ time-frequency distribution represented at full precision\n",
+    "  * 119.52 MiB Feature size\n",
+    "  * 2.26 GFLOPs per pass\n",
+    "  * Achieves test accuracy of about 84% "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d959d167-4550-4bb7-8256-a9668ac4346e",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Audio classification: VQ + BNN\n",
+    "* Encode 2x2 time-frequency blocks via vector quantization\n",
+    "  * Use mini-batch k-means to learn codebook of 16 vectors (4 bits)\n",
+    "  * Compression ratio of 16:1 (before any entropy coding)\n",
+    "* Input size: $64 \\times 64 \\times 4$ binary codes\n",
+    "\n",
+    "| <audio controls=\"controls\"><source src=\"./_static/left01.wav\" type=\"audio/wav\"></audio>    | <audio controls=\"controls\"><source src=\"./_static/right01.wav\" type=\"audio/wav\"></audio>    | <audio controls=\"controls\"><source src=\"./_static/yes01.wav\" type=\"audio/wav\"></audio>    | <audio controls=\"controls\"><source src=\"./_static/no01.wav\" type=\"audio/wav\"></audio>    |\n",
+    "|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|\n",
+    "| <audio controls=\"controls\"><source src=\"./_static/left01_vq.wav\" type=\"audio/wav\"></audio> | <audio controls=\"controls\"><source src=\"./_static/right01_vq.wav\" type=\"audio/wav\"></audio> | <audio controls=\"controls\"><source src=\"./_static/yes01_vq.wav\" type=\"audio/wav\"></audio> | <audio controls=\"controls\"><source src=\"./_static/no01_vq.wav\" type=\"audio/wav\"></audio> |"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5dc3bbaf-98a0-4b85-83b3-deda91f955fc",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Audio classification: VQ + BNN\n",
+    "* Input size: $64 \\times 64 \\times 4$ binary codes\n",
+    "* 3.74 MiB feature size \n",
+    "* Multiply-accumulate instead of FP\n",
+    "  * 4-way MAC unit uses about 55% of the area of a FP16 FPU\n",
+    "  * $4-8 \\times$ more power efficient compared to bfloat16\n",
+    "  * $>20 \\times$ more power efficient compared to FP32\n",
+    "* Achieves test accuracy of about 79% (down from baseline of 84%)"
    ]
   }
  ],

@@ -33,5 +33,7 @@ def build():
     result = run("jupyter-nbconvert --to slides compress.ipynb --output docs/compress --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags='remove-nb-cell' --TagRemovePreprocessor.remove_input_tags='remove-nb-input'",capture_output=True, shell=True)
     print(result.stdout.decode("utf-8"))
     
+    copytree("_static","docs/_static",dirs_exist_ok=True)
+    
 if __name__ == '__main__':
     build()
