@@ -48,28 +48,22 @@
   <section class="tex2jax_ignore mathjax_ignore" id="lossy-compression-to-prevent-evasion-and-poisoning">
 <h1>Lossy compression to prevent evasion and poisoning<a class="headerlink" href="#lossy-compression-to-prevent-evasion-and-poisoning" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://danjacobellis.github.io/FTML/compress.slides.html">Slides</a></p>
-<section id="types-of-data-threats">
-<h2>Types of data threats<a class="headerlink" href="#types-of-data-threats" title="Permalink to this headline">¶</a></h2>
+<section id="evasion">
+<h2>Evasion<a class="headerlink" href="#evasion" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Evasion</p>
-<ul>
 <li><p>Exploit knowledge a model that’s already been trained</p></li>
 <li><p>Example: email spam filter</p>
 <ul>
-<li><p>Attacker wants to avoid detection while preserving the semantic an email</p></li>
+<li><p>Attacker wants to avoid detection while preserving the semantic content an email</p></li>
 <li><p>Full or partial knowledge of model can be used to find “magic words” that cause an email to be classified as not spam</p></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 </section>
-<section id="id1">
-<h2>Types of data threats<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<section id="poisoning">
+<h2>Poisoning<a class="headerlink" href="#poisoning" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Poisoning</p>
-<ul>
-<li><p>Attacker contaminates dataset causing major changes to behavior of model</p></li>
+<li><p>Attacker contaminates dataset, usually with the goal of introducing a backdoor</p></li>
 <li><p>Example: facial recognition</p>
 <ul>
 <li><p>Attacker wants to prevent facial recognition from working on one or more subjects</p></li>
@@ -77,13 +71,11 @@
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 </section>
 <section id="fast-gradient-sign-method">
 <h2>Fast gradient sign method<a class="headerlink" href="#fast-gradient-sign-method" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight">
-\[adv\_x = x + \epsilon*\text{sign}(\nabla_xJ(\theta, x, y))\]</div>
+\[x_{\text{adv}} = x + \epsilon*\text{sign}(\nabla_xJ(\theta, x, y))\]</div>
 <p><img alt="" src="_images/doog.png" /></p>
 </section>
 <section id="robust-features">
@@ -101,21 +93,20 @@
 <h2>Lossy compression to prevent evasion<a class="headerlink" href="#lossy-compression-to-prevent-evasion" title="Permalink to this headline">¶</a></h2>
 <p><img alt="" src="_images/JPEG_evasion1.png" /></p>
 </section>
-<section id="id2">
-<h2>Lossy compression to prevent evasion<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<section id="id1">
+<h2>Lossy compression to prevent evasion<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p><img alt="" src="_images/JPEG_evasion2.png" /></p>
 </section>
-<section id="how-small-of-a-perturbation-is-visible">
-<h2>How small of a perturbation is visible?<a class="headerlink" href="#how-small-of-a-perturbation-is-visible" title="Permalink to this headline">¶</a></h2>
+<section id="visual-perception-of-quantization">
+<h2>Visual perception of quantization<a class="headerlink" href="#visual-perception-of-quantization" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/dither.png" /></p>
 <ul class="simple">
 <li><p>Most perturbations are imperceptible if contained in the four least significant bits.</p></li>
 </ul>
-<p><img alt="" src="_images/dither.png" /></p>
 </section>
 <section id="defending-against-larger-perturbations">
 <h2>Defending against larger perturbations<a class="headerlink" href="#defending-against-larger-perturbations" title="Permalink to this headline">¶</a></h2>
 <p><img alt="" src="_images/jpeg_vs_gif.png" /></p>
-<p><a class="reference external" href="https://deepai.org/publication/frequency-tuned-universal-adversarial-attacks#S2.SS3.p1">https://deepai.org/publication/frequency-tuned-universal-adversarial-attacks#S2.SS3.p1</a></p>
 </section>
 <section id="how-lossy-to-compress">
 <h2>How lossy to compress?<a class="headerlink" href="#how-lossy-to-compress" title="Permalink to this headline">¶</a></h2>
@@ -127,18 +118,12 @@
 <section id="gradient-matching">
 <h2>Gradient matching<a class="headerlink" href="#gradient-matching" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Proposed in 2020 as a more efficient method to poison large datasets</p>
-<ul>
+<li><p>Proposed in 2020 as a more efficient method to poison large datasets</p></li>
 <li><p>Attacker chooses a specific image and chooses a label that they want the image to be classified as</p></li>
 <li><p>Using small perturbations to as little as 0.1% of the dataset, the chosen image can be classified as desired by the attacker</p></li>
 <li><p>Requires larger perturbations that evasion attacks but are still mostly imperceptible</p></li>
-<li><p>Does not require full knowledge of model architecture. Shown to translate to different models</p>
-<ul>
-<li><p>Example: Poisoning data assuming a resnet20 model still works when a VGG13 model is trained</p></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><p>Does not require full knowledge of model architecture. Shown to translate to different models</p></li>
+<li><p>Example: Poisoning data by assuming a resnet20 model still works when a VGG13 model is trained</p></li>
 </ul>
 </section>
 <section id="compressed-training-to-prevent-poisoning">
@@ -201,8 +186,8 @@
 </tbody>
 </table>
 </section>
-<section id="id3">
-<h2>Audio classification: VQ + BNN<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<section id="id2">
+<h2>Audio classification: VQ + BNN<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Input size: <span class="math notranslate nohighlight">\(64 \times 64 \times 4\)</span> binary codes</p></li>
 <li><p>3.74 MiB feature size</p></li>
@@ -244,21 +229,21 @@
 <li class="toctree-l1"><a class="reference internal" href="failing_loudly.html">Critique of Critique of “Failing Loudly: An Empirical Study of Methods for Detecting Dataset Shift”</a></li>
 <li class="toctree-l1"><a class="reference internal" href="uncertainty_quantification.html">A review of uncertainty quantification in deep learning</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Lossy compression to prevent evasion and poisoning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#types-of-data-threats">Types of data threats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Types of data threats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#evasion">Evasion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#poisoning">Poisoning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fast-gradient-sign-method">Fast gradient sign method</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#robust-features">“Robust” features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lossy-compression">Lossy compression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lossy-compression-to-prevent-evasion">Lossy compression to prevent evasion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Lossy compression to prevent evasion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#how-small-of-a-perturbation-is-visible">How small of a perturbation is visible?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Lossy compression to prevent evasion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#visual-perception-of-quantization">Visual perception of quantization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#defending-against-larger-perturbations">Defending against larger perturbations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-lossy-to-compress">How lossy to compress?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#gradient-matching">Gradient matching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#compressed-training-to-prevent-poisoning">Compressed training to prevent poisoning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#audio-classification-baseline">Audio classification: baseline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#audio-classification-vq-bnn">Audio classification: VQ + BNN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">Audio classification: VQ + BNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Audio classification: VQ + BNN</a></li>
 </ul>
 </li>
 </ul>
