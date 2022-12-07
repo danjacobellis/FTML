@@ -31,9 +31,23 @@ def png_to_rgb(png_filename):
     img_png = tf.io.read_file('imagenet_crops/guitar_01.png')
     return tf.io.decode_png(img_png)
 
-def fgsm(img_rgb):
+def attack(img_rgb, signed_grad, bits):
+    rgb = img_rgb.numpy().astype('int16')
+    grad = signed_grad.numpy().astype('int16')
+    scale = 2**(bits-1)
+    print("adding +-", scale, "to image")
+    attacked_img = rgb + scale*grad;
+    attacked_img[attacked_img<0] = 0
+    attacked_img[attacked_img>255] = 255
+    rgb[:,:,:] = attacked_img
+    return rgb.astype('uint8')
+
+def load_model():
     pretrained_model = tf.keras.applications.MobileNetV2(include_top=True,weights='imagenet')
     pretrained_model.trainable = False
+    return pretrained_model
+
+def fgsm(pretrained_model, img_rgb):
     
     input_image = preprocess(img_rgb)
     input_probs = pretrained_model.predict(input_image)
