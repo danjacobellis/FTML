@@ -31,9 +31,20 @@ def png_to_rgb(png_filename):
     img_png = tf.io.read_file('imagenet_crops/guitar_01.png')
     return tf.io.decode_png(img_png)
 
-def attack(img_rgb, signed_grad, bits):
+def sg_attack(img_rgb, signed_grad, bits):
     rgb = img_rgb.numpy().astype('int16')
     grad = signed_grad.numpy().astype('int16')
+    scale = 2**(bits-1)
+    print("adding +-", scale, "to image")
+    attacked_img = rgb + scale*grad;
+    attacked_img[attacked_img<0] = 0
+    attacked_img[attacked_img>255] = 255
+    rgb[:,:,:] = attacked_img
+    return rgb.astype('uint8')
+
+def gradient_attack(img_rgb, gradient, bits):
+    rgb = img_rgb.numpy().astype('float')
+    grad = gradient.numpy()/np.mean(np.abs(gradient))
     scale = 2**(bits-1)
     print("adding +-", scale, "to image")
     attacked_img = rgb + scale*grad;
@@ -61,7 +72,5 @@ def fgsm(pretrained_model, img_rgb):
         loss = loss_object(input_probs, prediction)
     # Get the gradients of the loss w.r.t to the input image.
     gradient = tape.gradient(loss, input_image)
-    # Get the sign of the gradients to create the perturbation
-    signed_grad = tf.sign(gradient)
     
-    return input_label, signed_grad
+    return input_label, gradient
