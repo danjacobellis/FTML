@@ -28,7 +28,7 @@ def show_perturbation(signed_grad):
 decode_predictions = tf.keras.applications.mobilenet_v2.decode_predictions
 
 def png_to_rgb(png_filename):
-    img_png = tf.io.read_file('imagenet_crops/guitar_01.png')
+    img_png = tf.io.read_file(png_filename)
     return tf.io.decode_png(img_png)
 
 def sg_attack(img_rgb, signed_grad, bits):
@@ -74,3 +74,12 @@ def fgsm(pretrained_model, img_rgb):
     gradient = tape.gradient(loss, input_image)
     
     return input_label, gradient
+
+def codec_gif(rgb):
+    return np.squeeze(tf.io.decode_gif(tfio.image.encode_gif(np.expand_dims(rgb,0))))
+
+def codec_jpeg(rgb,quality):
+    return tf.io.decode_jpeg(tf.io.encode_jpeg(rgb,quality=quality))
+
+def ssim_m(img1,img2):
+    return tf.image.ssim_multiscale(img1,img2,255)
